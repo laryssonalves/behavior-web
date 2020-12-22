@@ -1,10 +1,11 @@
 export class User {
-  id: number;
-  email: string;
-  name: string;
-  photo: string;
-  rememberMe: boolean;
+  id: number
+  email: string
+  name: string
+  photo: string
 
-  constructor( ) {
+  // rememberMe: boolean;
+
+  constructor() {
   }
 }

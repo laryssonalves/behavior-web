@@ -1,0 +1,20 @@
+.card-header-action {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  padding-left: 1rem;
+
+  .header-action {
+    padding: 0;
+  }
+}
+
+.item-info {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.item-info-secondary {
+  font-size: 0.7rem;
+  color: grey;
+}

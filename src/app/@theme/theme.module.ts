@@ -1,6 +1,6 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatRippleModule } from '@angular/material/core';
+import { ModuleWithProviders, NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { MatRippleModule } from '@angular/material/core'
 import {
   NbActionsModule,
   NbButtonModule,
@@ -12,26 +12,26 @@ import {
   NbSelectModule,
   NbSidebarModule,
   NbThemeModule,
-  NbUserModule,
-} from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbSecurityModule } from '@nebular/security';
+  NbUserModule
+} from '@nebular/theme'
+import { NbEvaIconsModule } from '@nebular/eva-icons'
+import { NbSecurityModule } from '@nebular/security'
 
 import {
   FooterComponent,
   HeaderComponent,
   LayoutDirectionSwitcherComponent,
   SearchInputComponent,
-  SwitcherComponent,
-} from './components';
-import { CapitalizePipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
-import { OneColumnLayoutComponent, ThreeColumnsLayoutComponent, TwoColumnsLayoutComponent } from './layouts';
-import { DEFAULT_THEME } from './styles/theme.default';
-import { COSMIC_THEME } from './styles/theme.cosmic';
-import { CORPORATE_THEME } from './styles/theme.corporate';
-import { DARK_THEME } from './styles/theme.dark';
-import { MATERIAL_LIGHT_THEME } from './styles/material/theme.material-light';
-import { MATERIAL_DARK_THEME } from './styles/material/theme.material-dark';
+  SwitcherComponent
+} from './components'
+import { CapitalizePipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe } from './pipes'
+import { OneColumnLayoutComponent, ThreeColumnsLayoutComponent, TwoColumnsLayoutComponent } from './layouts'
+import { DEFAULT_THEME } from './styles/theme.default'
+import { COSMIC_THEME } from './styles/theme.cosmic'
+import { CORPORATE_THEME } from './styles/theme.corporate'
+import { DARK_THEME } from './styles/theme.dark'
+import { MATERIAL_LIGHT_THEME } from './styles/material/theme.material-light'
+import { MATERIAL_DARK_THEME } from './styles/material/theme.material-dark'
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -45,8 +45,8 @@ const NB_MODULES = [
   NbButtonModule,
   NbSelectModule,
   NbIconModule,
-  NbEvaIconsModule,
-];
+  NbEvaIconsModule
+]
 const COMPONENTS = [
   SwitcherComponent,
   LayoutDirectionSwitcherComponent,
@@ -55,20 +55,20 @@ const COMPONENTS = [
   SearchInputComponent,
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
-  TwoColumnsLayoutComponent,
-];
+  TwoColumnsLayoutComponent
+]
 const PIPES = [
   CapitalizePipe,
   PluralPipe,
   RoundPipe,
   TimingPipe,
-  NumberWithCommasPipe,
-];
+  NumberWithCommasPipe
+]
 
 @NgModule({
-  imports: [CommonModule, MatRippleModule, ...NB_MODULES],
-  exports: [CommonModule, MatRippleModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES],
+  imports: [ CommonModule, MatRippleModule, ...NB_MODULES ],
+  exports: [ CommonModule, MatRippleModule, ...PIPES, ...COMPONENTS ],
+  declarations: [ ...COMPONENTS, ...PIPES ]
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {
@@ -77,11 +77,11 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: 'beehave-theme'
           },
-          [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME, MATERIAL_LIGHT_THEME, MATERIAL_DARK_THEME],
-        ).providers,
-      ],
-    };
+          [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME, MATERIAL_LIGHT_THEME, MATERIAL_DARK_THEME ]
+        ).providers
+      ]
+    }
   }
 }

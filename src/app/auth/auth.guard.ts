@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { NbAuthService } from '@nebular/auth';
-import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router'
+import { NbAuthService } from '@nebular/auth'
+import { tap } from 'rxjs/operators'
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -12,9 +12,9 @@ export class AuthGuard implements CanActivate {
     return this.nbAuthService.isAuthenticated().pipe(
       tap(authenticated => {
         if (!authenticated) {
-          this.router.navigate(['auth/login']);
+          this.router.navigate([ 'auth/login' ])
         }
-      }),
-    );
+      })
+    )
   }
 }

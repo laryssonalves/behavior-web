@@ -1,0 +1,31 @@
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
+  <nb-card-header>
+    <nav class="navigation">
+      <a href="javascript:void(0);" (click)="close(false)" class="link back-link" aria-label="Back">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a> {{ title }}
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-radio-group [(ngModel)]="studentMember.role">
+      <nb-radio
+        *ngFor="let role of roleChoices"
+        [value]="role.value">
+        {{ role.name }}
+      </nb-radio>
+    </nb-radio-group>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="float-right">
+      <button
+        class="mx-2"
+        nbButton size="small"
+        status="primary"
+        (click)="changeMemberRole()">
+        Salvar
+      </button>
+      <button (click)="close(false)" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
+

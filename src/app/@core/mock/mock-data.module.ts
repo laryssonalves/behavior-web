@@ -1,27 +1,27 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 
-import { UserService } from './users.service';
+import { UserService } from './users.service'
 
 const SERVICES = [
-  UserService,
-];
+  UserService
+]
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule
   ],
   providers: [
-    ...SERVICES,
-  ],
+    ...SERVICES
+  ]
 })
 export class MockDataModule {
   static forRoot(): ModuleWithProviders {
     return <ModuleWithProviders>{
       ngModule: MockDataModule,
       providers: [
-        ...SERVICES,
-      ],
-    };
+        ...SERVICES
+      ]
+    }
   }
 }

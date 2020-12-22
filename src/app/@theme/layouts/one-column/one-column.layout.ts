@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'ngx-one-column-layout',
-  styleUrls: ['./one-column.layout.scss'],
+  styleUrls: [ './one-column.layout.scss' ],
   template: `
     <nb-layout windowMode>
       <nb-layout-header fixed>
@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
         <ngx-footer></ngx-footer>
       </nb-layout-footer>
     </nb-layout>
-  `,
+  `
 })
 export class OneColumnLayoutComponent {
 }

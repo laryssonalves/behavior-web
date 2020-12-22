@@ -1,4 +1,4 @@
-import { NbMenuItem } from '@nebular/theme';
+import { NbMenuItem } from '@nebular/theme'
 
 export const MENU_ITEMS: NbMenuItem[] = [
   // {
@@ -11,37 +11,42 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Instituição',
     icon: 'home-outline',
     link: '/empresa',
-    home: true,
+    home: true
   },
   {
     title: 'Membros',
     icon: 'person-outline',
-    link: '/auth/login',
+    link: '/membros'
   },
+  {
+    title: 'Estudantes',
+    icon: 'person-outline',
+    link: '/estudantes'
+  }
   // {
   //   title: 'FEATURES',
   //   group: true,
   // },
-  {
-    title: 'Auth',
-    icon: 'lock-outline',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
-      },
-    ],
-  },
-];
+  // {
+  //   title: 'Auth',
+  //   icon: 'lock-outline',
+  //   children: [
+  //     {
+  //       title: 'Login',
+  //       link: '/auth/login'
+  //     },
+  //     {
+  //       title: 'Register',
+  //       link: '/auth/register'
+  //     },
+  //     {
+  //       title: 'Request Password',
+  //       link: '/auth/request-password'
+  //     },
+  //     {
+  //       title: 'Reset Password',
+  //       link: '/auth/reset-password'
+  //     }
+  //   ]
+  // }
+]

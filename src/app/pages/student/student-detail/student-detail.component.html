@@ -1,0 +1,42 @@
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
+  <ng-container *ngIf="!showLoading && student">
+    <nb-card-header class="card-header-action">
+      <nav class="navigation">
+        <a href="javascript:void(0);" (click)="goBack()" class="link back-link" aria-label="Back">
+          <nb-icon icon="arrow-back"></nb-icon>
+        </a> {{ student.name }}
+      </nav>
+    </nb-card-header>
+    <nb-card-body [ngClass]="'card-body-tabs'">
+      <nb-tabset>
+        <nb-tab tabTitle="Treinos" class="student-tab">
+          <button
+            nbButton
+            outline
+            status="primary"
+            size="small"
+            [ngClass]="'btn-tab-add'"
+            (click)="openStudentExerciseForm()">
+            <nb-icon icon="plus"></nb-icon>Adicionar treino
+          </button>
+          <ngx-student-exercise
+            [student]="student"
+          ></ngx-student-exercise>
+        </nb-tab>
+        <nb-tab tabTitle="Membros" class="student-tab">
+          <button
+            nbButton outline
+            status="primary"
+            size="small"
+            [ngClass]="'btn-tab-add'"
+            (click)="openStudentMemberForm()">
+            <nb-icon icon="plus"></nb-icon>Adicionar membro
+          </button>
+          <ngx-student-member
+            [student]="student"
+          ></ngx-student-member>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card-body>
+  </ng-container>
+</nb-card>

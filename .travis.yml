@@ -8,9 +8,9 @@ node_js:
 
 branches:
   only:
-  - master
-  - starter-kit
-  - demo
+    - master
+    - starter-kit
+    - demo
 
 addons:
   apt:

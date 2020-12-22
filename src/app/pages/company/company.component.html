@@ -1,206 +1,257 @@
-<!--<nb-card size="small">-->
-<!--    <nb-tabset>-->
-<!--      <nb-tab tabTitle="Simple Tab #1">-->
-
-<!--      </nb-tab>-->
-<!--      <nb-tab tabTitle="Simple Tab #2">-->
-<!--        <span>Content #2</span>-->
-<!--      </nb-tab>-->
-<!--      <nb-tab tabTitle="Simple Tab #3">-->
-<!--        <span>Content #3</span>-->
-<!--      </nb-tab>-->
-<!--    </nb-tabset>-->
-<!--  </nb-card>-->
-
-<nb-card>
-  <nb-card-header>Minha instituição</nb-card-header>
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
+  <nb-card-header>Dados da instituição</nb-card-header>
   <nb-card-body>
-    <div class="row">
+    <div class="form-row">
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="document" class="label">Documento</label>
+          <label class="label" for="document">Documento</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.document"
+            [status]="company.errors?.document ? 'danger' : 'basic'"
+            [mask]="masks.DOCUMENTO"
             fieldSize="small"
+            fullWidth
+            nbInput
             id="document"
             name="document"
-            [(ngModel)]="company.document"
-            [status]="company.errors?.document ? 'danger' : ''">
+            type="text">
           <ng-container *ngIf="company.errors?.document">
-            <p class="error-message" *ngFor="let message of company.errors?.document">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.document" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="name" class="label">Nome</label>
+          <label class="label" for="name">Nome</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.name"
+            [status]="company.errors?.name ? 'danger' : 'basic'"
             fieldSize="small"
+            fullWidth
             id="name"
             name="name"
-            [(ngModel)]="company.name"
-            [status]="company.errors?.name ? 'danger' : ''">
+            nbInput
+            type="text">
           <ng-container *ngIf="company.errors?.name">
-            <p class="error-message" *ngFor="let message of company.errors?.name">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.name" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
-
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="email" class="label">Email</label>
+          <label class="label" for="email">Email</label>
           <input
-            type="email"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.email"
+            [status]="company.errors?.email ? 'danger' : 'basic'"
             fieldSize="small"
+            fullWidth
             id="email"
             name="email"
-            [(ngModel)]="company.email"
-            [status]="company.errors?.email ? 'danger' : ''">
+            nbInput
+            type="email">
           <ng-container *ngIf="company.errors?.email">
-            <p class="error-message" *ngFor="let message of company.errors?.email">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.email" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="phone" class="label">Telefone</label>
+          <label class="label" for="phone">Telefone</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.phone"
+            [status]="company.errors?.phone ? 'danger' : 'basic'"
+            [mask]="masks.TELEFONE"
             fieldSize="small"
+            fullWidth
             id="phone"
             name="phone"
-            [(ngModel)]="company.phone"
-            [status]="company.errors?.phone ? 'danger' : ''">
+            nbInput
+            type="text">
           <ng-container *ngIf="company.errors?.phone">
-            <p class="error-message" *ngFor="let message of company.errors?.phone">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.phone" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="postal_code" class="label">CEP</label>
+          <label class="label" for="postal_code">CEP</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.postal_code"
+            (ngModelChange)="onCepChange()"
+            [status]="company.errors?.postal_code ? 'danger' : 'basic'"
+            [mask]="masks.CEP"
             fieldSize="small"
+            fullWidth
             id="postal_code"
             name="postal_code"
-            [(ngModel)]="company.postal_code"
-            [status]="company.errors?.postal_code ? 'danger' : ''">
+            nbInput
+            type="text">
           <ng-container *ngIf="company.errors?.postal_code">
-            <p class="error-message" *ngFor="let message of company.errors?.postal_code">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.postal_code" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="state" class="label">Estado</label>
-          <input
-            type="text"
-            nbInput
-            fullWidth
-            fieldSize="small"
-            id="state"
-            name="state"
+          <label class="label" for="state">Estado</label>
+          <nb-select
+            placeholder="Selecione"
             [(ngModel)]="company.state"
-            [status]="company.errors?.state ? 'danger' : ''">
+            [status]="company.errors?.state ? 'danger' : 'basic'"
+            size="small"
+            id="state"
+            fullWidth>
+            <nb-option *ngFor="let state of stateChoices" [value]="state.value">{{ state.name }}</nb-option>
+          </nb-select>
           <ng-container *ngIf="company.errors?.state">
-            <p class="error-message" *ngFor="let message of company.errors?.state">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.state" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="city" class="label">Cidade</label>
+          <label class="label" for="city">Cidade</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.city"
+            [status]="company.errors?.city ? 'danger' : 'basic'"
             fieldSize="small"
+            fullWidth
             id="city"
             name="city"
-            [(ngModel)]="company.city"
-            [status]="company.errors?.city ? 'danger' : ''">
+            nbInput
+            type="text">
           <ng-container *ngIf="company.errors?.city">
-            <p class="error-message" *ngFor="let message of company.errors?.city">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.city" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="district" class="label">Bairro</label>
+          <label class="label" for="district">Bairro</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.district"
+            [status]="company.errors?.district ? 'danger' : 'basic'"
             fieldSize="small"
+            fullWidth
             id="district"
             name="district"
-            [(ngModel)]="company.district"
-            [status]="company.errors?.district ? 'danger' : ''">
+            nbInput
+            type="text">
           <ng-container *ngIf="company.errors?.district">
-            <p class="error-message" *ngFor="let message of company.errors?.district">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.district" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-5">
         <div class="form-group">
-          <label for="street" class="label">Logradouro</label>
+          <label class="label" for="street">Logradouro</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.street"
+            [status]="company.errors?.street ? 'danger' : 'basic'"
             fieldSize="small"
+            fullWidth
             id="street"
             name="street"
-            [(ngModel)]="company.street"
-            [status]="company.errors?.street ? 'danger' : ''">
+            nbInput
+            type="text">
           <ng-container *ngIf="company.errors?.street">
-            <p class="error-message" *ngFor="let message of company.errors?.street">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.street" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-md-3">
+      <div class="col-12 col-sm-6 col-md-2">
         <div class="form-group">
-          <label for="number" class="label">Número</label>
+          <label class="label" for="number">Número</label>
           <input
-            type="number"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.number"
+            [status]="company.errors?.number ? 'danger' : 'basic'"
             fieldSize="small"
+            fullWidth
             id="number"
             name="number"
-            [(ngModel)]="company.number"
-            [status]="company.errors?.number ? 'danger' : ''">
+            nbInput
+            type="number">
           <ng-container *ngIf="company.errors?.number">
-            <p class="error-message" *ngFor="let message of company.errors?.number">{{ message }}</p>
+            <p *ngFor="let message of company.errors?.number" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-5">
+        <div class="form-group">
+          <label class="label" for="complement">Complemento</label>
+          <input
+            [(ngModel)]="company.complement"
+            [status]="company.errors?.complement ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="complement"
+            name="complement"
+            nbInput
+            type="text">
+          <ng-container *ngIf="company.errors?.number">
+            <p *ngFor="let message of company.errors?.number" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
+  <nb-card-header>Dados do responsável</nb-card-header>
+  <nb-card-body>
+    <div class="form-row">
+      <div class="col-12 col-sm-6 col-md-5">
+        <div class="form-group">
+          <label class="label" for="responsible_name">Nome</label>
+          <input
+            [(ngModel)]="company.responsible_name"
+            [status]="company.errors?.responsible_name ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="responsible_name"
+            name="responsible_name"
+            nbInput
+            type="text">
+          <ng-container *ngIf="company.errors?.responsible_name">
+            <p *ngFor="let message of company.errors?.responsible_name"
+               class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="form-group">
+          <label class="label" for="responsible_email">Email</label>
+          <input
+            [(ngModel)]="company.responsible_email"
+            [status]="company.errors?.responsible_email ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="responsible_email"
+            name="responsible_email"
+            nbInput
+            type="email">
+          <ng-container *ngIf="company.errors?.responsible_email">
+            <p *ngFor="let message of company.errors?.responsible_email"
+               class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label for="complement" class="label">Complemento</label>
+          <label class="label" for="responsible_phone">Telefone</label>
           <input
-            type="text"
-            nbInput
-            fullWidth
+            [(ngModel)]="company.responsible_phone"
+            [status]="company.errors?.responsible_phone ? 'danger' : 'basic'"
+            [mask]="masks.TELEFONE"
             fieldSize="small"
-            id="complement"
-            name="complement"
-            [(ngModel)]="company.complement"
-            [status]="company.errors?.complement ? 'danger' : ''">
-          <ng-container *ngIf="company.errors?.complement">
-            <p class="error-message" *ngFor="let message of company.errors?.complement">{{ message }}</p>
+            fullWidth
+            id="responsible_phone"
+            name="responsible_phone"
+            nbInput
+            type="text">
+          <ng-container *ngIf="company.errors?.responsible_phone">
+            <p *ngFor="let message of company.errors?.responsible_phone"
+               class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
@@ -208,8 +259,7 @@
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button (click)="submitCompany()" nbButton status="primary" class="mx-2">Salvar</button>
-      <button nbButton status="secondary" class="mx-2">Cancelar</button>
+      <button (click)="updateCompany()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
     </div>
   </nb-card-footer>
 </nb-card>

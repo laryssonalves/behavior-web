@@ -1,0 +1,124 @@
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
+  <nb-card-header>
+    <nav class="navigation">
+      <a href="javascript:void(0);" (click)="close(false)" class="link back-link" aria-label="Back">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a> {{ title }}
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-row">
+      <div class="col-12 col-sm-12 col-md-12">
+        <div class="form-group">
+          <label class="label" for="program">Programa</label>
+          <input
+            [(ngModel)]="studentExercise.program"
+            [status]="studentExercise.errors?.program ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="program"
+            name="program"
+            nbInput
+            type="text">
+          <ng-container *ngIf="studentExercise.errors?.program">
+            <p *ngFor="let message of studentExercise.errors?.program" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-5 col-md-5">
+        <div class="form-group">
+          <label class="label" for="application_type">Tipo de aplicação</label>
+          <nb-select
+            placeholder="Selecione"
+            [(ngModel)]="studentExercise.application_type"
+            [status]="studentExercise.errors?.application_type ? 'danger' : 'basic'"
+            size="small"
+            id="application_type"
+            fullWidth>
+            <nb-option *ngFor="let appType of applicationTypeChoices" [value]="appType.value">{{ appType.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="studentExercise.errors?.application_type">
+            <p *ngFor="let message of studentExercise.errors?.application_type" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-4 col-md-4">
+        <div class="form-group">
+          <label class="label" for="help_type">Tipo de ajuda</label>
+          <nb-select
+            placeholder="Selecione"
+            [(ngModel)]="studentExercise.help_type"
+            [status]="studentExercise.errors?.help_type ? 'danger' : 'basic'"
+            size="small"
+            id="help_type"
+            fullWidth>
+            <nb-option *ngFor="let helpType of helpTypeChoices" [value]="helpType.value">{{ helpType.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="studentExercise.errors?.help_type">
+            <p *ngFor="let message of studentExercise.errors?.help_type" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-3 col-md-3">
+        <div class="form-group">
+          <label class="label" for="total_attempts">Total de Tentativas</label>
+          <input
+            [(ngModel)]="studentExercise.total_attempts"
+            (change)="onAttemptsChange()"
+            [status]="studentExercise.errors?.total_attempts ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="total_attempts"
+            name="total_attempts"
+            nbInput
+            type="number">
+          <ng-container *ngIf="studentExercise.errors?.total_attempts">
+            <p *ngFor="let message of studentExercise.errors?.total_attempts" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12">
+        <div class="form-group">
+          <label class="label" for="targets">Alvo</label>
+          <input
+            [(ngModel)]="studentExercise.targets"
+            [status]="studentExercise.errors?.targets ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="targets"
+            name="targets"
+            nbInput
+            type="text">
+          <ng-container *ngIf="studentExercise.errors?.targets">
+            <p *ngFor="let message of studentExercise.errors?.targets" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12">
+        <div class="form-group">
+          <label class="label" for="procedure">Procedimento</label>
+          <input
+            [(ngModel)]="studentExercise.procedure"
+            [status]="studentExercise.errors?.procedure ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="procedure"
+            name="procedure"
+            nbInput
+            type="text">
+          <ng-container *ngIf="studentExercise.errors?.procedure">
+            <p *ngFor="let message of studentExercise.errors?.procedure" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="float-right">
+      <button (click)="saveStudentExercise()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button (click)="close(false)" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
+

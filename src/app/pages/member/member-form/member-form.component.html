@@ -1,0 +1,228 @@
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
+  <nb-card-header>
+    <nav class="navigation">
+      <a href="javascript:void(0);" (click)="goBack()" class="link back-link" aria-label="Back">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a> Adicionar membro
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-row">
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="document">Documento</label>
+          <input
+            [(ngModel)]="member.document"
+            [status]="member.errors?.document ? 'danger' : 'basic'"
+            [mask]="masks.DOCUMENTO"
+            fieldSize="small"
+            fullWidth
+            nbInput
+            id="document"
+            name="document"
+            type="text">
+          <ng-container *ngIf="member.errors?.document">
+            <p *ngFor="let message of member.errors?.document" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="name">Nome</label>
+          <input
+            [(ngModel)]="member.name"
+            [status]="member.errors?.name ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="name"
+            name="name"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.name">
+            <p *ngFor="let message of member.errors?.name" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="email">Email</label>
+          <input
+            [(ngModel)]="member.email"
+            [status]="member.errors?.email ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="email"
+            name="email"
+            nbInput
+            type="email">
+          <ng-container *ngIf="member.errors?.email">
+            <p *ngFor="let message of member.errors?.email" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="phone">Telefone</label>
+          <input
+            [(ngModel)]="member.phone"
+            [status]="member.errors?.phone ? 'danger' : 'basic'"
+            [mask]="masks.TELEFONE"
+            fieldSize="small"
+            fullWidth
+            id="phone"
+            name="phone"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.phone">
+            <p *ngFor="let message of member.errors?.phone" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="postal_code">CEP</label>
+          <input
+            [(ngModel)]="member.postal_code"
+            (blur)="onCepChange()"
+            [status]="member.errors?.postal_code ? 'danger' : 'basic'"
+            [mask]="masks.CEP"
+            fieldSize="small"
+            fullWidth
+            id="postal_code"
+            name="postal_code"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.postal_code">
+            <p *ngFor="let message of member.errors?.postal_code" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="state">Estado</label>
+          <nb-select
+            placeholder="Selecione"
+            [(ngModel)]="member.state"
+            [status]="member.errors?.state ? 'danger' : 'basic'"
+            size="small"
+            id="state"
+            fullWidth>
+            <nb-option *ngFor="let state of stateChoices" [value]="state.value">{{ state.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="member.errors?.state">
+            <p *ngFor="let message of member.errors?.state" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="city">Cidade</label>
+          <input
+            [(ngModel)]="member.city"
+            [status]="member.errors?.city ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="city"
+            name="city"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.city">
+            <p *ngFor="let message of member.errors?.city" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="district">Bairro</label>
+          <input
+            [(ngModel)]="member.district"
+            [status]="member.errors?.district ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="district"
+            name="district"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.district">
+            <p *ngFor="let message of member.errors?.district" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-5">
+        <div class="form-group">
+          <label class="label" for="street">Logradouro</label>
+          <input
+            [(ngModel)]="member.street"
+            [status]="member.errors?.street ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="street"
+            name="street"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.street">
+            <p *ngFor="let message of member.errors?.street" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-2">
+        <div class="form-group">
+          <label class="label" for="number">Número</label>
+          <input
+            [(ngModel)]="member.number"
+            [status]="member.errors?.number ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="number"
+            name="number"
+            nbInput
+            type="number">
+          <ng-container *ngIf="member.errors?.number">
+            <p *ngFor="let message of member.errors?.number" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-5">
+        <div class="form-group">
+          <label class="label" for="complement">Complemento</label>
+          <input
+            [(ngModel)]="member.complement"
+            [status]="member.errors?.complement ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="complement"
+            name="complement"
+            nbInput
+            type="text">
+          <ng-container *ngIf="member.errors?.complement">
+            <p *ngFor="let message of member.errors?.complement" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="role">Função</label>
+          <nb-select
+            placeholder="Selecione"
+            [(ngModel)]="member.role"
+            [status]="member.errors?.role ? 'danger' : 'basic'"
+            size="small"
+            id="role"
+            fullWidth>
+            <nb-option *ngFor="let role of roleChoices" [value]="role.value">{{ role.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="member.errors?.role">
+            <p *ngFor="let message of member.errors?.role" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="float-right">
+      <button (click)="saveMember()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button (click)="goBack()" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
+

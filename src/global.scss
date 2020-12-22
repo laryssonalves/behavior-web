@@ -1,4 +1,33 @@
+.form-legend {
+  display: block;
+  margin: 0.5rem 0 1rem;
+  color: #8f9bb3;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 .error-message {
   font-size: 0.8rem !important;
   color: #ff3d71 !important;
+}
+
+.nb-theme-beehave-theme {
+  .my-modal {
+    display: block;
+    margin: 1rem;
+  }
+
+  [nbButton].btn-list-action {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .nb-theme-beehave-theme {
+    .my-modal {
+      display: block;
+      margin: 1rem;
+      max-width: 60%;
+    }
+  }
 }

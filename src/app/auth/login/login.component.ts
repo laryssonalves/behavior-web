@@ -1,37 +1,41 @@
-import { Component } from '@angular/core';
-import { NbAuthResult, NbLoginComponent } from '@nebular/auth';
-
+import { Component } from '@angular/core'
+import { NbAuthResult, NbLoginComponent } from '@nebular/auth'
 
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: [ './login.component.scss' ]
 })
 export class LoginComponent extends NbLoginComponent {
   showMessages = {
     success: false,
-    error: true,
-  };
+    error: true
+  }
 
   login(): void {
-    this.errors = [];
-    this.messages = [];
-    this.submitted = true;
+    this.errors = []
+    this.messages = []
+    this.submitted = true
 
     this.service.authenticate(this.strategy, this.user).subscribe((result: NbAuthResult) => {
-      this.submitted = false;
+      this.submitted = false
 
       if (result.isFailure()) {
-        this.errors = ['Combinação de email/senha incorreta, por favor tente novamente.'];
+        this.errors = [ 'Combinação de email/senha incorreta, por favor tente novamente.' ]
       }
 
-      const redirect = result.getRedirect();
+      // if (result.isSuccess()) {
+      //   const token = result.getToken() as Token;
+      //   token.rememberMe = this.user.rememberMe;
+      // }
+
+      const redirect = result.getRedirect()
       if (redirect) {
         setTimeout(() => {
-          return this.router.navigate([redirect]);
-        }, this.redirectDelay);
+          return this.router.navigate([ redirect ])
+        }, this.redirectDelay)
       }
-      this.cd.detectChanges();
-    });
+      this.cd.detectChanges()
+    })
   }
 }

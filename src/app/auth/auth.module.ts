@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router'
 import {
   NbAlertModule,
   NbButtonModule,
@@ -9,11 +9,11 @@ import {
   NbCheckboxModule,
   NbInputModule,
   NbLayoutModule,
-} from '@nebular/theme';
+} from '@nebular/theme'
 
-import { AuthRoutingModule, routedComponents } from './auth-routing.module';
-import { AuthGuard } from './auth.guard';
-import { LogoutComponent } from './logout/logout.component';
+import { AuthRoutingModule, routedComponents } from './auth-routing.module'
+import { AuthGuard } from './auth.guard'
+import { UserService } from './user.service'
 
 
 @NgModule({
@@ -29,11 +29,13 @@ import { LogoutComponent } from './logout/logout.component';
     NbCheckboxModule,
     NbCardModule,
     NbLayoutModule,
-    ReactiveFormsModule,
-    AuthRoutingModule,
+    ReactiveFormsModule
   ],
-  declarations: [...routedComponents, LogoutComponent],
-  providers: [AuthGuard],
+  declarations: [...routedComponents],
+  providers: [
+    AuthGuard,
+    UserService
+  ]
 })
 export class AuthModule {
 }

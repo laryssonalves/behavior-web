@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { NbAuthService, NbAuthSimpleToken } from '@nebular/auth';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Injectable } from '@angular/core'
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
+import { NbAuthService, NbAuthSimpleToken } from '@nebular/auth'
+import { Observable } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
@@ -16,12 +16,12 @@ export class AuthTokenInterceptor implements HttpInterceptor {
         if (token && token.getValue()) {
           req = req.clone({
             setHeaders: {
-              Authorization: `Token ${ token.getValue() }`,
-            },
-          });
+              Authorization: `Token ${ token.getValue() }`
+            }
+          })
         }
-        return next.handle(req);
-      }),
-    );
+        return next.handle(req)
+      })
+    )
   }
 }

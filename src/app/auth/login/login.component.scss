@@ -1,9 +1,29 @@
-::ng-deep nb-card-header {
+::ng-deep nb-auth nb-card-header {
   display: none !important;
   width: 0;
   height: 0;
   padding: 0;
   margin: 0;
-  border:  0;
+  border: 0;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  .logo-login {
+    width: 307px;
+    height: 200px;
+  }
+}
+
+.login-alert {
+  margin-bottom: 1rem;
+
+  .alert-message {
+    margin-bottom: 0;
+  }
 }
 

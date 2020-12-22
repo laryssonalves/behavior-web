@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { NbCardModule } from '@nebular/theme';
+import { NgModule } from '@angular/core'
+import { NbCardModule } from '@nebular/theme'
 
-import { ThemeModule } from '../../@theme/theme.module';
-import { DashboardComponent } from './dashboard.component';
+import { ThemeModule } from '../../@theme/theme.module'
+import { DashboardComponent } from './dashboard.component'
 
 @NgModule({
   imports: [
     NbCardModule,
-    ThemeModule,
+    ThemeModule
   ],
   declarations: [
-    DashboardComponent,
-  ],
+    DashboardComponent
+  ]
 })
 export class DashboardModule {
 }

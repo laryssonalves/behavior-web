@@ -1,12 +1,12 @@
-import { NbAuthSimpleToken, NbPasswordAuthStrategy } from '@nebular/auth';
-import { constants } from './constants';
+import { NbAuthSimpleToken, NbPasswordAuthStrategy } from '@nebular/auth'
+import { constants } from './constants'
 
 const formSetting = {
   redirectDelay: 0,
   showMessages: {
-    success: true,
-  },
-};
+    success: true
+  }
+}
 
 export const appConfig: any = {
   authOptions: {
@@ -16,27 +16,27 @@ export const appConfig: any = {
         baseEndpoint: constants.apiUrl,
         token: {
           class: NbAuthSimpleToken,
-          key: 'token',
+          key: 'token'
         },
         login: {
           endpoint: 'auth/login/',
           method: 'post',
           redirect: {
             success: '/',
-            failure: null,
-          },
+            failure: null
+          }
         },
         logout: {
           endpoint: 'auth/logout/',
-          method: 'delete',
-        },
-      }),
+          method: 'delete'
+        }
+      })
     ],
     forms: {
       login: formSetting,
       logout: {
-        redirectDelay: 1000,
-      },
-    },
-  },
-};
+        redirectDelay: 1000
+      }
+    }
+  }
+}

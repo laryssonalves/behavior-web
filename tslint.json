@@ -6,8 +6,13 @@
     "trailing-comma": [
       true,
       {
-        "multiline": "always",
-        "singleline": "never"
+        "singleline": "never",
+        "multiline": {
+          "objects": "never",
+          "arrays": "never",
+          "functions": "never",
+          "typeLiterals": "ignore"
+        }
       }
     ],
     "arrow-return-shorthand": true,
@@ -75,7 +80,7 @@
     "radix": true,
     "semicolon": [
       true,
-      "always"
+      "never"
     ],
     "triple-equals": [
       true,

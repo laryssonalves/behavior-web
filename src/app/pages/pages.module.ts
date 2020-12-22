@@ -1,19 +1,22 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
 import {
+  NbAccordionModule,
   NbButtonModule,
-  NbCardModule, NbCheckboxModule,
+  NbCardModule,
+  NbCheckboxModule,
   NbIconModule,
   NbInputModule,
-  NbMenuModule,
-  NbTabsetModule,
-} from '@nebular/theme';
+  NbMenuModule, NbSelectModule, NbSpinnerModule,
+  NbTabsetModule
+} from '@nebular/theme'
 
-import { ThemeModule } from '../@theme/theme.module';
-import { PagesComponent } from './pages.component';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { PagesRoutingModule } from './pages-routing.module';
-import { CompanyComponent } from './company/company.component';
-import { FormsModule } from '@angular/forms';
+import { ThemeModule } from '../@theme/theme.module'
+import { PagesComponent } from './pages.component'
+import { DashboardModule } from './dashboard/dashboard.module'
+import { PagesRoutingModule } from './pages-routing.module'
+import { CompanyComponent } from './company/company.component'
+import { FormsModule } from '@angular/forms'
+import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
   imports: [
@@ -28,11 +31,15 @@ import { FormsModule } from '@angular/forms';
     NbButtonModule,
     NbCheckboxModule,
     FormsModule,
+    NgxMaskModule.forRoot(),
+    NbAccordionModule,
+    NbSpinnerModule,
+    NbSelectModule
   ],
   declarations: [
     PagesComponent,
-    CompanyComponent,
-  ],
+    CompanyComponent
+  ]
 })
 export class PagesModule {
 }

@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
-import { NbAuthComponent } from '@nebular/auth';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
+import { LoginComponent } from './login/login.component'
+import { LogoutComponent } from './logout/logout.component'
+import { NbAuthComponent } from '@nebular/auth'
 
 const routes: Routes = [
   {
@@ -13,26 +13,25 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'login',
-        pathMatch: 'full',
+        pathMatch: 'full'
       },
       {
         path: 'login',
-        component: LoginComponent,
+        component: LoginComponent
       },
       {
         path: 'logout',
-        component: LogoutComponent,
-      },
-    ],
-  }];
+        component: LogoutComponent
+      }
+    ]
+  }
+]
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  imports: [ RouterModule.forChild(routes) ],
+  exports: [ RouterModule ]
 })
 export class AuthRoutingModule {
 }
 
-export const routedComponents = [
-  LoginComponent,
-];
+export const routedComponents = [ LoginComponent, LogoutComponent ]

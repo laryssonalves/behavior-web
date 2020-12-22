@@ -1,0 +1,33 @@
+<nb-list>
+  <nb-list-item *ngFor="let studentMember of studentMemberList">
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex flex-column">
+        <span class="item-info">{{ studentMember.member.name }}</span>
+        <span class="item-info item-info-secondary">{{ studentMember.roleDisplay() }}</span>
+      </div>
+      <nb-actions size="small">
+        <nb-action [nbPopover]="popTemplate" title="Mais opcões"
+                   icon="more-vertical-outline" style="padding: 0">
+        </nb-action>
+        <ng-template #popTemplate>
+          <div class="d-flex flex-column">
+            <button
+              nbButton
+              [ngClass]="'btn-list-action'"
+              size="small"
+              (click)="removeStudentMember(studentMember)">
+              Excluir
+            </button>
+            <button
+              nbButton
+              [ngClass]="'btn-list-action'"
+              size="small"
+              (click)="openStudentMemberRoleModal(studentMember)">
+              Alterar função
+            </button>
+          </div>
+        </ng-template>
+      </nb-actions>
+    </div>
+  </nb-list-item>
+</nb-list>

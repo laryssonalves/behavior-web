@@ -12,19 +12,19 @@
     </a>
     <a (click)="navigateHome()" class="logo" href="#">Bee<span>have</span></a>
   </div>
-  <nb-select
-    (selectedChange)="changeTheme($event)"
-    [selected]="currentTheme"
-    matRipple
-    status="primary"
-  >
-    <nb-option
-      *ngFor="let theme of themes"
-      [value]="theme.value"
-      matRipple
-    >{{ theme.name }}</nb-option>
-  </nb-select>
-  <ngx-layout-direction-switcher class="direction-switcher"></ngx-layout-direction-switcher>
+<!--  <nb-select-->
+<!--    (selectedChange)="changeTheme($event)"-->
+<!--    [selected]="currentTheme"-->
+<!--    matRipple-->
+<!--    status="primary"-->
+<!--  >-->
+<!--    <nb-option-->
+<!--      *ngFor="let theme of themes"-->
+<!--      [value]="theme.value"-->
+<!--      matRipple-->
+<!--    >{{ theme.name }}</nb-option>-->
+<!--  </nb-select>-->
+<!--  <ngx-layout-direction-switcher class="direction-switcher"></ngx-layout-direction-switcher>-->
 </div>
 
 <div class="header-container">
@@ -61,7 +61,7 @@
       <nb-user [name]="user?.name"
                [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
-               [picture]="user?.photo">
+               [picture]="'assets/images/user-no-image.png'">
       </nb-user>
     </nb-action>
   </nb-actions>
