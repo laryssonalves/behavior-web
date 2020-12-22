@@ -13,7 +13,7 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start": "node server.js",
-    "build": "ng build",
+    "build": "ng build --prod --aot",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
@@ -27,7 +27,7 @@
     "docs:serve": "compodoc -p src/tsconfig.app.json -d docs -s",
     "prepush": "npm run lint:ci",
     "release:changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-    "postinstall": "ngcc --properties es2015 es5 browser module main --first-only --create-ivy-entry-points && npm run build:prod"
+    "postinstall": "ngcc --properties es2015 es5 browser module main --first-only --create-ivy-entry-points"
   },
   "engines": {
     "node": "14.8.0",
