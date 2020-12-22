@@ -13,7 +13,7 @@
     "ng": "ng",
     "conventional-changelog": "conventional-changelog",
     "start": "node server.js",
-    "build": "ng build --prod --aot",
+    "build": "ng build --prod --aot --configuration production",
     "build:prod": "npm run build -- --prod --aot",
     "test": "ng test",
     "test:coverage": "rimraf coverage && npm run test -- --code-coverage",
