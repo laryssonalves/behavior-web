@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Company } from './company.model'
-import { constants } from '../../constants'
 import { Observable, ReplaySubject } from 'rxjs'
+import { environment } from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-  private companyUrl = `${ constants.apiUrl }company/`
+  private companyUrl = `${ environment.apiUrl }company/`
 
   private selectedCompany$ = new ReplaySubject<Company>()
 

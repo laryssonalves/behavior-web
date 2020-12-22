@@ -8,7 +8,3 @@ export const masks = {
   CEP: '00000-000',
   DATA: '00/00/0000'
 }
-
-export const constants = {
-  apiUrl: 'http://192.168.18.16:4444/'
-}

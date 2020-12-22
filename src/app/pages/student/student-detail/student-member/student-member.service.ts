@@ -1,17 +1,17 @@
 import { EventEmitter, Injectable } from '@angular/core'
-import { constants } from '../../../../constants'
 import { HttpClient } from '@angular/common/http'
 import { NbToastrService } from '@nebular/theme'
 import { Observable } from 'rxjs'
 import { StudentMember } from './student-member.model'
 import { map } from 'rxjs/operators'
 import { Student } from '../../student.model'
+import { environment } from '../../../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentMemberService {
-  private studentUrl = `${ constants.apiUrl }student/`
+  private studentUrl = `${ environment.apiUrl }student/`
 
   public refreshStudentMemberList = new EventEmitter<number>()
 

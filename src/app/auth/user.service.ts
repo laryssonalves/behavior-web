@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core'
 import { ReplaySubject } from 'rxjs'
 import { User } from './models/user.model'
 import { HttpClient } from '@angular/common/http'
-import { constants } from '../constants'
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userUrl = `${ constants.apiUrl }users/`
+  private userUrl = `${ environment.apiUrl }users/`
   private user$ = new ReplaySubject<User>()
 
   constructor(private httpClient: HttpClient) {

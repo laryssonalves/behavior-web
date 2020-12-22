@@ -1,5 +1,5 @@
 import { NbAuthSimpleToken, NbPasswordAuthStrategy } from '@nebular/auth'
-import { constants } from './constants'
+import { environment } from '../environments/environment'
 
 const formSetting = {
   redirectDelay: 0,
@@ -13,7 +13,7 @@ export const appConfig: any = {
     strategies: [
       NbPasswordAuthStrategy.setup({
         name: 'email',
-        baseEndpoint: constants.apiUrl,
+        baseEndpoint: environment.apiUrl,
         token: {
           class: NbAuthSimpleToken,
           key: 'token'

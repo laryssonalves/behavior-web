@@ -2,17 +2,17 @@ import { EventEmitter, Injectable } from '@angular/core'
 import { Student } from './student.model'
 import { Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { constants } from '../../constants'
 
 import { map } from 'rxjs/operators'
 import { NbToastrService } from '@nebular/theme'
+import { environment } from '../../../environments/environment'
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  private studentUrl = `${ constants.apiUrl }student/`
+  private studentUrl = `${ environment.apiUrl }student/`
   public refreshStudentList = new EventEmitter()
 
   constructor(private httpClient: HttpClient, private nbToastrService: NbToastrService) { }
