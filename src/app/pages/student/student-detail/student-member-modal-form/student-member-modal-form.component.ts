@@ -27,24 +27,16 @@ export class StudentMemberModalFormComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
-  async ngOnInit() {
-    await this.getMemberList()
+  get showLoading(): boolean {
+    return this.loading
   }
 
-  private async getMemberList() {
-    try {
-      this.showLoading = true
-      this.memberList = await this.memberService.getMembersAvailable(this.student.id).toPromise()
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
 
-      if (!this.memberList.length) {
-        this.nbToastrService.info(null, 'Todos os membros possíveis já foram adicionados')
-        this.close(false)
-      }
-    } catch (e) {
-      this.nbToastrService.danger(null, 'Erro ao tentar buscar membros disponíveis')
-    } finally {
-      this.showLoading = false
-    }
+  async ngOnInit() {
+    await this.getMemberList()
   }
 
   async saveStudentMembers() {
@@ -71,16 +63,24 @@ export class StudentMemberModalFormComponent implements OnInit {
     }
   }
 
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
-  }
-
   close(success: boolean) {
     this.ref.close(success)
+  }
+
+  private async getMemberList() {
+    try {
+      this.showLoading = true
+      this.memberList = await this.memberService.getMembersAvailable(this.student.id).toPromise()
+
+      if (!this.memberList.length) {
+        this.nbToastrService.info(null, 'Todos os membros possíveis já foram adicionados')
+        this.close(false)
+      }
+    } catch (e) {
+      this.nbToastrService.danger(null, 'Erro ao tentar buscar membros disponíveis')
+    } finally {
+      this.showLoading = false
+    }
   }
 
   private showToastr(success: boolean, error: string) {

@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Student } from '../student.model'
 import { StudentService } from '../student.service'
 import { GlobalAction } from '../../../action-abstract'
-import { NbDialogService, NbToastrService } from '@nebular/theme'
+import { NbDialogService } from '@nebular/theme'
 import { StudentModalFormComponent } from '../student-modal-form/student-modal-form'
-import { NbMomentDateService } from '@nebular/moment'
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
 
 @Component({
@@ -24,6 +23,14 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     super()
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(loading: boolean) {
+    this.loading = loading
+  }
+
   async ngOnInit(): Promise<void> {
     await this.getStudents()
 
@@ -32,27 +39,8 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     this.subscription.add(refreshList)
   }
 
-  private async getStudents() {
-    try {
-      this.showLoading = true
-      this.studentList = await this.studentService.getStudentList().toPromise()
-    } catch (e) {
-      this.openDialogError(e)
-    } finally {
-      this.showLoading = false
-    }
-  }
-
   removeStudent(student: Student) {
     this.studentService.deleteStudent(student.id)
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
   }
 
   openStudentForm(studentToEdit?: Student) {
@@ -65,6 +53,17 @@ export class StudentListComponent extends GlobalAction implements OnInit {
         this.studentService.refreshStudentList.emit()
       }
     })
+  }
+
+  private async getStudents() {
+    try {
+      this.showLoading = true
+      this.studentList = await this.studentService.getStudentList().toPromise()
+    } catch (e) {
+      this.openDialogError(e)
+    } finally {
+      this.showLoading = false
+    }
   }
 
   private openDialogError(error: any) {

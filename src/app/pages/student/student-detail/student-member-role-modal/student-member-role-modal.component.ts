@@ -24,6 +24,14 @@ export class StudentMemberRoleModalComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
+
   ngOnInit() {
   }
 
@@ -41,14 +49,6 @@ export class StudentMemberRoleModalComponent implements OnInit {
     } finally {
       this.showLoading = false
     }
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
   }
 
   close(success: boolean) {

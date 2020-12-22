@@ -11,13 +11,13 @@ export class StudentMember extends CoreModel {
 
   errors: StudentMemberValidationError
 
-  roleDisplay(): string {
-    return roleChoiceList().find(role => this.role === role.value).name
-  }
-
   static createFromJSON(data): StudentMember {
     const member = Member.createFromJSON(data.member)
     return Object.assign(new StudentMember(), data, { member })
+  }
+
+  roleDisplay(): string {
+    return roleChoiceList().find(role => this.role === role.value).name
   }
 
   getPayload(): Object {

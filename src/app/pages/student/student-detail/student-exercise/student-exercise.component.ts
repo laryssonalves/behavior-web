@@ -3,7 +3,6 @@ import { GlobalAction } from '../../../../action-abstract'
 import { StudentExercise } from './student-exercise.model'
 import { StudentExerciseService } from './student-exercise.service'
 import { NbDialogService } from '@nebular/theme'
-import { ActivatedRoute } from '@angular/router'
 import { Student } from '../../student.model'
 import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
 
@@ -26,6 +25,14 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
     super()
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(loading: boolean) {
+    this.loading = loading
+  }
+
   async ngOnInit(): Promise<void> {
     await this.getStudentExerciseList()
 
@@ -34,6 +41,10 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
     })
 
     this.subscription.add(refreshStudentExerciseList)
+  }
+
+  removeStudentExercise(studentExercise: StudentExercise) {
+    this.studentExerciseService.deleteStudentExercise(studentExercise)
   }
 
   private async getStudentExerciseList() {
@@ -45,18 +56,6 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
     } finally {
       this.showLoading = false
     }
-  }
-
-  removeStudentExercise(studentExercise: StudentExercise) {
-    this.studentExerciseService.deleteStudentExercise(studentExercise)
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
   }
 
   private openDialogError(error: any) {

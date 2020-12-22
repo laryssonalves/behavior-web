@@ -25,6 +25,14 @@ export class StudentExerciseModalFormComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
+
   ngOnInit() {
   }
 
@@ -42,26 +50,6 @@ export class StudentExerciseModalFormComponent implements OnInit {
     } finally {
       this.showLoading = false
       this.showToastr(!this.studentExercise.errors)
-      console.log(this.studentExercise)
-    }
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
-  }
-
-  private showToastr(success: boolean) {
-    if (success) {
-      this.nbToastrService.success(null, 'Treino vinculado sucesso')
-    } else {
-      this.nbToastrService.warning(
-        'Por favor, verique os campos do formulário',
-        'Há campos inválidos no formulário'
-      )
     }
   }
 
@@ -72,6 +60,17 @@ export class StudentExerciseModalFormComponent implements OnInit {
   onAttemptsChange() {
     if (this.studentExercise.total_attempts < 1) {
       this.studentExercise.total_attempts = 1
+    }
+  }
+
+  private showToastr(success: boolean) {
+    if (success) {
+      this.nbToastrService.success(null, 'Treino vinculado sucesso')
+    } else {
+      this.nbToastrService.warning(
+        'Por favor, verique os campos do formulário',
+        'Há campos inválidos no formulário'
+      )
     }
   }
 }

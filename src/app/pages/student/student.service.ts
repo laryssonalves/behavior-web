@@ -12,8 +12,8 @@ import { environment } from '../../../environments/environment'
   providedIn: 'root'
 })
 export class StudentService {
-  private studentUrl = `${ environment.apiUrl }student/`
   public refreshStudentList = new EventEmitter()
+  private studentUrl = `${ environment.apiUrl }student/`
 
   constructor(private httpClient: HttpClient, private nbToastrService: NbToastrService) { }
 
@@ -24,16 +24,16 @@ export class StudentService {
   }
 
   getStudent(pk: string | number): Observable<Student> {
-    const studentDetailUrl = `${this.studentUrl}${pk}/`
+    const studentDetailUrl = `${ this.studentUrl }${ pk }/`
 
     return this.httpClient.get<Student>(studentDetailUrl)
   }
 
   deleteStudent(pk: string | number) {
-    const studentDetailUrl = `${this.studentUrl}${pk}/`
+    const studentDetailUrl = `${ this.studentUrl }${ pk }/`
 
     this.httpClient.delete(studentDetailUrl).subscribe(
-      () =>  {
+      () => {
         this.nbToastrService.success(null, 'Estudante deletado com sucesso')
         this.refreshStudentList.emit()
       },
@@ -48,7 +48,7 @@ export class StudentService {
   }
 
   updateStudent(student: Student): Observable<Student> {
-    const studentDetailUrl = `${this.studentUrl}${student.id}/`
+    const studentDetailUrl = `${ this.studentUrl }${ student.id }/`
 
     return this.httpClient.put<Student>(studentDetailUrl, student.getPayload())
   }

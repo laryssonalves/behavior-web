@@ -11,14 +11,13 @@ import { environment } from '../../../../../environments/environment'
   providedIn: 'root'
 })
 export class StudentMemberService {
-  private studentUrl = `${ environment.apiUrl }student/`
-
   public refreshStudentMemberList = new EventEmitter<number>()
+  private studentUrl = `${ environment.apiUrl }student/`
 
   constructor(private httpClient: HttpClient, private nbToastrService: NbToastrService) { }
 
   getStudentMemberList(studentId: number): Observable<StudentMember[]> {
-    const studentMemberUrl = `${this.studentUrl}${studentId}/member/`
+    const studentMemberUrl = `${ this.studentUrl }${ studentId }/member/`
 
     return this.httpClient.get<StudentMember[]>(studentMemberUrl).pipe(
       map(studentMembers => studentMembers.map(studentMember => StudentMember.createFromJSON(studentMember)))
@@ -32,13 +31,13 @@ export class StudentMemberService {
   }
 
   getStudentMember(studentId: number, studentMemberId: number): Observable<StudentMember> {
-    const studentDetailUrl = `${ this.studentUrl }${ studentId }/member/${studentMemberId}`
+    const studentDetailUrl = `${ this.studentUrl }${ studentId }/member/${ studentMemberId }`
 
     return this.httpClient.get<StudentMember>(studentDetailUrl)
   }
 
   deleteStudentMember(studentMember: StudentMember) {
-    const studentDetailUrl = `${ this.studentUrl }${ studentMember.student.id }/member/${studentMember.id}`
+    const studentDetailUrl = `${ this.studentUrl }${ studentMember.student.id }/member/${ studentMember.id }`
 
     this.httpClient.delete(studentDetailUrl).subscribe(
       () => {
@@ -52,7 +51,7 @@ export class StudentMemberService {
   }
 
   updateStudentMember(studentMember: StudentMember): Observable<StudentMember> {
-    const studentDetailUrl = `${ this.studentUrl }${ studentMember.student.id }/member/${studentMember.id}/`
+    const studentDetailUrl = `${ this.studentUrl }${ studentMember.student.id }/member/${ studentMember.id }/`
 
     return this.httpClient.put<StudentMember>(studentDetailUrl, studentMember.getPayload())
   }

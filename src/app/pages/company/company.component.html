@@ -7,13 +7,13 @@
           <label class="label" for="document">Documento</label>
           <input
             [(ngModel)]="company.document"
-            [status]="company.errors?.document ? 'danger' : 'basic'"
             [mask]="masks.DOCUMENTO"
+            [status]="company.errors?.document ? 'danger' : 'basic'"
             fieldSize="small"
             fullWidth
-            nbInput
             id="document"
             name="document"
+            nbInput
             type="text">
           <ng-container *ngIf="company.errors?.document">
             <p *ngFor="let message of company.errors?.document" class="error-message">{{ message }}</p>
@@ -59,8 +59,8 @@
           <label class="label" for="phone">Telefone</label>
           <input
             [(ngModel)]="company.phone"
-            [status]="company.errors?.phone ? 'danger' : 'basic'"
             [mask]="masks.TELEFONE"
+            [status]="company.errors?.phone ? 'danger' : 'basic'"
             fieldSize="small"
             fullWidth
             id="phone"
@@ -76,10 +76,10 @@
         <div class="form-group">
           <label class="label" for="postal_code">CEP</label>
           <input
-            [(ngModel)]="company.postal_code"
             (ngModelChange)="onCepChange()"
-            [status]="company.errors?.postal_code ? 'danger' : 'basic'"
+            [(ngModel)]="company.postal_code"
             [mask]="masks.CEP"
+            [status]="company.errors?.postal_code ? 'danger' : 'basic'"
             fieldSize="small"
             fullWidth
             id="postal_code"
@@ -95,12 +95,12 @@
         <div class="form-group">
           <label class="label" for="state">Estado</label>
           <nb-select
-            placeholder="Selecione"
             [(ngModel)]="company.state"
             [status]="company.errors?.state ? 'danger' : 'basic'"
-            size="small"
+            fullWidth
             id="state"
-            fullWidth>
+            placeholder="Selecione"
+            size="small">
             <nb-option *ngFor="let state of stateChoices" [value]="state.value">{{ state.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="company.errors?.state">
@@ -241,8 +241,8 @@
           <label class="label" for="responsible_phone">Telefone</label>
           <input
             [(ngModel)]="company.responsible_phone"
-            [status]="company.errors?.responsible_phone ? 'danger' : 'basic'"
             [mask]="masks.TELEFONE"
+            [status]="company.errors?.responsible_phone ? 'danger' : 'basic'"
             fieldSize="small"
             fullWidth
             id="responsible_phone"

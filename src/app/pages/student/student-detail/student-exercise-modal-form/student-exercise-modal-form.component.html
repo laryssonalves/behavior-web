@@ -1,7 +1,7 @@
-<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
+<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
   <nb-card-header>
     <nav class="navigation">
-      <a href="javascript:void(0);" (click)="close(false)" class="link back-link" aria-label="Back">
+      <a (click)="close(false)" aria-label="Back" class="link back-link" href="javascript:void(0);">
         <nb-icon icon="arrow-back"></nb-icon>
       </a> {{ title }}
     </nav>
@@ -29,13 +29,14 @@
         <div class="form-group">
           <label class="label" for="application_type">Tipo de aplicação</label>
           <nb-select
-            placeholder="Selecione"
             [(ngModel)]="studentExercise.application_type"
             [status]="studentExercise.errors?.application_type ? 'danger' : 'basic'"
-            size="small"
+            fullWidth
             id="application_type"
-            fullWidth>
-            <nb-option *ngFor="let appType of applicationTypeChoices" [value]="appType.value">{{ appType.name }}</nb-option>
+            placeholder="Selecione"
+            size="small">
+            <nb-option *ngFor="let appType of applicationTypeChoices"
+                       [value]="appType.value">{{ appType.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="studentExercise.errors?.application_type">
             <p *ngFor="let message of studentExercise.errors?.application_type" class="error-message">{{ message }}</p>
@@ -46,12 +47,12 @@
         <div class="form-group">
           <label class="label" for="help_type">Tipo de ajuda</label>
           <nb-select
-            placeholder="Selecione"
             [(ngModel)]="studentExercise.help_type"
             [status]="studentExercise.errors?.help_type ? 'danger' : 'basic'"
-            size="small"
+            fullWidth
             id="help_type"
-            fullWidth>
+            placeholder="Selecione"
+            size="small">
             <nb-option *ngFor="let helpType of helpTypeChoices" [value]="helpType.value">{{ helpType.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="studentExercise.errors?.help_type">
@@ -63,8 +64,8 @@
         <div class="form-group">
           <label class="label" for="total_attempts">Total de Tentativas</label>
           <input
-            [(ngModel)]="studentExercise.total_attempts"
             (change)="onAttemptsChange()"
+            [(ngModel)]="studentExercise.total_attempts"
             [status]="studentExercise.errors?.total_attempts ? 'danger' : 'basic'"
             fieldSize="small"
             fullWidth

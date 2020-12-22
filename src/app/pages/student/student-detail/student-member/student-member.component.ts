@@ -26,6 +26,14 @@ export class StudentMemberComponent extends GlobalAction implements OnInit {
     super()
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(loading: boolean) {
+    this.loading = loading
+  }
+
   async ngOnInit(): Promise<void> {
     await this.getStudentMemberList()
 
@@ -34,6 +42,17 @@ export class StudentMemberComponent extends GlobalAction implements OnInit {
     })
 
     this.subscription.add(refreshStudentMemberList)
+  }
+
+  removeStudentMember(studentMember: StudentMember) {
+    this.studentMemberService.deleteStudentMember(studentMember)
+  }
+
+  openStudentMemberRoleModal(studentMember: StudentMember) {
+    this.nbDialogService.open(
+      StudentMemberRoleModalComponent,
+      { context: { studentMember: StudentMember.createFromJSON(studentMember) }, dialogClass: 'my-modal' }
+    )
   }
 
   private async getStudentMemberList() {
@@ -45,25 +64,6 @@ export class StudentMemberComponent extends GlobalAction implements OnInit {
     } finally {
       this.showLoading = false
     }
-  }
-
-  removeStudentMember(studentMember: StudentMember) {
-    this.studentMemberService.deleteStudentMember(studentMember)
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
-  }
-
-  openStudentMemberRoleModal(studentMember: StudentMember) {
-    this.nbDialogService.open(
-      StudentMemberRoleModalComponent,
-      { context: { studentMember: StudentMember.createFromJSON(studentMember) }, dialogClass: 'my-modal' }
-    )
   }
 
   private openDialogError(error: any) {

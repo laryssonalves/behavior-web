@@ -1,7 +1,7 @@
 import { GenreChoice, genreChoiceList } from '../../models/choice.model'
 import CoreModel from '../../models/core-model.model'
-import { Moment } from 'moment'
 import * as moment from 'moment'
+import { Moment } from 'moment'
 
 export class Student extends CoreModel {
   id: number
@@ -14,16 +14,16 @@ export class Student extends CoreModel {
 
   errors: StudentValidationError
 
-  genreDisplay(): string {
-    return genreChoiceList().find(genre => this.genre === genre.value).name
-  }
-
   static createFromJSON(data): Student {
     const dates = {
       birth_date: data.birth_date ? moment(`${ data.birth_date }`) : null,
       first_avaliation_date: data.first_avaliation_date ? moment(`${ data.first_avaliation_date }`) : null
     }
     return Object.assign(new Student(), data, dates)
+  }
+
+  genreDisplay(): string {
+    return genreChoiceList().find(genre => this.genre === genre.value).name
   }
 
   getPayload(): Object {

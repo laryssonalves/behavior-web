@@ -8,7 +8,7 @@ import {
   NbCardModule,
   NbCheckboxModule,
   NbInputModule,
-  NbLayoutModule,
+  NbLayoutModule
 } from '@nebular/theme'
 
 import { AuthRoutingModule, routedComponents } from './auth-routing.module'
@@ -31,7 +31,7 @@ import { UserService } from './user.service'
     NbLayoutModule,
     ReactiveFormsModule
   ],
-  declarations: [...routedComponents],
+  declarations: [ ...routedComponents ],
   providers: [
     AuthGuard,
     UserService

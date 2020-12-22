@@ -3,9 +3,6 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme'
 import { Student } from '../student.model'
 import { StudentService } from '../student.service'
 import { SessionStorageService } from '../../../services/session-storage.service'
-import { Location } from '@angular/common'
-import { ActivatedRoute } from '@angular/router'
-import { masks } from '../../../constants'
 import { genreChoiceList } from '../../../models/choice.model'
 
 @Component({
@@ -28,6 +25,14 @@ export class StudentModalFormComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private nbToastrService: NbToastrService
   ) {}
+
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
 
   ngOnInit() {
     this.title = this.student.id ? 'Editar estudante' : 'Adicionar estudante'
@@ -56,12 +61,8 @@ export class StudentModalFormComponent implements OnInit {
     }
   }
 
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
+  close(success: boolean) {
+    this.ref.close(success)
   }
 
   private showToastr(success: boolean) {
@@ -73,9 +74,5 @@ export class StudentModalFormComponent implements OnInit {
         'Há campos inválidos no formulário'
       )
     }
-  }
-
-  close(success: boolean) {
-    this.ref.close(success)
   }
 }

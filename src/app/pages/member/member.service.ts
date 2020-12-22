@@ -12,8 +12,8 @@ import { environment } from '../../../environments/environment'
   providedIn: 'root'
 })
 export class MemberService {
-  private memberUrl = `${ environment.apiUrl }member/`
   public refreshMemberList = new EventEmitter()
+  private memberUrl = `${ environment.apiUrl }member/`
 
   constructor(private httpClient: HttpClient, private nbToastrService: NbToastrService) { }
 
@@ -24,23 +24,23 @@ export class MemberService {
   }
 
   getMembersAvailable(studentId: number): Observable<Member[]> {
-    const url = `${this.memberUrl}student-available/`
+    const url = `${ this.memberUrl }student-available/`
     return this.httpClient.post<Member[]>(url, { student: studentId }).pipe(
       map(members => members.map(member => Member.createFromJSON(member)))
     )
   }
 
   getMember(pk: string | number): Observable<Member> {
-    const memberDetailUrl = `${this.memberUrl}${pk}/`
+    const memberDetailUrl = `${ this.memberUrl }${ pk }/`
 
     return this.httpClient.get<Member>(memberDetailUrl)
   }
 
   deleteMember(pk: string | number) {
-    const memberDetailUrl = `${this.memberUrl}${pk}/`
+    const memberDetailUrl = `${ this.memberUrl }${ pk }/`
 
     this.httpClient.delete(memberDetailUrl).subscribe(
-      () =>  {
+      () => {
         this.nbToastrService.success(null, 'Membro deletado com sucesso')
         this.refreshMemberList.emit()
       },
@@ -55,7 +55,7 @@ export class MemberService {
   }
 
   updateMember(member: Member): Observable<Member> {
-    const memberDetailUrl = `${this.memberUrl}${member.id}/`
+    const memberDetailUrl = `${ this.memberUrl }${ member.id }/`
 
     return this.httpClient.put<Member>(memberDetailUrl, member)
   }
