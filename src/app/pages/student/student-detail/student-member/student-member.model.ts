@@ -31,7 +31,7 @@ export class StudentMember extends CoreModel {
 }
 
 interface StudentMemberValidationError {
-  student: []
-  member: []
-  role: []
+  student: string[]
+  member: string[]
+  role: string[]
 }

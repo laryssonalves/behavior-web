@@ -32,10 +32,7 @@ import { UserService } from './user.service'
     ReactiveFormsModule
   ],
   declarations: [...routedComponents],
-  providers: [
-    AuthGuard,
-    UserService
-  ]
+  providers: [ AuthGuard ]
 })
 export class AuthModule {
 }

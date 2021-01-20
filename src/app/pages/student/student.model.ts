@@ -42,10 +42,10 @@ export class Student extends CoreModel {
 }
 
 interface StudentValidationError {
-  company: []
-  name: []
-  age: []
-  genre: []
-  birth_date: []
-  first_avaliation_date: []
+  company: string[]
+  name: string[]
+  age: string[]
+  genre: string[]
+  birth_date: string[]
+  first_avaliation_date: string[]
 }

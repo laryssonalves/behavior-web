@@ -17,6 +17,6 @@ export class Member extends CorePerson {
 }
 
 interface MemberValidationError extends CorePersonValidationError {
-  company: []
-  role: []
+  company: string[]
+  role: string[]
 }

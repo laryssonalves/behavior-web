@@ -30,7 +30,6 @@ import { NgxMaskModule } from 'ngx-mask'
     NbIconModule,
     NbPopoverModule
   ],
-  declarations: [ ...routedComponents ],
-  providers: [ MemberService ]
+  declarations: [ ...routedComponents ]
 })
 export class MemberModule {}

@@ -62,7 +62,6 @@ import { PopoverModule } from 'ngx-bootstrap/popover'
     StudentMemberRoleModalComponent,
     StudentExerciseModalFormComponent
   ],
-  providers: [ StudentService ],
   entryComponents: [ StudentModalFormComponent ]
 })
 export class StudentModule {}
