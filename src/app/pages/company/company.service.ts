@@ -25,15 +25,8 @@ export class CompanyService {
 
   getSelectedCompany() {
     const selectedCompanyUrl = `${this.companyUrl}selected/`
-    this.httpClient.get<Company>(selectedCompanyUrl).subscribe(
-      company => this.nextSelectedCompany = company,
-      error => alert(error.message)
-    )
+    this.httpClient.get<Company>(selectedCompanyUrl).subscribe(company => this.nextSelectedCompany = company)
   }
-
-  // createCompany(company: Company): Observable<Company> {
-  //   return this.httpClient.post<Company>(this.companyUrl, company)
-  // }
 
   updateCompany(company: Company): Observable<Company> {
     const url = `${this.companyUrl}${company.id}/`
