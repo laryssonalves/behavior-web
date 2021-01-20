@@ -35,7 +35,8 @@
             size="small"
             id="application_type"
             fullWidth>
-            <nb-option *ngFor="let appType of applicationTypeChoices" [value]="appType.value">{{ appType.name }}</nb-option>
+            <nb-option *ngFor="let appType of applicationTypeChoices"
+                       [value]="appType.value">{{ appType.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="studentExercise.errors?.application_type">
             <p *ngFor="let message of studentExercise.errors?.application_type" class="error-message">{{ message }}</p>
@@ -79,18 +80,45 @@
       </div>
       <div class="col-12 col-sm-12 col-md-12">
         <div class="form-group">
-          <label class="label" for="targets">Alvo</label>
-          <input
-            [(ngModel)]="studentExercise.targets"
-            [status]="studentExercise.errors?.targets ? 'danger' : 'basic'"
-            fieldSize="small"
-            fullWidth
-            id="targets"
-            name="targets"
-            nbInput
-            type="text">
-          <ng-container *ngIf="studentExercise.errors?.targets">
-            <p *ngFor="let message of studentExercise.errors?.targets" class="error-message">{{ message }}</p>
+          <label class="label" for="targets">Alvos</label>
+          <div *ngFor="let studentExerciseTarget of studentExercise.targets; let i = index">
+            <nb-form-field>
+              <input
+                [(ngModel)]="studentExerciseTarget.target"
+                [status]="!studentExerciseTarget.target ? 'danger' : 'basic'"
+                name="target{{ i }}"
+                fieldSize="small"
+                fullWidth
+                nbInput
+                type="text">
+              <button
+                nbSuffix nbButton ghost size="small"
+                (click)="removeTarget(i)">
+                <nb-icon icon="trash-outline" pack="eva"></nb-icon>
+              </button>
+            </nb-form-field>
+            <ng-container *ngIf="!studentExerciseTarget.target">
+              <p class="error-message mb-0">{{ ERROR_TARGET_BLANK }}</p>
+            </ng-container>
+          </div>
+          <nb-form-field>
+            <input
+              #inputTarget
+              fieldSize="small"
+              [status]="targetError ? 'danger' : 'basic'"
+              fullWidth
+              id="targets"
+              name="targets"
+              nbInput
+              type="text">
+            <button
+              nbSuffix nbButton ghost size="small"
+              (click)="addTarget(inputTarget)">
+              <nb-icon icon="plus-circle-outline" pack="eva"></nb-icon>
+            </button>
+          </nb-form-field>
+          <ng-container *ngIf="targetError">
+            <p class="error-message">{{ targetErrorMessage }}</p>
           </ng-container>
         </div>
       </div>

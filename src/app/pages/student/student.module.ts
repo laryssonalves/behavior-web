@@ -7,6 +7,7 @@ import {
   NbCardModule,
   NbCheckboxModule,
   NbDatepickerModule,
+  NbFormFieldModule,
   NbIconModule,
   NbInputModule,
   NbListModule,
@@ -17,7 +18,7 @@ import {
   NbTabsetModule
 } from '@nebular/theme'
 import { StudentService } from './student.service'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgxMaskModule } from 'ngx-mask'
 import { StudentModalFormComponent } from './student-modal-form/student-modal-form'
 import { StudentExerciseComponent } from './student-detail/student-exercise/student-exercise.component'
@@ -25,6 +26,8 @@ import { StudentMemberComponent } from './student-detail/student-member/student-
 import { StudentMemberModalFormComponent } from './student-detail/student-member-modal-form/student-member-modal-form.component'
 import { StudentMemberRoleModalComponent } from './student-detail/student-member-role-modal/student-member-role-modal.component'
 import { StudentExerciseModalFormComponent } from './student-detail/student-exercise-modal-form/student-exercise-modal-form.component'
+import { TagInputModule } from 'ngx-chips'
+import { PopoverModule } from 'ngx-bootstrap/popover'
 
 @NgModule({
   imports: [
@@ -34,6 +37,8 @@ import { StudentExerciseModalFormComponent } from './student-detail/student-exer
     NbListModule,
     NbActionsModule,
     FormsModule,
+    ReactiveFormsModule,
+    TagInputModule,
     NbInputModule,
     NbButtonModule,
     NgxMaskModule,
@@ -44,7 +49,9 @@ import { StudentExerciseModalFormComponent } from './student-detail/student-exer
     NbDatepickerModule,
     NbTabsetModule,
     NbCheckboxModule,
-    NbRadioModule
+    NbRadioModule,
+    NbFormFieldModule,
+    PopoverModule.forRoot()
   ],
   declarations: [
     ...routedComponents,

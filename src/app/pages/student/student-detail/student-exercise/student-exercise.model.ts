@@ -1,6 +1,21 @@
 import CoreModel from '../../../../models/core-model.model'
 import { Student } from '../../student.model'
-import { ApplicationTypeChoice, applicationTypeChoiceList, HelpTypeChoice } from '../../../../models/choice.model'
+import {
+  ApplicationTypeChoice,
+  applicationTypeChoiceList,
+  HelpTypeChoice,
+  ResultTypeChoice
+} from '../../../../models/choice.model'
+
+export class StudentExerciseTarget extends CoreModel {
+  id: number
+  target: string
+  result_type: ResultTypeChoice
+
+  static createFromJSON(data): StudentExerciseTarget {
+    return Object.assign(new StudentExerciseTarget(), data)
+  }
+}
 
 export class StudentExercise extends CoreModel {
   id: number
@@ -9,8 +24,9 @@ export class StudentExercise extends CoreModel {
   application_type: ApplicationTypeChoice
   help_type: HelpTypeChoice
   total_attempts: number
-  targets: string
+  targets: StudentExerciseTarget[] = []
   procedure: string
+  concluded: boolean
 
   errors: StudentExerciseValidationError
 
@@ -26,10 +42,10 @@ export class StudentExercise extends CoreModel {
     return Object.assign(new StudentExercise(), data)
   }
 
-  getPayload(): Object {
+  getPayload() {
     return {
       id: this.id,
-      student_id: this.student.id,
+      student: this.student,
       program: this.program,
       application_type: this.application_type,
       help_type: this.help_type,
@@ -41,12 +57,11 @@ export class StudentExercise extends CoreModel {
 }
 
 interface StudentExerciseValidationError {
-  student: []
-  program: []
-  application_type: []
-  help_type: []
-  total_attempts: []
-  targets: []
-  procedure: []
-
+  student: string[]
+  program: string[]
+  application_type: string[]
+  help_type: string[]
+  total_attempts: string[]
+  targets: string[]
+  procedure: string[]
 }
