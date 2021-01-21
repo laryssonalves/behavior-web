@@ -26,8 +26,6 @@ import { StudentMemberComponent } from './student-detail/student-member/student-
 import { StudentMemberModalFormComponent } from './student-detail/student-member-modal-form/student-member-modal-form.component'
 import { StudentMemberRoleModalComponent } from './student-detail/student-member-role-modal/student-member-role-modal.component'
 import { StudentExerciseModalFormComponent } from './student-detail/student-exercise-modal-form/student-exercise-modal-form.component'
-import { TagInputModule } from 'ngx-chips'
-import { PopoverModule } from 'ngx-bootstrap/popover'
 
 @NgModule({
   imports: [
@@ -38,7 +36,6 @@ import { PopoverModule } from 'ngx-bootstrap/popover'
     NbActionsModule,
     FormsModule,
     ReactiveFormsModule,
-    TagInputModule,
     NbInputModule,
     NbButtonModule,
     NgxMaskModule,
@@ -50,8 +47,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover'
     NbTabsetModule,
     NbCheckboxModule,
     NbRadioModule,
-    NbFormFieldModule,
-    PopoverModule.forRoot()
+    NbFormFieldModule
   ],
   declarations: [
     ...routedComponents,
