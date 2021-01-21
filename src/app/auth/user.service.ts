@@ -23,7 +23,7 @@ export class UserService {
   }
 
   getUserDetails(): void {
-    const url = `${ this.userUrl }details`
+    const url = `${ this.userUrl }details/`
 
     this.httpClient.get<User>(url).subscribe(user => this.nextUser = user)
   }

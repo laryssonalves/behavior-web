@@ -57,7 +57,7 @@ export class StudentMemberService {
   }
 
   addStudentMemberList(student: Student, members_id: number[]) {
-    const studentDetailUrl = `${ this.studentUrl }${ student.id }/member/create-list/`
+    const studentDetailUrl = `${ this.studentUrl }${ student.id }/member/`
 
     return this.httpClient.post<StudentMember>(studentDetailUrl, { members_id })
   }

@@ -2,28 +2,35 @@
   <nb-card-header class="card-header-action">
     <span>Estudantes</span>
     <nb-actions size="small">
-      <nb-action (click)="openStudentForm()" [ngClass]="'header-action'" icon="plus-circle-outline"></nb-action>
+      <nb-action icon="plus-circle-outline" [ngClass]="'header-action'" (click)="openStudentForm()"></nb-action>
     </nb-actions>
   </nb-card-header>
   <nb-list *ngIf="studentList.length; else emptyList">
-    <nb-list-item *ngFor="let student of studentList">
+    <nb-list-item
+      *ngFor="let student of studentList; let i = index"
+      [ngClass]="'item-list item-list__clickable'"
+      (click)="goToStudentDetails(student)">
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
           <span class="item-info">{{ student.name }}</span>
-          <span class="item-info item-info-secondary">{{ student.genreDisplay() }}</span>
+          <span class="item-info item-info-secondary">{{ student.age }} anos</span>
         </div>
         <nb-actions size="small">
-          <nb-action [nbPopover]="popTemplate" icon="more-vertical-outline"
-                     style="padding: 0" title="Mais opcões">
+          <nb-action
+            title="Mais opcões"
+            [ngClass]="'item-action'"
+            (click)="showPopover($event, i)"
+            [nbPopover]="popTemplate"
+            icon="more-vertical-outline">
           </nb-action>
           <ng-template #popTemplate>
             <div class="d-flex flex-column">
-              <button [ngClass]="'btn-list-action'" nbButton routerLink="detalhes/{{ student.id }}" size="small">
+              <button nbButton routerLink="detalhes/{{ student.id }}" [ngClass]="'btn-list-action'" size="small">
                 Detalhes
               </button>
-              <button (click)="openStudentForm(student)" [ngClass]="'btn-list-action'" nbButton size="small">Alterar
+              <button nbButton (click)="openStudentForm(student)" [ngClass]="'btn-list-action'" size="small">Alterar
               </button>
-              <button (click)="removeStudent(student)" [ngClass]="'btn-list-action'" nbButton size="small">Excluir
+              <button nbButton (click)="removeStudent(student)" [ngClass]="'btn-list-action'" size="small">Excluir
               </button>
             </div>
           </ng-template>

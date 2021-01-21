@@ -10,14 +10,8 @@ import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
 import { StudentExercise } from './student-exercise/student-exercise.model'
 import { StudentExerciseModalFormComponent } from './student-exercise-modal-form/student-exercise-modal-form.component'
 
-enum StudentDetailTab {
-  EXERCISE = 1,
-  MEMBER = 2
-}
-
 @Component({
   selector: 'ngx-student-detail',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './student-detail.component.html',
   styleUrls: [ './student-detail.component.scss' ]
 })

@@ -1,20 +1,18 @@
 <nb-list [nbSpinner]="showLoading">
-  <nb-list-item *ngFor="let studentExercise of studentExerciseList">
+  <nb-list-item *ngFor="let studentExercise of studentExerciseList" [ngClass]="'item-list'">
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex flex-column">
         <span class="item-info">{{ studentExercise.program }}</span>
         <span class="item-info item-info-secondary">{{ studentExercise.applicationTypeDisplay() }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action [nbPopover]="popTemplate" icon="more-vertical-outline"
-                   style="padding: 0" title="Mais opcões">
+        <nb-action [nbPopover]="popTemplate" title="Mais opcões" [ngClass]="'item-action'"
+                   icon="more-vertical-outline">
         </nb-action>
         <ng-template #popTemplate>
           <div class="d-flex flex-column">
-            <button (click)="removeStudentExercise(studentExercise)" [ngClass]="'btn-list-action'" nbButton
-                    size="small">Excluir
-            </button>
-            <button [ngClass]="'btn-list-action'" nbButton size="small">Finalizar</button>
+            <button nbButton size="small" [ngClass]="'btn-list-action'" (click)="removeStudentExercise(studentExercise)">Excluir</button>
+            <button nbButton [ngClass]="'btn-list-action'" size="small">Finalizar</button>
           </div>
         </ng-template>
       </nb-actions>

@@ -11,7 +11,7 @@ export class LogoutComponent extends NbLogoutComponent {
     this.service.logout(strategy).subscribe(() => {
       setTimeout(() => {
         this.service.resetPassword('email')
-        return this.router.navigate([ '/' ])
+        return this.router.navigateByUrl('auth/login')
       }, this.redirectDelay)
     })
   }

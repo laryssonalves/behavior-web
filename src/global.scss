@@ -20,6 +20,33 @@
   [nbButton].btn-list-action {
     font-size: 12px;
   }
+
+  .item-list {
+
+    &__clickable {
+
+      &:hover {
+        background: #F9F9F9;
+        cursor: pointer;
+      }
+
+    }
+
+    .item-info {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .item-info-secondary {
+      font-size: 0.7rem;
+      color: grey;
+    }
+
+    .item-action {
+      padding: 0;
+    }
+  }
+
 }
 
 @media screen and (min-width: 1200px) {

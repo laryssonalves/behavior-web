@@ -24,15 +24,10 @@ export class LoginComponent extends NbLoginComponent {
         this.errors = [ 'Combinação de email/senha incorreta, por favor tente novamente.' ]
       }
 
-      // if (result.isSuccess()) {
-      //   const token = result.getToken() as Token;
-      //   token.rememberMe = this.user.rememberMe;
-      // }
-
       const redirect = result.getRedirect()
       if (redirect) {
         setTimeout(() => {
-          return this.router.navigate([ redirect ])
+          return this.router.navigateByUrl(redirect)
         }, this.redirectDelay)
       }
       this.cd.detectChanges()

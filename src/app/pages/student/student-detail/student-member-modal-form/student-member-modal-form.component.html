@@ -1,13 +1,11 @@
-<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
   <nb-card-header>
     <nav class="navigation">
-      <a (click)="close(false)" aria-label="Back" class="link back-link" href="javascript:void(0);">
-        <nb-icon icon="arrow-back"></nb-icon>
-      </a> {{ title }}
+      {{ title }}
     </nav>
   </nb-card-header>
   <nb-card-body>
-    <div>
+    <div >
       <div *ngFor="let member of memberList">
         <nb-checkbox (checkedChange)="onCheckBoxChange($event, member)">{{ member.name }}</nb-checkbox>
       </div>
@@ -15,8 +13,8 @@
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button (click)="saveStudentMembers()" [disabled]="!selectedMembers.length" class="mx-2" nbButton
-              size="small" status="primary">
+      <button class="mx-2" nbButton size="small" status="primary"
+              (click)="saveStudentMembers()" [disabled]="!selectedMembers.length">
         Salvar
       </button>
       <button (click)="close(false)" class="mx-2" nbButton size="small" status="secondary">Voltar</button>

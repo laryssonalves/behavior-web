@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NbDialogRef, NbToastrService } from '@nebular/theme'
-import { StudentExercise } from '../student-exercise/student-exercise.model'
+import { StudentExercise, StudentExerciseTarget } from '../student-exercise/student-exercise.model'
 import { applicationTypeChoiceList, helpTypeChoiceList } from '../../../../models/choice.model'
 import { StudentExerciseService } from '../student-exercise/student-exercise.service'
 
@@ -10,6 +10,9 @@ import { StudentExerciseService } from '../student-exercise/student-exercise.ser
   styleUrls: [ './student-exercise-modal-form.component.scss' ]
 })
 export class StudentExerciseModalFormComponent implements OnInit {
+  readonly ERROR_TARGET_BLANK = 'O alvo não pode ficar em branco.'
+  readonly ERROR_TARGET_EMPTY = 'Deve ser adicionado pelo menos um alvo.'
+
   title = 'Adicionar treino'
 
   applicationTypeChoices = applicationTypeChoiceList()
@@ -19,25 +22,26 @@ export class StudentExerciseModalFormComponent implements OnInit {
 
   private loading = false
 
+  targetError = false
+  targetErrorMessage = ''
+
   constructor(
     protected ref: NbDialogRef<StudentExerciseModalFormComponent>,
     private studentExerciseService: StudentExerciseService,
     private nbToastrService: NbToastrService
   ) {}
 
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
-  }
-
   ngOnInit() {
   }
 
   async saveStudentExercise() {
     try {
+      if (!this.studentExercise.targets.length) {
+        this.targetError = true
+        this.targetErrorMessage = this.ERROR_TARGET_EMPTY
+        return
+      }
+
       this.showLoading = true
       this.studentExercise.errors = null
 
@@ -47,9 +51,28 @@ export class StudentExerciseModalFormComponent implements OnInit {
       this.close(true)
     } catch (error) {
       this.studentExercise.errors = error.error
+      this.showToastr(!this.studentExercise.errors)
     } finally {
       this.showLoading = false
-      this.showToastr(!this.studentExercise.errors)
+    }
+  }
+
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
+
+  private showToastr(success: boolean) {
+    if (success) {
+      this.nbToastrService.success(null, 'Treino vinculado com sucesso')
+    } else {
+      this.nbToastrService.warning(
+        'Por favor, verique os campos do formulário',
+        'Há campos inválidos no formulário'
+      )
     }
   }
 
@@ -63,14 +86,26 @@ export class StudentExerciseModalFormComponent implements OnInit {
     }
   }
 
-  private showToastr(success: boolean) {
-    if (success) {
-      this.nbToastrService.success(null, 'Treino vinculado sucesso')
+  addTarget(targetInput: HTMLInputElement) {
+    const target = targetInput.value
+
+    if (target) {
+      const targetExists = this.studentExercise.targets.find(t => t.target === target)
+      if (!targetExists) {
+        const studentExerciseTarget = StudentExerciseTarget.createFromJSON({ target })
+        this.studentExercise.targets.push(studentExerciseTarget)
+      }
+
+      this.targetError = false
+      this.targetErrorMessage = ''
+      targetInput.value = ''
     } else {
-      this.nbToastrService.warning(
-        'Por favor, verique os campos do formulário',
-        'Há campos inválidos no formulário'
-      )
+      this.targetError = true
+      this.targetErrorMessage = this.ERROR_TARGET_BLANK
     }
+  }
+
+  removeTarget(targetIndex: number) {
+    this.studentExercise.targets.splice(targetIndex, 1)
   }
 }

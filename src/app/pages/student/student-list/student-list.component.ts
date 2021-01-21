@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core'
 import { Student } from '../student.model'
 import { StudentService } from '../student.service'
 import { GlobalAction } from '../../../action-abstract'
-import { NbDialogService } from '@nebular/theme'
+import { NbDialogService, NbPopoverDirective } from '@nebular/theme'
 import { StudentModalFormComponent } from '../student-modal-form/student-modal-form'
-import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
+import { ModalService } from '../../../modals/modal.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'ngx-student-list',
@@ -12,23 +13,19 @@ import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
   styleUrls: [ './student-list.component.scss' ]
 })
 export class StudentListComponent extends GlobalAction implements OnInit {
+  @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
+
   studentList: Student[] = []
 
   private loading = false
 
   constructor(
     private studentService: StudentService,
-    private nbDialogService: NbDialogService
+    private nbDialogService: NbDialogService,
+    private modalService: ModalService,
+    private router: Router
   ) {
     super()
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
   }
 
   async ngOnInit(): Promise<void> {
@@ -39,8 +36,27 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     this.subscription.add(refreshList)
   }
 
+  private async getStudents() {
+    try {
+      this.showLoading = true
+      this.studentList = await this.studentService.getStudentList().toPromise()
+    } catch (e) {
+      this.openDialogError(e)
+    } finally {
+      this.showLoading = false
+    }
+  }
+
   removeStudent(student: Student) {
     this.studentService.deleteStudent(student.id)
+  }
+
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(loading: boolean) {
+    this.loading = loading
   }
 
   openStudentForm(studentToEdit?: Student) {
@@ -55,21 +71,16 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     })
   }
 
-  private async getStudents() {
-    try {
-      this.showLoading = true
-      this.studentList = await this.studentService.getStudentList().toPromise()
-    } catch (e) {
-      this.openDialogError(e)
-    } finally {
-      this.showLoading = false
-    }
+  private openDialogError(error: any) {
+    this.modalService.showDialogError(error)
   }
 
-  private openDialogError(error: any) {
-    this.nbDialogService.open(
-      ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'my-modal' }
-    )
+  goToStudentDetails(student: Student) {
+    this.router.navigateByUrl(`estudantes/detalhes/${ student.id }`)
+  }
+
+  showPopover(event: MouseEvent, i: number) {
+    event.stopPropagation()
+    this.popovers.toArray()[i].show()
   }
 }

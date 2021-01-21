@@ -1,28 +1,28 @@
 <nb-list>
-  <nb-list-item *ngFor="let studentMember of studentMemberList">
+  <nb-list-item *ngFor="let studentMember of studentMemberList" [ngClass]="'item-list'">
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex flex-column">
         <span class="item-info">{{ studentMember.member.name }}</span>
         <span class="item-info item-info-secondary">{{ studentMember.roleDisplay() }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action [nbPopover]="popTemplate" icon="more-vertical-outline"
-                   style="padding: 0" title="Mais opcões">
+        <nb-action [nbPopover]="popTemplate" title="Mais opcões" [ngClass]="'item-action'"
+                   icon="more-vertical-outline">
         </nb-action>
         <ng-template #popTemplate>
           <div class="d-flex flex-column">
             <button
-              (click)="removeStudentMember(studentMember)"
-              [ngClass]="'btn-list-action'"
               nbButton
-              size="small">
+              [ngClass]="'btn-list-action'"
+              size="small"
+              (click)="removeStudentMember(studentMember)">
               Excluir
             </button>
             <button
-              (click)="openStudentMemberRoleModal(studentMember)"
-              [ngClass]="'btn-list-action'"
               nbButton
-              size="small">
+              [ngClass]="'btn-list-action'"
+              size="small"
+              (click)="openStudentMemberRoleModal(studentMember)">
               Alterar função
             </button>
           </div>

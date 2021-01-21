@@ -13,7 +13,7 @@ export class Company extends CorePerson {
 }
 
 interface CompanyValidationError extends CorePersonValidationError {
-  responsible_name: []
-  responsible_email: []
-  responsible_phone: []
+  responsible_name: string[]
+  responsible_email: string[]
+  responsible_phone: string[]
 }

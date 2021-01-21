@@ -1,9 +1,7 @@
-<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
+<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
   <nb-card-header>
     <nav class="navigation">
-      <a (click)="close(false)" aria-label="Back" class="link back-link" href="javascript:void(0);">
-        <nb-icon icon="arrow-back"></nb-icon>
-      </a> {{ title }}
+      {{ title }}
     </nav>
   </nb-card-header>
   <nb-card-body>
@@ -18,10 +16,10 @@
   <nb-card-footer>
     <div class="float-right">
       <button
-        (click)="changeMemberRole()"
-        class="mx-2" nbButton
-        size="small"
-        status="primary">
+        class="mx-2"
+        nbButton size="small"
+        status="primary"
+        (click)="changeMemberRole()">
         Salvar
       </button>
       <button (click)="close(false)" class="mx-2" nbButton size="small" status="secondary">Voltar</button>

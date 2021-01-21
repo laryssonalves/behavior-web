@@ -15,7 +15,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Membros',
-    icon: 'person-outline',
+    icon: 'people-outline',
     link: '/membros'
   },
   {

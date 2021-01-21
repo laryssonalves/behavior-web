@@ -31,11 +31,8 @@ import { UserService } from './user.service'
     NbLayoutModule,
     ReactiveFormsModule
   ],
-  declarations: [ ...routedComponents ],
-  providers: [
-    AuthGuard,
-    UserService
-  ]
+  declarations: [...routedComponents],
+  providers: [ AuthGuard ]
 })
 export class AuthModule {
 }
