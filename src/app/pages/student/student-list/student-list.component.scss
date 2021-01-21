@@ -8,27 +8,3 @@
     padding: 0;
   }
 }
-
-.item-list {
-  padding: 0 !important;
-
-  &:hover {
-    background: grey;
-  }
-
-  .item-info {
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
-
-  .item-info-secondary {
-    font-size: 0.7rem;
-    color: grey;
-  }
-
-  .item-action {
-    padding: 0;
-  }
-}
-
-

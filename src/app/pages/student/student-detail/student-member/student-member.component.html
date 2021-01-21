@@ -1,13 +1,13 @@
 <nb-list>
-  <nb-list-item *ngFor="let studentMember of studentMemberList">
+  <nb-list-item *ngFor="let studentMember of studentMemberList" [ngClass]="'item-list'">
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex flex-column">
         <span class="item-info">{{ studentMember.member.name }}</span>
         <span class="item-info item-info-secondary">{{ studentMember.roleDisplay() }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action [nbPopover]="popTemplate" title="Mais opcões"
-                   icon="more-vertical-outline" style="padding: 0">
+        <nb-action [nbPopover]="popTemplate" title="Mais opcões" [ngClass]="'item-action'"
+                   icon="more-vertical-outline">
         </nb-action>
         <ng-template #popTemplate>
           <div class="d-flex flex-column">

@@ -69,8 +69,6 @@
     "moment": "^2.29.1",
     "nebular-icons": "1.1.0",
     "ng2-ckeditor": "^1.2.2",
-    "ngx-bootstrap": "^6.2.0",
-    "ngx-chips": "^2.2.2",
     "ngx-echarts": "^4.2.2",
     "ngx-mask": "^10.0.4",
     "node-sass": "^4.12.0",

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core'
 import { Student } from '../student.model'
 import { StudentService } from '../student.service'
 import { GlobalAction } from '../../../action-abstract'
-import { NbDialogService, NbPopoverDirective, NbToastrService } from '@nebular/theme'
+import { NbDialogService, NbPopoverDirective } from '@nebular/theme'
 import { StudentModalFormComponent } from '../student-modal-form/student-modal-form'
-import { NbMomentDateService } from '@nebular/moment'
-import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
+import { ModalService } from '../../../modals/modal.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'ngx-student-list',
@@ -13,13 +13,17 @@ import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
   styleUrls: [ './student-list.component.scss' ]
 })
 export class StudentListComponent extends GlobalAction implements OnInit {
+  @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
+
   studentList: Student[] = []
 
   private loading = false
 
   constructor(
     private studentService: StudentService,
-    private nbDialogService: NbDialogService
+    private nbDialogService: NbDialogService,
+    private modalService: ModalService,
+    private router: Router
   ) {
     super()
   }
@@ -68,9 +72,15 @@ export class StudentListComponent extends GlobalAction implements OnInit {
   }
 
   private openDialogError(error: any) {
-    this.nbDialogService.open(
-      ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'my-modal' }
-    )
+    this.modalService.showDialogError(error)
+  }
+
+  goToStudentDetails(student: Student) {
+    this.router.navigateByUrl(`estudantes/detalhes/${ student.id }`)
+  }
+
+  showPopover(event: MouseEvent, i: number) {
+    event.stopPropagation()
+    this.popovers.toArray()[i].show()
   }
 }
