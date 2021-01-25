@@ -13,7 +13,6 @@ import {
 
 import { AuthRoutingModule, routedComponents } from './auth-routing.module'
 import { AuthGuard } from './auth.guard'
-import { UserService } from './user.service'
 
 
 @NgModule({
@@ -31,7 +30,7 @@ import { UserService } from './user.service'
     NbLayoutModule,
     ReactiveFormsModule
   ],
-  declarations: [...routedComponents],
+  declarations: [ ...routedComponents ],
   providers: [ AuthGuard ]
 })
 export class AuthModule {

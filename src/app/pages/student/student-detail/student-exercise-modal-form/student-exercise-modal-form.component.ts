@@ -19,17 +19,23 @@ export class StudentExerciseModalFormComponent implements OnInit {
   helpTypeChoices = helpTypeChoiceList()
 
   studentExercise: StudentExercise
-
-  private loading = false
-
   targetError = false
   targetErrorMessage = ''
+  private loading = false
 
   constructor(
     protected ref: NbDialogRef<StudentExerciseModalFormComponent>,
     private studentExerciseService: StudentExerciseService,
     private nbToastrService: NbToastrService
   ) {}
+
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
 
   ngOnInit() {
   }
@@ -54,25 +60,6 @@ export class StudentExerciseModalFormComponent implements OnInit {
       this.showToastr(!this.studentExercise.errors)
     } finally {
       this.showLoading = false
-    }
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
-  }
-
-  private showToastr(success: boolean) {
-    if (success) {
-      this.nbToastrService.success(null, 'Treino vinculado com sucesso')
-    } else {
-      this.nbToastrService.warning(
-        'Por favor, verique os campos do formulário',
-        'Há campos inválidos no formulário'
-      )
     }
   }
 
@@ -107,5 +94,16 @@ export class StudentExerciseModalFormComponent implements OnInit {
 
   removeTarget(targetIndex: number) {
     this.studentExercise.targets.splice(targetIndex, 1)
+  }
+
+  private showToastr(success: boolean) {
+    if (success) {
+      this.nbToastrService.success(null, 'Treino vinculado com sucesso')
+    } else {
+      this.nbToastrService.warning(
+        'Por favor, verique os campos do formulário',
+        'Há campos inválidos no formulário'
+      )
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core'
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core'
 import { Student } from '../student.model'
 import { StudentService } from '../student.service'
 import { GlobalAction } from '../../../action-abstract'
@@ -28,6 +28,14 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     super()
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(loading: boolean) {
+    this.loading = loading
+  }
+
   async ngOnInit(): Promise<void> {
     await this.getStudents()
 
@@ -36,27 +44,8 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     this.subscription.add(refreshList)
   }
 
-  private async getStudents() {
-    try {
-      this.showLoading = true
-      this.studentList = await this.studentService.getStudentList().toPromise()
-    } catch (e) {
-      this.openDialogError(e)
-    } finally {
-      this.showLoading = false
-    }
-  }
-
   removeStudent(student: Student) {
     this.studentService.deleteStudent(student.id)
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
   }
 
   openStudentForm(studentToEdit?: Student) {
@@ -71,10 +60,6 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     })
   }
 
-  private openDialogError(error: any) {
-    this.modalService.showDialogError(error)
-  }
-
   goToStudentDetails(student: Student) {
     this.router.navigateByUrl(`estudantes/detalhes/${ student.id }`)
   }
@@ -82,5 +67,20 @@ export class StudentListComponent extends GlobalAction implements OnInit {
   showPopover(event: MouseEvent, i: number) {
     event.stopPropagation()
     this.popovers.toArray()[i].show()
+  }
+
+  private async getStudents() {
+    try {
+      this.showLoading = true
+      this.studentList = await this.studentService.getStudentList().toPromise()
+    } catch (e) {
+      this.openDialogError(e)
+    } finally {
+      this.showLoading = false
+    }
+  }
+
+  private openDialogError(error: any) {
+    this.modalService.showDialogError(error)
   }
 }

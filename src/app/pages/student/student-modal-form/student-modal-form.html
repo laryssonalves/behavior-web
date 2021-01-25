@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
+<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
   <nb-card-header>
     <nav class="navigation">
       {{ title }}
@@ -27,12 +27,12 @@
         <div class="form-group">
           <label class="label" for="genre">Gênero</label>
           <nb-select
-            placeholder="Selecione"
             [(ngModel)]="student.genre"
             [status]="student.errors?.genre ? 'danger' : 'basic'"
-            size="small"
+            fullWidth
             id="genre"
-            fullWidth>
+            placeholder="Selecione"
+            size="small">
             <nb-option *ngFor="let genre of genreChoices" [value]="genre.value">{{ genre.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="student.errors?.genre">
@@ -44,13 +44,13 @@
         <div class="form-group">
           <label class="label" for="birth_date">Data Nascimento</label>
           <input
-            id="birth_date"
             [(ngModel)]="student.birth_date"
+            [nbDatepicker]="birth_date_picker"
             [status]="student.errors?.birth_date ? 'danger' : 'basic'"
             fieldSize="small"
-            [nbDatepicker]="birth_date_picker"
-            nbInput
-            fullWidth>
+            fullWidth
+            id="birth_date"
+            nbInput>
           <nb-datepicker #birth_date_picker format="DD/MM/YYYY"></nb-datepicker>
           <ng-container *ngIf="student.errors?.birth_date">
             <p *ngFor="let message of student.errors?.birth_date" class="error-message">{{ message }}</p>
@@ -61,14 +61,14 @@
         <div class="form-group">
           <label class="label" for="first_avaliation_date">Primeira Avaliação</label>
           <input
-            id="first_avaliation_date"
             [status]="student.errors?.first_avaliation_date ? 'danger' : 'basic'"
-            fieldSize="small"
-            nbInput
-            fullWidth
+            [value]="student.getAvaliationDate()"
             disabled
-            [value]="student.getAvaliationDate()">
-<!--          <nb-datepicker #first_avaliation_date_picker format="DD/MM/YYYY"></nb-datepicker>-->
+            fieldSize="small"
+            fullWidth
+            id="first_avaliation_date"
+            nbInput>
+          <!--          <nb-datepicker #first_avaliation_date_picker format="DD/MM/YYYY"></nb-datepicker>-->
           <ng-container *ngIf="student.errors?.birth_date">
             <p *ngFor="let message of student.errors?.birth_date" class="error-message">{{ message }}</p>
           </ng-container>
