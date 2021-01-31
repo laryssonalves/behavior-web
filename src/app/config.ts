@@ -35,7 +35,7 @@ export const appConfig: any = {
     forms: {
       login: formSetting,
       logout: {
-        redirectDelay: 1000
+        redirectDelay: 2000
       }
     }
   }

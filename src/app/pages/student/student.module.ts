@@ -17,7 +17,6 @@ import {
   NbSpinnerModule,
   NbTabsetModule
 } from '@nebular/theme'
-import { StudentService } from './student.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgxMaskModule } from 'ngx-mask'
 import { StudentModalFormComponent } from './student-modal-form/student-modal-form'

@@ -6,10 +6,11 @@ import { Observable, Subject } from 'rxjs'
 import { RippleService } from '../../../@core/utils/ripple.service'
 import { NbAuthService, NbAuthSimpleToken } from '@nebular/auth'
 import { User } from '../../../auth/models/user.model'
-import { UserService } from '../../../auth/user.service'
+import { UserService } from '../../../auth/services/user.service'
 import { GlobalAction } from '../../../action-abstract'
 import { SessionStorageService } from '../../../services/session-storage.service'
 import { CompanyService } from '../../../pages/company/company.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'ngx-header',
@@ -52,19 +53,20 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>()
 
   public constructor(
-    private sidebarService: NbSidebarService,
-    private menuService: NbMenuService,
-    private themeService: NbThemeService,
+    private nbSidebarService: NbSidebarService,
+    private nbMenuService: NbMenuService,
+    private nbThemeService: NbThemeService,
     private layoutService: LayoutService,
-    private breakpointService: NbMediaBreakpointsService,
+    private nbBreakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
-    private authService: NbAuthService,
+    private nbAuthService: NbAuthService,
     private userService: UserService,
     private sessionStorageService: SessionStorageService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private router: Router
   ) {
     super()
-    this.materialTheme$ = this.themeService.onThemeChange()
+    this.materialTheme$ = this.nbThemeService.onThemeChange()
     .pipe(map(theme => {
       const themeName: string = theme?.name || ''
       return themeName.startsWith('material')
@@ -75,10 +77,12 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
       this.sessionStorageService.setSelectedCompany(company)
     })
 
-    const tokenSubscription = this.authService.onTokenChange().subscribe((token: NbAuthSimpleToken) => {
-      if (token.isValid()) {
+    const tokenSubscription = this.nbAuthService.onTokenChange().subscribe((token: NbAuthSimpleToken) => {
+      if (!token.isValid()) {
         this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
+      } else {
+        this.router.navigateByUrl('auth/logout')
       }
     })
 
@@ -88,17 +92,17 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.currentTheme = this.themeService.currentTheme
+    this.currentTheme = this.nbThemeService.currentTheme
 
-    const { xl } = this.breakpointService.getBreakpointsMap()
-    this.themeService.onMediaQueryChange()
+    const { xl } = this.nbBreakpointService.getBreakpointsMap()
+    this.nbThemeService.onMediaQueryChange()
     .pipe(
       map(([ , currentBreakpoint ]) => currentBreakpoint.width < xl),
       takeUntil(this.destroy$)
     )
     .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl)
 
-    this.themeService.onThemeChange()
+    this.nbThemeService.onThemeChange()
     .pipe(
       map(({ name }) => name),
       takeUntil(this.destroy$)
@@ -116,18 +120,18 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
   }
 
   changeTheme(themeName: string) {
-    this.themeService.changeTheme(themeName)
+    this.nbThemeService.changeTheme(themeName)
   }
 
   toggleSidebar(): boolean {
-    this.sidebarService.toggle(true, 'menu-sidebar')
+    this.nbSidebarService.toggle(true, 'menu-sidebar')
     this.layoutService.changeLayoutSize()
 
     return false
   }
 
   navigateHome() {
-    this.menuService.navigateHome()
+    this.nbMenuService.navigateHome()
     return false
   }
 }

@@ -12,7 +12,6 @@ import {
   NbSelectModule,
   NbSpinnerModule
 } from '@nebular/theme'
-import { MemberService } from './member.service'
 import { FormsModule } from '@angular/forms'
 import { NgxMaskModule } from 'ngx-mask'
 

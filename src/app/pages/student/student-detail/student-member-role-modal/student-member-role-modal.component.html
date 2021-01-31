@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary" [ngClass]="'card-modal'">
+<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
   <nb-card-header>
     <nav class="navigation">
       {{ title }}
@@ -16,10 +16,10 @@
   <nb-card-footer>
     <div class="float-right">
       <button
-        class="mx-2"
-        nbButton size="small"
-        status="primary"
-        (click)="changeMemberRole()">
+        (click)="changeMemberRole()"
+        class="mx-2" nbButton
+        size="small"
+        status="primary">
         Salvar
       </button>
       <button (click)="close(false)" class="mx-2" nbButton size="small" status="secondary">Voltar</button>

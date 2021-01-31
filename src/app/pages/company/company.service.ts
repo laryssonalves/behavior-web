@@ -24,12 +24,12 @@ export class CompanyService {
   }
 
   getSelectedCompany() {
-    const selectedCompanyUrl = `${this.companyUrl}selected/`
+    const selectedCompanyUrl = `${ this.companyUrl }selected/`
     this.httpClient.get<Company>(selectedCompanyUrl).subscribe(company => this.nextSelectedCompany = company)
   }
 
   updateCompany(company: Company): Observable<Company> {
-    const url = `${this.companyUrl}${company.id}/`
+    const url = `${ this.companyUrl }${ company.id }/`
     return this.httpClient.put<Company>(url, company)
   }
 }

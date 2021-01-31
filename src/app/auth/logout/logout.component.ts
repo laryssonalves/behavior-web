@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { NbLogoutComponent } from '@nebular/auth'
 
 @Component({
@@ -6,13 +6,23 @@ import { NbLogoutComponent } from '@nebular/auth'
   templateUrl: './logout.component.html',
   styleUrls: [ './logout.component.scss' ]
 })
-export class LogoutComponent extends NbLogoutComponent {
+export class LogoutComponent extends NbLogoutComponent implements OnInit {
+  isTokenInvalid = false
+
+  ngOnInit() {
+    super.ngOnInit()
+  }
+
   logout(strategy: string) {
     this.service.logout(strategy).subscribe(() => {
-      setTimeout(() => {
-        this.service.resetPassword('email')
-        return this.router.navigateByUrl('auth/login')
-      }, this.redirectDelay)
+      this.service.resetPassword('email')
+      this.redirectToLogin()
     })
+  }
+
+  private redirectToLogin() {
+    setTimeout(() => {
+      return this.router.navigateByUrl('auth/login')
+    }, this.redirectDelay)
   }
 }
