@@ -1,1 +1,5 @@
-<p>logout works!</p>
+<div id="logout-container">
+  <nb-icon icon="checkmark-circle-outline" id="logout-icon"></nb-icon>
+  <span *ngIf="!isTokenInvalid" class="logout-message">Logout efetuado com sucesso!</span>
+  <span *ngIf="isTokenInvalid" class="logout-message">Token expirado, efetue o login novamente!</span>
+</div>
