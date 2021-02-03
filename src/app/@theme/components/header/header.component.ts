@@ -78,7 +78,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     })
 
     const tokenSubscription = this.nbAuthService.onTokenChange().subscribe((token: NbAuthSimpleToken) => {
-      if (!token.isValid()) {
+      if (token.isValid()) {
         this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
       } else {

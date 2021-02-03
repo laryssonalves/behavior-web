@@ -7,7 +7,7 @@ export enum RoleChoice {
   CREATOR = 1,
   APPLICATOR = 2,
   ADMIN = 3,
-  ANALYST = 4
+  COORDINATOR = 4
 }
 
 export const roleChoiceList = (): Choice[] => {
@@ -15,7 +15,7 @@ export const roleChoiceList = (): Choice[] => {
     // { value: RoleChoice.CREATOR, name: 'Criador' },
     { value: RoleChoice.APPLICATOR, name: 'Aplicador' },
     { value: RoleChoice.ADMIN, name: 'Admin' },
-    { value: RoleChoice.ANALYST, name: 'Analista' }
+    { value: RoleChoice.COORDINATOR, name: 'Coordenador' }
   ]
 }
 
