@@ -1,0 +1,14 @@
+<nb-card status="warning">
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <div class="question">
+      {{ question }}
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="d-flex justify-content-between">
+      <button nbButton autofocus (click)="cancel()" >Cancelar</button>
+      <button nbButton status="warning" (click)="confirm()" autofocus>Confirmar</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
