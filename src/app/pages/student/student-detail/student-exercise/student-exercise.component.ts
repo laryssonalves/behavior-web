@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core'
 import { GlobalAction } from '../../../../action-abstract'
 import { StudentExercise } from './student-exercise.model'
 import { StudentExerciseService } from './student-exercise.service'
-import { NbDialogService } from '@nebular/theme'
-import { ActivatedRoute } from '@angular/router'
+import { NbDialogService, NbPopoverDirective } from '@nebular/theme'
 import { Student } from '../../student.model'
 import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
+import { StudentExerciseModalFormComponent } from '../student-exercise-modal-form/student-exercise-modal-form.component'
 
 @Component({
   selector: 'ngx-student-exercise',
@@ -14,6 +14,8 @@ import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
 })
 export class StudentExerciseComponent extends GlobalAction implements OnInit {
   @Input() student: Student
+
+  @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
 
   studentExerciseList: StudentExercise[] = []
 
@@ -62,7 +64,21 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
   private openDialogError(error: any) {
     this.nbDialogService.open(
       ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'my-modal' }
+      { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
     )
+  }
+
+  openStudentExerciseForm(studentExercise: StudentExercise) {
+    this.nbDialogService.open(
+      StudentExerciseModalFormComponent,
+      { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
+    )
+  }
+
+  showPopover(event: MouseEvent, i: number) {
+    event.stopPropagation()
+    const popArr = this.popovers.toArray()
+    popArr.find(pop => pop.isShown)?.hide()
+    popArr[i].show()
   }
 }

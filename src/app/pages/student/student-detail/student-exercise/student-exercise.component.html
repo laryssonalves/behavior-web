@@ -1,13 +1,20 @@
 <nb-list [nbSpinner]="showLoading">
-  <nb-list-item *ngFor="let studentExercise of studentExerciseList" [ngClass]="'item-list'">
+  <nb-list-item
+    *ngFor="let studentExercise of studentExerciseList; let i = index"
+    [ngClass]="'item-list item-list__clickable'"
+    (click)="openStudentExerciseForm(studentExercise)">
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex flex-column">
         <span class="item-info">{{ studentExercise.program }}</span>
         <span class="item-info item-info-secondary">{{ studentExercise.applicationTypeDisplay() }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action [nbPopover]="popTemplate" [ngClass]="'item-action'" icon="more-vertical-outline"
-                   title="Mais opcões">
+        <nb-action
+          [nbPopover]="popTemplate"
+          [ngClass]="'item-action'"
+          (click)="showPopover($event, i)"
+          icon="more-vertical-outline"
+          title="Mais opcões">
         </nb-action>
         <ng-template #popTemplate>
           <div class="d-flex flex-column">

@@ -56,7 +56,7 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
   openStudentMemberForm() {
     this.nbDialogService.open(
       StudentMemberModalFormComponent,
-      { context: { student: this.student }, dialogClass: 'my-modal' }
+      { context: { student: this.student }, dialogClass: 'basic-modal' }
     )
   }
 
@@ -64,14 +64,14 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
     const studentExercise = StudentExercise.createFromJSON({ student: this.student })
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
-      { context: { studentExercise: studentExercise }, dialogClass: 'my-modal' }
+      { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
     )
   }
 
   private openDialogError(error: any) {
     this.nbDialogService.open(
       ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'my-modal' }
+      { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
     )
   }
 }

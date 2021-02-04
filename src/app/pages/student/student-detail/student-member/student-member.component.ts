@@ -62,14 +62,14 @@ export class StudentMemberComponent extends GlobalAction implements OnInit {
   openStudentMemberRoleModal(studentMember: StudentMember) {
     this.nbDialogService.open(
       StudentMemberRoleModalComponent,
-      { context: { studentMember: StudentMember.createFromJSON(studentMember) }, dialogClass: 'my-modal' }
+      { context: { studentMember: StudentMember.createFromJSON(studentMember) }, dialogClass: 'basic-modal' }
     )
   }
 
   private openDialogError(error: any) {
     this.nbDialogService.open(
       ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'my-modal' }
+      { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
     )
   }
 }

@@ -7,9 +7,9 @@
   </nb-card-header>
   <nb-list *ngIf="studentList.length; else emptyList">
     <nb-list-item
-      (click)="goToStudentDetails(student)"
       *ngFor="let student of studentList; let i = index"
-      [ngClass]="'item-list item-list__clickable'">
+      [ngClass]="'item-list item-list__clickable'"
+      (click)="goToStudentDetails(student)">
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
           <span class="item-info">{{ student.name }}</span>

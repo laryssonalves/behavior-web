@@ -4,9 +4,9 @@ import {
   NbButtonModule,
   NbCardModule,
   NbIconModule,
-
 } from '@nebular/theme'
 import { ErrorModalComponent } from './error-modal/error-modal'
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component'
 
 @NgModule({
   imports: [
@@ -15,8 +15,7 @@ import { ErrorModalComponent } from './error-modal/error-modal'
     NbButtonModule,
     NbIconModule
   ],
-  declarations: [ ErrorModalComponent ],
-  providers: [],
-  entryComponents: [ ErrorModalComponent ]
+  declarations: [ ErrorModalComponent, ConfirmationModalComponent ],
+  entryComponents: [ ErrorModalComponent, ConfirmationModalComponent ]
 })
 export class ModalsModule {}

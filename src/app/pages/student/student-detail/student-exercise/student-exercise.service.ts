@@ -51,7 +51,7 @@ export class StudentExerciseService {
   }
 
   updateStudentExercise(studentExercise: StudentExercise): Observable<StudentExercise> {
-    const studentExerciseUrl = `${ this.studentUrl }${ studentExercise.student.id }/exercise/${studentExercise.id}`
+    const studentExerciseUrl = `${ this.studentUrl }${ studentExercise.student.id }/exercise/${studentExercise.id}/`
 
     return this.httpClient.put<StudentExercise>(studentExerciseUrl, studentExercise.getPayload())
   }
