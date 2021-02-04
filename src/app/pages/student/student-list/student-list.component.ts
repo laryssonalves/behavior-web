@@ -45,14 +45,18 @@ export class StudentListComponent extends GlobalAction implements OnInit {
   }
 
   removeStudent(student: Student) {
-    this.studentService.deleteStudent(student.id)
+    this.modalService.showDialogConfirmation(
+      'Confirmação de exclusão',
+      'Tem certeza que deseja excluir o estudante? Todos os dados sobre o estudante serão perdidos de forma irrerversível.',
+      () => { this.studentService.deleteStudent(student.id) }
+    )
   }
 
   openStudentForm(studentToEdit?: Student) {
     const studentModal = Student.createFromJSON(studentToEdit || new Student())
     this.nbDialogService.open(
       StudentModalFormComponent,
-      { context: { student: studentModal }, dialogClass: 'my-modal' }
+      { context: { student: studentModal }, dialogClass: 'basic-modal' }
     ).onClose.subscribe(success => {
       if (success) {
         this.studentService.refreshStudentList.emit()
@@ -66,7 +70,9 @@ export class StudentListComponent extends GlobalAction implements OnInit {
 
   showPopover(event: MouseEvent, i: number) {
     event.stopPropagation()
-    this.popovers.toArray()[i].show()
+    const popArr = this.popovers.toArray()
+    popArr.find(pop => pop.isShown)?.hide()
+    popArr[i].show()
   }
 
   private async getStudents() {

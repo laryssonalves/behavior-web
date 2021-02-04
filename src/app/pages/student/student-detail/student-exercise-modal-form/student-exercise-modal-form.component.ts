@@ -51,7 +51,12 @@ export class StudentExerciseModalFormComponent implements OnInit {
       this.showLoading = true
       this.studentExercise.errors = null
 
-      await this.studentExerciseService.addStudentExercise(this.studentExercise).toPromise()
+      if (this.studentExercise.id) {
+        await this.studentExerciseService.updateStudentExercise(this.studentExercise).toPromise()
+      } else {
+        await this.studentExerciseService.addStudentExercise(this.studentExercise).toPromise()
+      }
+
       this.studentExerciseService.refreshStudentExerciseList.emit()
 
       this.close(true)
@@ -78,6 +83,7 @@ export class StudentExerciseModalFormComponent implements OnInit {
 
     if (target) {
       const targetExists = this.studentExercise.targets.find(t => t.target === target)
+
       if (!targetExists) {
         const studentExerciseTarget = StudentExerciseTarget.createFromJSON({ target })
         this.studentExercise.targets.push(studentExerciseTarget)

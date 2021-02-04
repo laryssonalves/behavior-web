@@ -54,7 +54,7 @@ export class MemberListComponent extends GlobalAction implements OnInit {
   private openDialogError(error: any) {
     this.nbDialogService.open(
       ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'my-modal' }
+      { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
     )
   }
 }
