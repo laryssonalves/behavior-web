@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core'
 import { PagesComponent } from './pages.component'
 import { CompanyComponent } from './company/company.component'
 
-
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +23,7 @@ const routes: Routes = [
         loadChildren: () => import('./member/member.module').then(m => m.MemberModule)
       },
       {
-        path: 'estudantes',
+        path: 'aprendetes',
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       }
     ]
@@ -32,8 +31,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class PagesRoutingModule {
-}
+export class PagesRoutingModule {}

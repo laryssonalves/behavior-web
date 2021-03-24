@@ -19,9 +19,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/membros'
   },
   {
-    title: 'Estudantes',
+    title: 'Aprendentes',
     icon: 'person-outline',
-    link: '/estudantes'
+    link: '/aprendetes'
   }
   // {
   //   title: 'FEATURES',
