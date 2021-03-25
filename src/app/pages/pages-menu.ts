@@ -21,7 +21,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Aprendentes',
     icon: 'person-outline',
-    link: '/aprendetes'
+    link: '/aprendentes'
   }
   // {
   //   title: 'FEATURES',

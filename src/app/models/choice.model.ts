@@ -7,15 +7,18 @@ export enum RoleChoice {
   CREATOR = 1,
   APPLICATOR = 2,
   ADMIN = 3,
-  COORDINATOR = 4
+  COORDINATOR = 4,
+  SUPERVISOR = 4
 }
+
+export const isAdmin = (role: RoleChoice) => role === RoleChoice.ADMIN
 
 export const roleChoiceList = (): Choice[] => {
   return [
-    // { value: RoleChoice.CREATOR, name: 'Criador' },
     { value: RoleChoice.APPLICATOR, name: 'Aplicador' },
     { value: RoleChoice.ADMIN, name: 'Admin' },
-    { value: RoleChoice.COORDINATOR, name: 'Coordenador' }
+    { value: RoleChoice.COORDINATOR, name: 'Coordenador' },
+    { value: RoleChoice.SUPERVISOR, name: 'Supervisor' }
   ]
 }
 
@@ -25,7 +28,6 @@ export enum GenreChoice {
   GENRE_UNINFORMED = 3,
   GENRE_NOTBINARY = 4
 }
-
 
 export const genreChoiceList = (): Choice[] => {
   return [

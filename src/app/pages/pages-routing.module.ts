@@ -1,6 +1,8 @@
 import { RouterModule, Routes } from '@angular/router'
 import { NgModule } from '@angular/core'
 
+import { AdminGuard } from '../auth/guards/admin.guard'
+
 import { PagesComponent } from './pages.component'
 import { CompanyComponent } from './company/company.component'
 
@@ -11,11 +13,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'empresa',
+        redirectTo: 'aprendentes',
         pathMatch: 'full'
       },
       {
         path: 'empresa',
+        canActivate: [AdminGuard],
         component: CompanyComponent
       },
       {
@@ -23,7 +26,7 @@ const routes: Routes = [
         loadChildren: () => import('./member/member.module').then(m => m.MemberModule)
       },
       {
-        path: 'aprendetes',
+        path: 'aprendentes',
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       }
     ]
