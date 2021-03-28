@@ -6,7 +6,9 @@ import {
   NbCheckboxModule,
   NbIconModule,
   NbInputModule,
-  NbMenuModule, NbSelectModule, NbSpinnerModule,
+  NbMenuModule,
+  NbSelectModule,
+  NbSpinnerModule,
   NbTabsetModule
 } from '@nebular/theme'
 

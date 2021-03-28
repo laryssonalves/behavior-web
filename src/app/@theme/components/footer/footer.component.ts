@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'ngx-footer',
-  styleUrls: ['./footer.component.scss'],
+  styleUrls: [ './footer.component.scss' ],
   template: `
 <!--    <span class="created-by">Created with ♥ by <b><a href="https://akveo.com" target="_blank">Akveo</a></b> 2019</span>-->
 <!--    <div class="socials">-->
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 <!--      <a href="#" target="_blank" class="ion ion-social-twitter"></a>-->
 <!--      <a href="#" target="_blank" class="ion ion-social-linkedin"></a>-->
 <!--    </div>-->
-  `,
+  `
 })
 export class FooterComponent {
 }

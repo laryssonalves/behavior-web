@@ -1,8 +1,9 @@
 <div class="logo-container">
-  <img src="assets/logos/logobeehave01.png" alt="" class="logo-login"/>
+  <img alt="" class="logo-login" src="assets/logos/logobeehave01.png"/>
 </div>
 
-<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert" [ngClass]="'login-alert'">
+<nb-alert *ngIf="showMessages.error && errors?.length && !submitted" [ngClass]="'login-alert'" outline="danger"
+          role="alert">
   <p class="alert-title"><b>Ops! Algo deu errado.</b></p>
   <ul class="alert-message-list">
     <li *ngFor="let error of errors" class="alert-message login-alert-message">{{ error }}</li>

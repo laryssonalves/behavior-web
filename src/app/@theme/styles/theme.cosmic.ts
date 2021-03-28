@@ -1,16 +1,16 @@
-import { COSMIC_THEME as baseTheme, NbJSThemeOptions } from '@nebular/theme';
+import { COSMIC_THEME as baseTheme, NbJSThemeOptions } from '@nebular/theme'
 
-const baseThemeVariables = baseTheme.variables;
+const baseThemeVariables = baseTheme.variables
 
 export const COSMIC_THEME = {
   name: 'cosmic',
   base: 'cosmic',
   variables: {
     temperature: {
-      arcFill: ['#2ec7fe', '#31ffad', '#7bff24', '#fff024', '#f7bd59'],
+      arcFill: [ '#2ec7fe', '#31ffad', '#7bff24', '#fff024', '#f7bd59' ],
       arcEmpty: baseThemeVariables.bg2,
       thumbBg: '#ffffff',
-      thumbBorder: '#ffffff',
+      thumbBorder: '#ffffff'
     },
 
     solar: {
@@ -18,7 +18,7 @@ export const COSMIC_THEME = {
       gradientRight: baseThemeVariables.primary,
       shadowColor: 'rgba(0, 0, 0, 0)',
       secondSeriesFill: baseThemeVariables.bg2,
-      radius: ['70%', '90%'],
+      radius: [ '70%', '90%' ]
     },
 
     traffic: {
@@ -38,7 +38,7 @@ export const COSMIC_THEME = {
       shadowLineDarkBg: baseThemeVariables.border3,
       shadowLineShadow: baseThemeVariables.border3,
       gradFrom: baseThemeVariables.bg,
-      gradTo: baseThemeVariables.bg2,
+      gradTo: baseThemeVariables.bg2
     },
 
     electricity: {
@@ -63,14 +63,14 @@ export const COSMIC_THEME = {
 
       areaGradFrom: baseThemeVariables.bg2,
       areaGradTo: baseThemeVariables.bg3,
-      shadowLineDarkBg: baseThemeVariables.bg3,
+      shadowLineDarkBg: baseThemeVariables.bg3
     },
 
     bubbleMap: {
       titleColor: baseThemeVariables.fgText,
       areaColor: baseThemeVariables.bg4,
       areaHoverColor: baseThemeVariables.fgHighlight,
-      areaBorderColor: baseThemeVariables.border5,
+      areaBorderColor: baseThemeVariables.border5
     },
 
     profitBarAnimationEchart: {
@@ -89,7 +89,7 @@ export const COSMIC_THEME = {
       tooltipBg: baseThemeVariables.bg,
       tooltipBorderColor: baseThemeVariables.border2,
       tooltipBorderWidth: '1',
-      tooltipExtraCss: 'border-radius: 10px; padding: 4px 16px;',
+      tooltipExtraCss: 'border-radius: 10px; padding: 4px 16px;'
     },
 
     trafficBarEchart: {
@@ -105,7 +105,7 @@ export const COSMIC_THEME = {
       tooltipBorderColor: baseThemeVariables.border2,
       tooltipExtraCss: 'border-radius: 10px; padding: 4px 16px;',
       tooltipTextColor: baseThemeVariables.fgText,
-      tooltipFontWeight: 'normal',
+      tooltipFontWeight: 'normal'
     },
 
     countryOrders: {
@@ -126,7 +126,7 @@ export const COSMIC_THEME = {
 
       chartLineBottomShadowColor: baseThemeVariables.primary,
 
-      chartInnerLineColor: baseThemeVariables.bg2,
+      chartInnerLineColor: baseThemeVariables.bg2
     },
 
     echarts: {
@@ -136,12 +136,12 @@ export const COSMIC_THEME = {
       splitLineColor: baseThemeVariables.separator,
       itemHoverShadowColor: 'rgba(0, 0, 0, 0.5)',
       tooltipBackgroundColor: baseThemeVariables.primary,
-      areaOpacity: '1',
+      areaOpacity: '1'
     },
 
     chartjs: {
       axisLineColor: baseThemeVariables.separator,
-      textColor: baseThemeVariables.fgText,
+      textColor: baseThemeVariables.fgText
     },
 
     orders: {
@@ -182,7 +182,7 @@ export const COSMIC_THEME = {
 
       thirdAreaGradFrom: 'rgba(0, 214, 143, 0.7)',
       thirdAreaGradTo: 'rgba(0, 214, 143, 0.4)',
-      thirdShadowLineDarkBg: baseThemeVariables.success,
+      thirdShadowLineDarkBg: baseThemeVariables.success
     },
 
     profit: {
@@ -208,13 +208,13 @@ export const COSMIC_THEME = {
       // third bar
       thirdLineGradFrom: baseThemeVariables.success,
       thirdLineGradTo: baseThemeVariables.successLight,
-      thirdLineShadow: 'rgba(0, 0, 0, 0)',
+      thirdLineShadow: 'rgba(0, 0, 0, 0)'
     },
 
     orderProfitLegend: {
       firstItem: baseThemeVariables.success,
       secondItem: baseThemeVariables.primary,
-      thirdItem: baseThemeVariables.bg2,
+      thirdItem: baseThemeVariables.bg2
     },
 
     visitors: {
@@ -246,36 +246,36 @@ export const COSMIC_THEME = {
       innerLineWidth: '1',
 
       innerAreaGradFrom: baseThemeVariables.success,
-      innerAreaGradTo: baseThemeVariables.success,
+      innerAreaGradTo: baseThemeVariables.success
     },
 
     visitorsLegend: {
       firstIcon: baseThemeVariables.success,
-      secondIcon: baseThemeVariables.primary,
+      secondIcon: baseThemeVariables.primary
     },
 
     visitorsPie: {
       firstPieGradientLeft: baseThemeVariables.success,
       firstPieGradientRight: baseThemeVariables.successLight,
       firstPieShadowColor: 'rgba(0, 0, 0, 0)',
-      firstPieRadius: ['70%', '90%'],
+      firstPieRadius: [ '70%', '90%' ],
 
       secondPieGradientLeft: baseThemeVariables.warning,
       secondPieGradientRight: baseThemeVariables.warningLight,
       secondPieShadowColor: 'rgba(0, 0, 0, 0)',
-      secondPieRadius: ['60%', '95%'],
+      secondPieRadius: [ '60%', '95%' ],
       shadowOffsetX: '0',
-      shadowOffsetY: '3',
+      shadowOffsetY: '3'
     },
 
     visitorsPieLegend: {
       firstSection: baseThemeVariables.warning,
-      secondSection: baseThemeVariables.success,
+      secondSection: baseThemeVariables.success
     },
 
     earningPie: {
-      radius: ['65%', '100%'],
-      center: ['50%', '50%'],
+      radius: [ '65%', '100%' ],
+      center: [ '50%', '50%' ],
 
       fontSize: '22',
 
@@ -289,7 +289,7 @@ export const COSMIC_THEME = {
 
       thirdPieGradientLeft: baseThemeVariables.warning,
       thirdPieGradientRight: baseThemeVariables.warning,
-      thirdPieShadowColor: 'rgba(0, 0, 0, 0)',
+      thirdPieShadowColor: 'rgba(0, 0, 0, 0)'
     },
 
     earningLine: {
@@ -302,7 +302,7 @@ export const COSMIC_THEME = {
       tooltipBg: baseThemeVariables.bg,
       tooltipBorderColor: baseThemeVariables.border2,
       tooltipBorderWidth: '1',
-      tooltipExtraCss: 'border-radius: 10px; padding: 4px 16px;',
-    },
-  },
-} as NbJSThemeOptions;
+      tooltipExtraCss: 'border-radius: 10px; padding: 4px 16px;'
+    }
+  }
+} as NbJSThemeOptions

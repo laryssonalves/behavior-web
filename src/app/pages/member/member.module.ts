@@ -7,7 +7,9 @@ import {
   NbCardModule,
   NbIconModule,
   NbInputModule,
-  NbListModule, NbPopoverModule, NbSelectModule,
+  NbListModule,
+  NbPopoverModule,
+  NbSelectModule,
   NbSpinnerModule
 } from '@nebular/theme'
 import { FormsModule } from '@angular/forms'

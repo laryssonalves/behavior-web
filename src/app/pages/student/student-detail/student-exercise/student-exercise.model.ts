@@ -30,6 +30,10 @@ export class StudentExercise extends CoreModel {
 
   errors: StudentExerciseValidationError
 
+  static createFromJSON(data): StudentExercise {
+    return Object.assign(new StudentExercise(), data)
+  }
+
   applicationTypeDisplay(): string {
     return applicationTypeChoiceList().find(appType => this.application_type === appType.value).name
   }
@@ -38,11 +42,7 @@ export class StudentExercise extends CoreModel {
     return applicationTypeChoiceList().find(helpType => this.help_type === helpType.value).name
   }
 
-  static createFromJSON(data): StudentExercise {
-    return Object.assign(new StudentExercise(), data)
-  }
-
-  getPayload() {
+  getPayload(): Object {
     return {
       id: this.id,
       student: this.student,

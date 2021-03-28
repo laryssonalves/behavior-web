@@ -20,12 +20,24 @@ export class MemberListComponent extends GlobalAction implements OnInit {
     super()
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(loading: boolean) {
+    this.loading = loading
+  }
+
   async ngOnInit(): Promise<void> {
     await this.getMembers()
 
     const refreshList = this.memberService.refreshMemberList.subscribe(async () => { await this.getMembers() })
 
     this.subscription.add(refreshList)
+  }
+
+  removeMember(member: Member) {
+    this.memberService.deleteMember(member.id)
   }
 
   private async getMembers() {
@@ -37,18 +49,6 @@ export class MemberListComponent extends GlobalAction implements OnInit {
     } finally {
       this.showLoading = false
     }
-  }
-
-  removeMember(member: Member) {
-    this.memberService.deleteMember(member.id)
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
   }
 
   private openDialogError(error: any) {

@@ -11,8 +11,8 @@ import { environment } from "../../../environments/environment";
   providedIn: "root",
 })
 export class StudentService {
-  private studentUrl = `${environment.apiUrl}student/`;
-  public refreshStudentList = new EventEmitter();
+  public refreshStudentList = new EventEmitter()
+  private studentUrl = `${ environment.apiUrl }student/`
 
   constructor(
     private httpClient: HttpClient,

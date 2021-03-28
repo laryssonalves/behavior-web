@@ -16,8 +16,8 @@ import { StudentExerciseModalFormComponent } from './student-exercise-modal-form
   styleUrls: [ './student-detail.component.scss' ]
 })
 export class StudentDetailComponent extends GlobalAction implements OnInit {
-  private loading = false
   student: Student
+  private loading = false
 
   constructor(
     private studentService: StudentService,
@@ -28,29 +28,20 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
     super()
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.getStudent()
-  }
-
-  private async getStudent() {
-    try {
-      const studentId = this.route.snapshot.paramMap.get('id')
-      this.student = await this.studentService.getStudent(studentId).toPromise()
-    } catch (e) {
-      this.openDialogError(e)
-    }
-  }
-
-  goBack() {
-    this.location.back()
-  }
-
   get showLoading(): boolean {
     return this.loading
   }
 
   set showLoading(saving: boolean) {
     this.loading = saving
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.getStudent()
+  }
+
+  goBack() {
+    this.location.back()
   }
 
   openStudentMemberForm() {
@@ -66,6 +57,15 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
       StudentExerciseModalFormComponent,
       { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
     )
+  }
+
+  private async getStudent() {
+    try {
+      const studentId = this.route.snapshot.paramMap.get('id')
+      this.student = await this.studentService.getStudent(studentId).toPromise()
+    } catch (e) {
+      this.openDialogError(e)
+    }
   }
 
   private openDialogError(error: any) {

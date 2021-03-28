@@ -7,12 +7,12 @@ export class Member extends CorePerson {
 
   errors: MemberValidationError
 
-  roleDisplay(): string {
-    return roleChoiceList().find(role => this.role === role.value).name
-  }
-
   static createFromJSON(data): Member {
     return Object.assign(new Member(), data)
+  }
+
+  roleDisplay(): string {
+    return roleChoiceList().find(role => this.role === role.value).name
   }
 }
 

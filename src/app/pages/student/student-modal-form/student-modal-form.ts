@@ -3,9 +3,6 @@ import { NbDialogRef, NbToastrService } from "@nebular/theme";
 import { Student } from "../student.model";
 import { StudentService } from "../student.service";
 import { SessionStorageService } from "../../../services/session-storage.service";
-import { Location } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
-import { masks } from "../../../constants";
 import { genreChoiceList } from "../../../models/choice.model";
 
 @Component({

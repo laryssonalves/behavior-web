@@ -35,6 +35,14 @@ export class CompanyComponent extends GlobalAction implements OnInit {
     this.companyService.getSelectedCompany()
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
+
   ngOnInit(): void {}
 
   async updateCompany() {
@@ -59,13 +67,5 @@ export class CompanyComponent extends GlobalAction implements OnInit {
     this.company = Company.createFromJSON({ ...this.company, ...cepResult })
 
     this.showLoading = false
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
   }
 }

@@ -36,6 +36,14 @@ export class MemberFormComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
+
   async ngOnInit() {
     await this.getMember()
   }
@@ -83,12 +91,8 @@ export class MemberFormComponent implements OnInit {
     this.showLoading = false
   }
 
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
+  goBack() {
+    this.location.back()
   }
 
   private showToastr(success: boolean) {
@@ -100,10 +104,6 @@ export class MemberFormComponent implements OnInit {
         'Há campos inválidos no formulário'
       )
     }
-  }
-
-  goBack() {
-    this.location.back()
   }
 
 
