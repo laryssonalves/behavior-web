@@ -5,8 +5,7 @@ import { tap } from 'rxjs/operators'
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private nbAuthService: NbAuthService) {
-  }
+  constructor(private router: Router, private nbAuthService: NbAuthService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.nbAuthService.isAuthenticated().pipe(

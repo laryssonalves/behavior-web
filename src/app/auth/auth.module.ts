@@ -6,14 +6,14 @@ import {
   NbAlertModule,
   NbButtonModule,
   NbCardModule,
-  NbCheckboxModule, NbIconModule,
+  NbCheckboxModule,
+  NbIconModule,
   NbInputModule,
   NbLayoutModule
 } from '@nebular/theme'
 
 import { AuthRoutingModule, routedComponents } from './auth-routing.module'
-import { AuthGuard } from './auth.guard'
-
+// import { AuthGuard } from './auth.guard'
 
 @NgModule({
   imports: [
@@ -31,8 +31,7 @@ import { AuthGuard } from './auth.guard'
     ReactiveFormsModule,
     NbIconModule
   ],
-  declarations: [ ...routedComponents ],
-  providers: [ AuthGuard ]
+  declarations: [...routedComponents]
+  // providers: [ AuthGuard ]
 })
-export class AuthModule {
-}
+export class AuthModule {}

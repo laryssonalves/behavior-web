@@ -1,19 +1,26 @@
 <nb-card [nbSpinner]="showLoading">
   <nb-card-header class="card-header-action">
-    <span>Estudantes</span>
+    <span>Aprendentes</span>
     <nb-actions size="small">
-      <nb-action (click)="openStudentForm()" [ngClass]="'header-action'" icon="plus-circle-outline"></nb-action>
+      <nb-action
+        (click)="openStudentForm()"
+        [ngClass]="'header-action'"
+        icon="plus-circle-outline"
+      ></nb-action>
     </nb-actions>
   </nb-card-header>
   <nb-list *ngIf="studentList.length; else emptyList">
     <nb-list-item
       *ngFor="let student of studentList; let i = index"
       [ngClass]="'item-list item-list__clickable'"
-      (click)="goToStudentDetails(student)">
+      (click)="goToStudentDetails(student)"
+    >
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
           <span class="item-info">{{ student.name }}</span>
-          <span class="item-info item-info-secondary">{{ student.age }} anos</span>
+          <span class="item-info item-info-secondary"
+            >{{ student.age }} anos</span
+          >
         </div>
         <nb-actions size="small">
           <nb-action
@@ -21,16 +28,34 @@
             [nbPopover]="popTemplate"
             [ngClass]="'item-action'"
             icon="more-vertical-outline"
-            title="Mais opcões">
+            title="Mais opcões"
+          >
           </nb-action>
           <ng-template #popTemplate>
             <div class="d-flex flex-column">
-              <button [ngClass]="'btn-list-action'" nbButton routerLink="detalhes/{{ student.id }}" size="small">
+              <button
+                [ngClass]="'btn-list-action'"
+                nbButton
+                routerLink="detalhes/{{ student.id }}"
+                size="small"
+              >
                 Detalhes
               </button>
-              <button (click)="openStudentForm(student)" [ngClass]="'btn-list-action'" nbButton size="small">Alterar
+              <button
+                (click)="openStudentForm(student)"
+                [ngClass]="'btn-list-action'"
+                nbButton
+                size="small"
+              >
+                Alterar
               </button>
-              <button (click)="removeStudent(student)" [ngClass]="'btn-list-action'" nbButton size="small">Excluir
+              <button
+                (click)="removeStudent(student)"
+                [ngClass]="'btn-list-action'"
+                nbButton
+                size="small"
+              >
+                Excluir
               </button>
             </div>
           </ng-template>
@@ -39,8 +64,6 @@
     </nb-list-item>
   </nb-list>
   <ng-template #emptyList>
-    <nb-card-body>
-      Não existe membros cadastrados!
-    </nb-card-body>
+    <nb-card-body> Não existe membros cadastrados! </nb-card-body>
   </ng-template>
 </nb-card>

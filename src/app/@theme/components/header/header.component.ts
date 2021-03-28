@@ -14,11 +14,10 @@ import { Router } from '@angular/router'
 
 @Component({
   selector: 'ngx-header',
-  styleUrls: [ './header.component.scss' ],
+  styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html'
 })
 export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
-
   public readonly materialTheme$: Observable<boolean>
   userPictureOnly: boolean = false
   user: User
@@ -49,7 +48,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     }
   ]
   currentTheme = 'default'
-  userMenu = [ { title: 'Profile' }, { title: 'Log out', link: 'auth/logout' } ]
+  userMenu = [{ title: 'Profile' }, { title: 'Log out', link: 'auth/logout' }]
   private destroy$: Subject<void> = new Subject<void>()
 
   public constructor(
@@ -66,13 +65,14 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     private router: Router
   ) {
     super()
-    this.materialTheme$ = this.nbThemeService.onThemeChange()
-    .pipe(map(theme => {
-      const themeName: string = theme?.name || ''
-      return themeName.startsWith('material')
-    }))
+    this.materialTheme$ = this.nbThemeService.onThemeChange().pipe(
+      map(theme => {
+        const themeName: string = theme?.name || ''
+        return themeName.startsWith('material')
+      })
+    )
 
-    const userSubscription = this.userService.userSubject.subscribe(user => this.user = user)
+    const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
     const companySubscription = this.companyService.selectedCompanySubject.subscribe(company => {
       this.sessionStorageService.setSelectedCompany(company)
     })
@@ -86,7 +86,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
       }
     })
 
-    const subsArr = [ tokenSubscription, userSubscription, companySubscription ]
+    const subsArr = [tokenSubscription, userSubscription, companySubscription]
 
     subsArr.forEach(sub => this.subscription.add(sub))
   }
@@ -95,22 +95,24 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     this.currentTheme = this.nbThemeService.currentTheme
 
     const { xl } = this.nbBreakpointService.getBreakpointsMap()
-    this.nbThemeService.onMediaQueryChange()
-    .pipe(
-      map(([ , currentBreakpoint ]) => currentBreakpoint.width < xl),
-      takeUntil(this.destroy$)
-    )
-    .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl)
+    this.nbThemeService
+      .onMediaQueryChange()
+      .pipe(
+        map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl))
 
-    this.nbThemeService.onThemeChange()
-    .pipe(
-      map(({ name }) => name),
-      takeUntil(this.destroy$)
-    )
-    .subscribe(themeName => {
-      this.currentTheme = themeName
-      this.rippleService.toggle(themeName?.startsWith('material'))
-    })
+    this.nbThemeService
+      .onThemeChange()
+      .pipe(
+        map(({ name }) => name),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(themeName => {
+        this.currentTheme = themeName
+        this.rippleService.toggle(themeName?.startsWith('material'))
+      })
   }
 
   ngOnDestroy() {

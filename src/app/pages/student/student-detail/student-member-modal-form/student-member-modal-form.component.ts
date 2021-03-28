@@ -8,7 +8,7 @@ import { Member } from '../../../member/member.model'
 @Component({
   selector: 'ngx-student-member-modal-form',
   templateUrl: './student-member-modal-form.component.html',
-  styleUrls: [ './student-member-modal-form.component.scss' ]
+  styleUrls: ['./student-member-modal-form.component.scss']
 })
 export class StudentMemberModalFormComponent implements OnInit {
   title = 'Adicionar membro'
@@ -27,16 +27,24 @@ export class StudentMemberModalFormComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
-  }
-
   async ngOnInit() {
     await this.getMemberList()
+  }
+
+  private async getMemberList() {
+    try {
+      this.showLoading = true
+      this.memberList = await this.memberService.getMembersAvailable(this.student.id).toPromise()
+
+      if (!this.memberList.length) {
+        this.nbToastrService.info(null, 'Todos os membros possíveis já foram adicionados')
+        this.close(false)
+      }
+    } catch (e) {
+      this.nbToastrService.danger(null, 'Erro ao tentar buscar membros disponíveis')
+    } finally {
+      this.showLoading = false
+    }
   }
 
   async saveStudentMembers() {
@@ -63,31 +71,23 @@ export class StudentMemberModalFormComponent implements OnInit {
     }
   }
 
+  get showLoading(): boolean {
+    return this.loading
+  }
+
+  set showLoading(saving: boolean) {
+    this.loading = saving
+  }
+
   close(success: boolean) {
     this.ref.close(success)
   }
 
-  private async getMemberList() {
-    try {
-      this.showLoading = true
-      this.memberList = await this.memberService.getMembersAvailable(this.student.id).toPromise()
-
-      if (!this.memberList.length) {
-        this.nbToastrService.info(null, 'Todos os membros possíveis já foram adicionados')
-        this.close(false)
-      }
-    } catch (e) {
-      this.nbToastrService.danger(null, 'Erro ao tentar buscar membros disponíveis')
-    } finally {
-      this.showLoading = false
-    }
-  }
-
   private showToastr(success: boolean, error: string) {
     if (success) {
-      this.nbToastrService.success(null, 'Membro vinculado a estudante com sucesso')
+      this.nbToastrService.success(null, 'Membro vinculado a aprendente com sucesso')
     } else {
-      this.nbToastrService.warning(error, 'Erro ao tentar vincular membro ao estudante')
+      this.nbToastrService.warning(error, 'Erro ao tentar vincular membro ao aprendente')
     }
   }
 }

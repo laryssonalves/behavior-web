@@ -10,7 +10,7 @@ import { Router } from '@angular/router'
 @Component({
   selector: 'ngx-student-list',
   templateUrl: './student-list.component.html',
-  styleUrls: [ './student-list.component.scss' ]
+  styleUrls: ['./student-list.component.scss']
 })
 export class StudentListComponent extends GlobalAction implements OnInit {
   @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
@@ -39,7 +39,9 @@ export class StudentListComponent extends GlobalAction implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getStudents()
 
-    const refreshList = this.studentService.refreshStudentList.subscribe(async () => { await this.getStudents() })
+    const refreshList = this.studentService.refreshStudentList.subscribe(async () => {
+      await this.getStudents()
+    })
 
     this.subscription.add(refreshList)
   }
@@ -47,25 +49,29 @@ export class StudentListComponent extends GlobalAction implements OnInit {
   removeStudent(student: Student) {
     this.modalService.showDialogConfirmation(
       'Confirmação de exclusão',
-      'Tem certeza que deseja excluir o estudante? Todos os dados sobre o estudante serão perdidos de forma irrerversível.',
-      () => { this.studentService.deleteStudent(student.id) }
+      'Tem certeza que deseja excluir o aprendente? Todos os dados sobre o aprendente serão perdidos de forma irrerversível.',
+      () => {
+        this.studentService.deleteStudent(student.id)
+      }
     )
   }
 
   openStudentForm(studentToEdit?: Student) {
     const studentModal = Student.createFromJSON(studentToEdit || new Student())
-    this.nbDialogService.open(
-      StudentModalFormComponent,
-      { context: { student: studentModal }, dialogClass: 'basic-modal' }
-    ).onClose.subscribe(success => {
-      if (success) {
-        this.studentService.refreshStudentList.emit()
-      }
-    })
+    this.nbDialogService
+      .open(StudentModalFormComponent, {
+        context: { student: studentModal },
+        dialogClass: 'basic-modal'
+      })
+      .onClose.subscribe(success => {
+        if (success) {
+          this.studentService.refreshStudentList.emit()
+        }
+      })
   }
 
   goToStudentDetails(student: Student) {
-    this.router.navigateByUrl(`estudantes/detalhes/${ student.id }`)
+    this.router.navigateByUrl(`aprendentes/detalhes/${student.id}`)
   }
 
   showPopover(event: MouseEvent, i: number) {
