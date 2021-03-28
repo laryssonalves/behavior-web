@@ -15,10 +15,10 @@ export const isAdmin = (role: RoleChoice) => role === RoleChoice.ADMIN
 
 export const roleChoiceList = (): Choice[] => {
   return [
-    { value: RoleChoice.APPLICATOR, name: 'Aplicador' },
+    { value: RoleChoice.APPLICATOR, name: 'Aplicadora(dor)' },
     { value: RoleChoice.ADMIN, name: 'Admin' },
-    { value: RoleChoice.COORDINATOR, name: 'Coordenador' },
-    { value: RoleChoice.SUPERVISOR, name: 'Supervisor' }
+    { value: RoleChoice.COORDINATOR, name: 'Coordenadora(dor)' },
+    { value: RoleChoice.SUPERVISOR, name: 'Supervisora(sor)' }
   ]
 }
 
