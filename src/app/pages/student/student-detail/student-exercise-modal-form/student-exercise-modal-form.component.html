@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
+<nb-card [nbSpinner]="isLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
   <nb-card-header>
     <nav class="navigation">
       {{ title }}
@@ -17,7 +17,8 @@
             id="program"
             name="program"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="studentExercise.errors?.program">
             <p *ngFor="let message of studentExercise.errors?.program" class="error-message">{{ message }}</p>
           </ng-container>
@@ -32,9 +33,11 @@
             fullWidth
             id="application_type"
             placeholder="Selecione"
-            size="small">
-            <nb-option *ngFor="let appType of applicationTypeChoices"
-                       [value]="appType.value">{{ appType.name }}</nb-option>
+            size="small"
+          >
+            <nb-option *ngFor="let appType of applicationTypeChoices" [value]="appType.value">{{
+              appType.name
+            }}</nb-option>
           </nb-select>
           <ng-container *ngIf="studentExercise.errors?.application_type">
             <p *ngFor="let message of studentExercise.errors?.application_type" class="error-message">{{ message }}</p>
@@ -50,7 +53,8 @@
             fullWidth
             id="help_type"
             placeholder="Selecione"
-            size="small">
+            size="small"
+          >
             <nb-option *ngFor="let helpType of helpTypeChoices" [value]="helpType.value">{{ helpType.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="studentExercise.errors?.help_type">
@@ -70,7 +74,8 @@
             id="total_attempts"
             name="total_attempts"
             nbInput
-            type="number">
+            type="number"
+          />
           <ng-container *ngIf="studentExercise.errors?.total_attempts">
             <p *ngFor="let message of studentExercise.errors?.total_attempts" class="error-message">{{ message }}</p>
           </ng-container>
@@ -88,10 +93,19 @@
                 fullWidth
                 name="target{{ i }}"
                 nbInput
-                type="text">
+                type="text"
+                [nbSpinner]
+              />
               <button
-                (click)="removeTarget(i)" ghost nbButton nbSuffix
-                size="small">
+                (click)="removeTarget(i)"
+                ghost
+                nbButton
+                nbSuffix
+                size="small"
+                [nbSpinner]="isDeletingTarget && i === targetDeletingIndex"
+                [disabled]="isDeletingTarget && i === targetDeletingIndex"
+                nbSpinnerSize="tiny"
+              >
                 <nb-icon icon="trash-outline" pack="eva"></nb-icon>
               </button>
             </nb-form-field>
@@ -108,10 +122,9 @@
               id="targets"
               name="targets"
               nbInput
-              type="text">
-            <button
-              (click)="addTarget(inputTarget)" ghost nbButton nbSuffix
-              size="small">
+              type="text"
+            />
+            <button (click)="addTarget(inputTarget)" ghost nbButton nbSuffix size="small">
               <nb-icon icon="plus-circle-outline" pack="eva"></nb-icon>
             </button>
           </nb-form-field>
@@ -131,13 +144,13 @@
             id="procedure"
             name="procedure"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="studentExercise.errors?.procedure">
             <p *ngFor="let message of studentExercise.errors?.procedure" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>
-
     </div>
   </nb-card-body>
   <nb-card-footer>
@@ -147,4 +160,3 @@
     </div>
   </nb-card-footer>
 </nb-card>
-

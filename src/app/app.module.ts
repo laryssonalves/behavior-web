@@ -25,7 +25,7 @@ import { NbMomentDateModule } from '@nebular/moment'
 registerLocaleData(localePt)
 
 @NgModule({
-  declarations: [ AppComponent ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -42,12 +42,11 @@ registerLocaleData(localePt)
     ModalsModule,
     NbMomentDateModule
   ],
-  bootstrap: [ AppComponent ],
+  bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt' }
   ]
 })
-export class AppModule {
-}
+export class AppModule {}

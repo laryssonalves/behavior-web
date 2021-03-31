@@ -28,6 +28,10 @@ const routes: Routes = [
       {
         path: 'aprendentes',
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
       }
     ]
   }

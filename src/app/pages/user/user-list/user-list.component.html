@@ -1,23 +1,24 @@
-<nb-card [nbSpinner]="showLoading">
+<nb-card [nbSpinner]="isLoading">
   <nb-card-header class="card-header-action">
-    <span>Membros</span>
+    <span>Usuários</span>
     <nb-actions size="small">
       <nb-action [ngClass]="'header-action'" icon="plus-circle-outline" link="formulario/"></nb-action>
     </nb-actions>
   </nb-card-header>
-  <nb-list *ngIf="memberList.length; else emptyList">
+  <nb-list *ngIf="userList.length; else emptyList">
     <nb-list-item
-      *ngFor="let member of memberList"
+      *ngFor="let user of userList; let i = index"
       [ngClass]="'item-list item-list__clickable'"
-      (click)="goToMemberForm(member)"
+      (click)="goToUserForm(user)"
     >
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
-          <span class="item-info">{{ member.name }}</span>
-          <span class="item-info item-info-secondary">{{ member.roleDisplay() }}</span>
+          <span class="item-info">{{ user.name }}</span>
+          <span class="item-info item-info-secondary">{{ user.email }}</span>
         </div>
         <nb-actions size="small">
           <nb-action
+            (click)="showPopover($event, i)"
             [nbPopover]="popTemplate"
             [ngClass]="'item-action'"
             icon="more-vertical-outline"
@@ -26,12 +27,10 @@
           </nb-action>
           <ng-template #popTemplate>
             <div class="d-flex flex-column">
-              <button [ngClass]="'btn-list-action'" nbButton routerLink="formulario/{{ member.id }}" size="small">
+              <button [ngClass]="'btn-list-action'" nbButton routerLink="formulario/{{ user.id }}" size="small">
                 Alterar
               </button>
-              <button (click)="removeMember(member)" [ngClass]="'btn-list-action'" nbButton size="small">
-                Excluir
-              </button>
+              <button (click)="removeUser(user)" [ngClass]="'btn-list-action'" nbButton size="small">Excluir</button>
             </div>
           </ng-template>
         </nb-actions>
@@ -39,6 +38,6 @@
     </nb-list-item>
   </nb-list>
   <ng-template #emptyList>
-    <nb-card-body> Não existe membros cadastrados! </nb-card-body>
+    <nb-card-body> Não existe usuários cadastrados! </nb-card-body>
   </ng-template>
 </nb-card>

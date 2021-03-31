@@ -9,7 +9,8 @@ import {
   NbCheckboxModule,
   NbIconModule,
   NbInputModule,
-  NbLayoutModule
+  NbLayoutModule,
+  NbSpinnerModule
 } from '@nebular/theme'
 
 import { AuthRoutingModule, routedComponents } from './auth-routing.module'
@@ -29,7 +30,8 @@ import { AuthRoutingModule, routedComponents } from './auth-routing.module'
     NbCardModule,
     NbLayoutModule,
     ReactiveFormsModule,
-    NbIconModule
+    NbIconModule,
+    NbSpinnerModule
   ],
   declarations: [...routedComponents]
   // providers: [ AuthGuard ]

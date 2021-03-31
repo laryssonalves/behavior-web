@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
-import { User } from '../models/user.model'
+import { User } from './user.model'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../environments/environment'
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,15 @@ export class UserService {
 
   getCurrentUser(): User {
     return this.currentUser
+  }
+
+  getUserList(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.userUrl).pipe(map(users => users.map(user => new User(user))))
+  }
+
+  deleteUser(pk: number): Observable<any> {
+    const userDetailUrl = `${this.userUrl}${pk}/`
+
+    return this.httpClient.delete(userDetailUrl)
   }
 }
