@@ -6,38 +6,42 @@ import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { NbToastrService } from '@nebular/theme'
 import { environment } from '../../../environments/environment'
-
+import { UserService } from '../user/user.service'
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
   public refreshMemberList = new EventEmitter()
-  private memberUrl = `${ environment.apiUrl }member/`
+  private memberUrl = `${environment.apiUrl}member/`
 
-  constructor(private httpClient: HttpClient, private nbToastrService: NbToastrService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private nbToastrService: NbToastrService,
+    private userService: UserService
+  ) {}
 
   getMemberList(): Observable<Member[]> {
-    return this.httpClient.get<Member[]>(this.memberUrl).pipe(
-      map(members => members.map(member => Member.createFromJSON(member)))
-    )
+    return this.httpClient
+      .get<Member[]>(this.memberUrl)
+      .pipe(map(members => members.map(member => Member.createFromJSON(member))))
   }
 
   getMembersAvailable(studentId: number): Observable<Member[]> {
-    const url = `${ this.memberUrl }student-available/`
-    return this.httpClient.post<Member[]>(url, { student: studentId }).pipe(
-      map(members => members.map(member => Member.createFromJSON(member)))
-    )
+    const url = `${this.memberUrl}student-available/`
+    return this.httpClient
+      .post<Member[]>(url, { student: studentId })
+      .pipe(map(members => members.map(member => Member.createFromJSON(member))))
   }
 
   getMember(pk: string | number): Observable<Member> {
-    const memberDetailUrl = `${ this.memberUrl }${ pk }/`
+    const memberDetailUrl = `${this.memberUrl}${pk}/`
 
-    return this.httpClient.get<Member>(memberDetailUrl)
+    return this.httpClient.get<Member>(memberDetailUrl).pipe(map(member => Member.createFromJSON(member)))
   }
 
   deleteMember(pk: string | number) {
-    const memberDetailUrl = `${ this.memberUrl }${ pk }/`
+    const memberDetailUrl = `${this.memberUrl}${pk}/`
 
     this.httpClient.delete(memberDetailUrl).subscribe(
       () => {
@@ -54,9 +58,13 @@ export class MemberService {
     return this.httpClient.post<Member>(this.memberUrl, member)
   }
 
-  updateMember(member: Member): Observable<Member> {
-    const memberDetailUrl = `${ this.memberUrl }${ member.id }/`
+  async updateMember(member: Member): Promise<Member> {
+    const memberDetailUrl = `${this.memberUrl}${member.id}/`
 
-    return this.httpClient.put<Member>(memberDetailUrl, member)
+    const response = await this.httpClient.put<Member>(memberDetailUrl, member).toPromise()
+
+    this.userService.isNeededUpdateCurrentUser(member)
+
+    return response
   }
 }
