@@ -31,6 +31,7 @@ const routes: Routes = [
       },
       {
         path: 'usuarios',
+        canActivate: [AdminGuard],
         loadChildren: () => import('./user/user.module').then(m => m.UserModule)
       }
     ]
