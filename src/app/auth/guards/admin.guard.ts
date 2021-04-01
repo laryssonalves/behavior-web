@@ -9,7 +9,7 @@ export class AdminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const currentUser = this.userService.getCurrentUser()
 
-    if (currentUser.isAdmin()) {
+    if (currentUser?.isAdmin()) {
       return true
     } else {
       this.router.navigateByUrl('aprendentes/')

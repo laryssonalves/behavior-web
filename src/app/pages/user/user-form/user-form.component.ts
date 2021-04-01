@@ -19,6 +19,7 @@ export class UserFormComponent implements OnInit {
   memberList: Member[] = []
   confirmPassword: string
   personId: number
+  formTitle = 'Adicionar usuário'
 
   isLoading = false
 
@@ -45,6 +46,7 @@ export class UserFormComponent implements OnInit {
     if (id) {
       this.user = await this.userService.getUser(id).toPromise()
       this.personId = this.user.person?.id
+      this.formTitle = this.user.name
     }
   }
 
@@ -54,7 +56,7 @@ export class UserFormComponent implements OnInit {
       this.user.errors = null
 
       if (this.user.id) {
-        this.user = await this.userService.updateUser(this.user).toPromise()
+        this.user = await this.userService.updateUser(this.user)
       } else {
         this.user = await this.userService.addUser(this.user).toPromise()
       }

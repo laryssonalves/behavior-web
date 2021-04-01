@@ -21,6 +21,7 @@ import { roleChoiceList } from '../../../models/choice.model'
 export class MemberFormComponent implements OnInit {
   member = new Member()
   masks = masks
+  formTitle = 'Adicionar membro'
 
   roleChoices = roleChoiceList()
   stateChoices = brazilStatesChoices()
@@ -53,6 +54,7 @@ export class MemberFormComponent implements OnInit {
 
     if (id) {
       this.member = await this.memberService.getMember(id).toPromise()
+      this.formTitle = this.member.name
     }
 
     const company = this.sessionStorageService.getSelectedCompany()
@@ -65,7 +67,7 @@ export class MemberFormComponent implements OnInit {
       this.member.errors = null
 
       if (this.member.id) {
-        this.member = await this.memberService.updateMember(this.member).toPromise()
+        this.member = await this.memberService.updateMember(this.member)
       } else {
         this.member = await this.memberService.addMember(this.member).toPromise()
       }
