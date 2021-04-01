@@ -16,7 +16,7 @@ import { roleChoiceList } from '../../../models/choice.model'
 @Component({
   selector: 'ngx-member-form',
   templateUrl: './member-form.component.html',
-  styleUrls: [ './member-form.component.scss' ]
+  styleUrls: ['./member-form.component.scss']
 })
 export class MemberFormComponent implements OnInit {
   member = new Member()
@@ -80,7 +80,9 @@ export class MemberFormComponent implements OnInit {
   }
 
   async onCepChange() {
-    if (this.member.postal_code.length < 8) { return }
+    if (this.member.postal_code.length < 8) {
+      return
+    }
 
     this.showLoading = true
 
@@ -99,12 +101,7 @@ export class MemberFormComponent implements OnInit {
     if (success) {
       this.nbToastrService.success(null, 'Membro salvo com sucesso')
     } else {
-      this.nbToastrService.warning(
-        'Por favor, verique os campos do formulário',
-        'Há campos inválidos no formulário'
-      )
+      this.nbToastrService.warning('Por favor, verique os campos do formulário', 'Há campos inválidos no formulário')
     }
   }
-
-
 }

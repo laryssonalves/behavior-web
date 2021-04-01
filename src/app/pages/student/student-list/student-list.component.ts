@@ -86,13 +86,9 @@ export class StudentListComponent extends GlobalAction implements OnInit {
       this.showLoading = true
       this.studentList = await this.studentService.getStudentList().toPromise()
     } catch (e) {
-      this.openDialogError(e)
+      this.modalService.showDialogError(e)
     } finally {
       this.showLoading = false
     }
-  }
-
-  private openDialogError(error: any) {
-    this.modalService.showDialogError(error)
   }
 }

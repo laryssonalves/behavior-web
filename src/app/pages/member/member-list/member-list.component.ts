@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { Member } from '../member.model'
 import { MemberService } from '../member.service'
@@ -9,14 +10,14 @@ import { NbDialogService } from '@nebular/theme/'
 @Component({
   selector: 'ngx-member-list',
   templateUrl: './member-list.component.html',
-  styleUrls: [ './member-list.component.scss' ]
+  styleUrls: ['./member-list.component.scss']
 })
 export class MemberListComponent extends GlobalAction implements OnInit {
   memberList: Member[] = []
 
   private loading = false
 
-  constructor(private memberService: MemberService, private nbDialogService: NbDialogService) {
+  constructor(private router: Router, private memberService: MemberService, private nbDialogService: NbDialogService) {
     super()
   }
 
@@ -31,7 +32,9 @@ export class MemberListComponent extends GlobalAction implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getMembers()
 
-    const refreshList = this.memberService.refreshMemberList.subscribe(async () => { await this.getMembers() })
+    const refreshList = this.memberService.refreshMemberList.subscribe(async () => {
+      await this.getMembers()
+    })
 
     this.subscription.add(refreshList)
   }
@@ -51,10 +54,15 @@ export class MemberListComponent extends GlobalAction implements OnInit {
     }
   }
 
+  goToMemberForm(member: Member) {
+    this.router.navigateByUrl(`membros/formulario/${member.id}`)
+  }
+
   private openDialogError(error: any) {
-    this.nbDialogService.open(
-      ErrorModalComponent,
-      { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
-    )
+    this.nbDialogService.open(ErrorModalComponent, {
+      context: { error: error },
+      hasScroll: true,
+      dialogClass: 'basic-modal'
+    })
   }
 }

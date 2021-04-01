@@ -1,0 +1,10 @@
+.card-header-action {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  padding-left: 1rem;
+
+  .header-action {
+    padding: 0;
+  }
+}

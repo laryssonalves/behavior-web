@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { MemberRoutingModule, routedComponents } from './member-routing.module'
+import { UserRoutingModule, routedComponents } from './user-routing.module'
 import {
   NbActionsModule,
   NbButtonModule,
@@ -13,19 +13,17 @@ import {
   NbSpinnerModule
 } from '@nebular/theme'
 import { FormsModule } from '@angular/forms'
-import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
   imports: [
     CommonModule,
-    MemberRoutingModule,
+    UserRoutingModule,
     NbCardModule,
     NbListModule,
     NbActionsModule,
     FormsModule,
     NbInputModule,
     NbButtonModule,
-    NgxMaskModule,
     NbSpinnerModule,
     NbSelectModule,
     NbIconModule,
@@ -33,4 +31,4 @@ import { NgxMaskModule } from 'ngx-mask'
   ],
   declarations: [...routedComponents]
 })
-export class MemberModule {}
+export class UserModule {}

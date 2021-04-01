@@ -2,11 +2,7 @@
   <nb-card-header class="card-header-action">
     <span>Aprendentes</span>
     <nb-actions size="small">
-      <nb-action
-        (click)="openStudentForm()"
-        [ngClass]="'header-action'"
-        icon="plus-circle-outline"
-      ></nb-action>
+      <nb-action (click)="openStudentForm()" [ngClass]="'header-action'" icon="plus-circle-outline"></nb-action>
     </nb-actions>
   </nb-card-header>
   <nb-list *ngIf="studentList.length; else emptyList">
@@ -18,9 +14,7 @@
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
           <span class="item-info">{{ student.name }}</span>
-          <span class="item-info item-info-secondary"
-            >{{ student.age }} anos</span
-          >
+          <span class="item-info item-info-secondary">{{ student.age }} anos</span>
         </div>
         <nb-actions size="small">
           <nb-action
@@ -33,28 +27,13 @@
           </nb-action>
           <ng-template #popTemplate>
             <div class="d-flex flex-column">
-              <button
-                [ngClass]="'btn-list-action'"
-                nbButton
-                routerLink="detalhes/{{ student.id }}"
-                size="small"
-              >
+              <button [ngClass]="'btn-list-action'" nbButton routerLink="detalhes/{{ student.id }}" size="small">
                 Detalhes
               </button>
-              <button
-                (click)="openStudentForm(student)"
-                [ngClass]="'btn-list-action'"
-                nbButton
-                size="small"
-              >
+              <button (click)="openStudentForm(student)" [ngClass]="'btn-list-action'" nbButton size="small">
                 Alterar
               </button>
-              <button
-                (click)="removeStudent(student)"
-                [ngClass]="'btn-list-action'"
-                nbButton
-                size="small"
-              >
+              <button (click)="removeStudent(student)" [ngClass]="'btn-list-action'" nbButton size="small">
                 Excluir
               </button>
             </div>

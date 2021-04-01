@@ -38,10 +38,6 @@ import { NgxMaskModule } from 'ngx-mask'
     NbSpinnerModule,
     NbSelectModule
   ],
-  declarations: [
-    PagesComponent,
-    CompanyComponent
-  ]
+  declarations: [PagesComponent, CompanyComponent]
 })
-export class PagesModule {
-}
+export class PagesModule {}
