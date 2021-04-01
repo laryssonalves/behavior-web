@@ -1,1 +1,113 @@
-<p>user-form works!</p>
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
+  <nb-card-header>
+    <nav class="navigation">
+      <a (click)="goBack()" aria-label="Back" class="link back-link" href="javascript:void(0);">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a>
+      {{ user.id ? user.name : 'Adicionar usuário' }}
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-row">
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="person">Membro</label>
+          <nb-select
+            [(ngModel)]="personId"
+            (ngModelChange)="onPersonChange()"
+            [status]="user.errors?.person_id ? 'danger' : 'basic'"
+            fullWidth
+            id="person"
+            placeholder="Selecione"
+            size="small"
+          >
+            <nb-option *ngFor="let member of memberList" [value]="member.id">{{ member.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="user.errors?.person_id">
+            <p *ngFor="let message of user.errors?.person_id" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="name">Nome</label>
+          <input
+            [(ngModel)]="user.name"
+            [status]="user.errors?.name ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="name"
+            name="name"
+            nbInput
+            type="text"
+          />
+          <ng-container *ngIf="user.errors?.name">
+            <p *ngFor="let message of user.errors?.name" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="email">Email</label>
+          <input
+            [(ngModel)]="user.email"
+            [status]="user.errors?.email ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="email"
+            name="email"
+            nbInput
+            type="email"
+          />
+          <ng-container *ngIf="user.errors?.email">
+            <p *ngFor="let message of user.errors?.email" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="password">Senha</label>
+          <input
+            [(ngModel)]="user.password"
+            (ngModelChange)="onPasswordChange()"
+            [status]="user.errors?.password?.length ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="password"
+            name="password"
+            nbInput
+            type="password"
+          />
+          <ng-container *ngIf="user.errors?.password">
+            <p *ngFor="let message of user.errors?.password" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="confirm_password">Confirmar Senha</label>
+          <input
+            [(ngModel)]="confirmPassword"
+            (ngModelChange)="onPasswordChange()"
+            [status]="user.errors?.password?.length ? 'danger' : 'basic'"
+            fieldSize="small"
+            fullWidth
+            id="confirm_password"
+            name="confirm_password"
+            nbInput
+            type="password"
+          />
+          <ng-container *ngIf="user.errors?.password">
+            <p *ngFor="let message of user.errors?.password" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="float-right">
+      <button (click)="saveUser()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button (click)="goBack()" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

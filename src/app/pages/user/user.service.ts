@@ -37,9 +37,25 @@ export class UserService {
     return this.httpClient.get<User[]>(this.userUrl).pipe(map(users => users.map(user => new User(user))))
   }
 
+  getUser(pk: number | string): Observable<User> {
+    const userDetailUrl = `${this.userUrl}${pk}/`
+
+    return this.httpClient.get<User>(userDetailUrl).pipe(map(user => new User(user)))
+  }
+
   deleteUser(pk: number): Observable<any> {
     const userDetailUrl = `${this.userUrl}${pk}/`
 
     return this.httpClient.delete(userDetailUrl)
+  }
+
+  addUser(user: User): Observable<User> {
+    return this.httpClient.post<User>(this.userUrl, user.getPayload())
+  }
+
+  updateUser(user: User): Observable<User> {
+    const userDetailUrl = `${this.userUrl}${user.id}/`
+
+    return this.httpClient.put<User>(userDetailUrl, user.getPayload())
   }
 }

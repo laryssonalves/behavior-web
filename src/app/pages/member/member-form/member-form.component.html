@@ -3,7 +3,8 @@
     <nav class="navigation">
       <a (click)="goBack()" aria-label="Back" class="link back-link" href="javascript:void(0);">
         <nb-icon icon="arrow-back"></nb-icon>
-      </a> Adicionar membro
+      </a>
+      {{ member.id ? member.name : 'Adicionar membro' }}
     </nav>
   </nb-card-header>
   <nb-card-body>
@@ -20,7 +21,8 @@
             id="document"
             name="document"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.document">
             <p *ngFor="let message of member.errors?.document" class="error-message">{{ message }}</p>
           </ng-container>
@@ -37,7 +39,8 @@
             id="name"
             name="name"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.name">
             <p *ngFor="let message of member.errors?.name" class="error-message">{{ message }}</p>
           </ng-container>
@@ -54,7 +57,8 @@
             id="email"
             name="email"
             nbInput
-            type="email">
+            type="email"
+          />
           <ng-container *ngIf="member.errors?.email">
             <p *ngFor="let message of member.errors?.email" class="error-message">{{ message }}</p>
           </ng-container>
@@ -72,7 +76,8 @@
             id="phone"
             name="phone"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.phone">
             <p *ngFor="let message of member.errors?.phone" class="error-message">{{ message }}</p>
           </ng-container>
@@ -91,7 +96,8 @@
             id="postal_code"
             name="postal_code"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.postal_code">
             <p *ngFor="let message of member.errors?.postal_code" class="error-message">{{ message }}</p>
           </ng-container>
@@ -106,7 +112,8 @@
             fullWidth
             id="state"
             placeholder="Selecione"
-            size="small">
+            size="small"
+          >
             <nb-option *ngFor="let state of stateChoices" [value]="state.value">{{ state.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="member.errors?.state">
@@ -125,7 +132,8 @@
             id="city"
             name="city"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.city">
             <p *ngFor="let message of member.errors?.city" class="error-message">{{ message }}</p>
           </ng-container>
@@ -142,7 +150,8 @@
             id="district"
             name="district"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.district">
             <p *ngFor="let message of member.errors?.district" class="error-message">{{ message }}</p>
           </ng-container>
@@ -159,7 +168,8 @@
             id="street"
             name="street"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.street">
             <p *ngFor="let message of member.errors?.street" class="error-message">{{ message }}</p>
           </ng-container>
@@ -176,7 +186,8 @@
             id="number"
             name="number"
             nbInput
-            type="number">
+            type="number"
+          />
           <ng-container *ngIf="member.errors?.number">
             <p *ngFor="let message of member.errors?.number" class="error-message">{{ message }}</p>
           </ng-container>
@@ -193,7 +204,8 @@
             id="complement"
             name="complement"
             nbInput
-            type="text">
+            type="text"
+          />
           <ng-container *ngIf="member.errors?.complement">
             <p *ngFor="let message of member.errors?.complement" class="error-message">{{ message }}</p>
           </ng-container>
@@ -208,7 +220,8 @@
             fullWidth
             id="role"
             placeholder="Selecione"
-            size="small">
+            size="small"
+          >
             <nb-option *ngFor="let role of roleChoices" [value]="role.value">{{ role.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="member.errors?.role">
@@ -225,4 +238,3 @@
     </div>
   </nb-card-footer>
 </nb-card>
-

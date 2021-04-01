@@ -14,13 +14,18 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true
   },
   {
+    title: 'Usuários',
+    icon: 'person-done-outline',
+    link: '/usuarios'
+  },
+  {
     title: 'Membros',
     icon: 'people-outline',
     link: '/membros'
   },
   {
     title: 'Aprendentes',
-    icon: 'person-outline',
+    icon: 'book-outline',
     link: '/aprendentes'
   }
   // {
