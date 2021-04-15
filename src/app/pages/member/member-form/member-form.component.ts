@@ -12,6 +12,7 @@ import { brazilStatesChoices } from '../../../helpers/brazil-states'
 import { ActivatedRoute } from '@angular/router'
 import { NbToastrService } from '@nebular/theme'
 import { roleChoiceList } from '../../../models/choice.model'
+import { UserService } from '../../user/user.service'
 
 @Component({
   selector: 'ngx-member-form',
@@ -34,7 +35,8 @@ export class MemberFormComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private location: Location,
     private route: ActivatedRoute,
-    private nbToastrService: NbToastrService
+    private nbToastrService: NbToastrService,
+    private userService: UserService
   ) {}
 
   get showLoading(): boolean {
@@ -67,7 +69,8 @@ export class MemberFormComponent implements OnInit {
       this.member.errors = null
 
       if (this.member.id) {
-        this.member = await this.memberService.updateMember(this.member)
+        this.member = await this.memberService.updateMember(this.member).toPromise()
+        this.userService.isNeededUpdateCurrentUser(this.member)
       } else {
         this.member = await this.memberService.addMember(this.member).toPromise()
       }

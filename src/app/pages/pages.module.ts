@@ -18,7 +18,8 @@ import { DashboardModule } from './dashboard/dashboard.module'
 import { PagesRoutingModule } from './pages-routing.module'
 import { CompanyComponent } from './company/company.component'
 import { FormsModule } from '@angular/forms'
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskModule } from 'ngx-mask';
+import { SecurityComponent } from './security/security.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,6 @@ import { NgxMaskModule } from 'ngx-mask'
     NbSpinnerModule,
     NbSelectModule
   ],
-  declarations: [PagesComponent, CompanyComponent]
+  declarations: [PagesComponent, CompanyComponent, SecurityComponent]
 })
 export class PagesModule {}

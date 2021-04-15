@@ -54,22 +54,16 @@ export class UserService {
     return this.httpClient.post<User>(this.userUrl, user.getPayload())
   }
 
-  async updateUser(user: User): Promise<User> {
+  updateUser(user: User): Observable<User> {
     const userDetailUrl = `${this.userUrl}${user.id}/`
-
-    const response = await this.httpClient.put<User>(userDetailUrl, user.getPayload()).toPromise()
-
-    this.isNeededUpdateCurrentUser(user)
-
-    return response
+    
+    return this.httpClient.put<User>(userDetailUrl, user.getPayload())
   }
 
   isNeededUpdateCurrentUser(obj: Member | User) {
-    console.log(obj, this.currentUser)
     const memberCheck = obj instanceof Member && obj.id === this.currentUser.person.id
     const userCheck = obj instanceof User && obj.id === this.currentUser.id
 
-    console.log(memberCheck, userCheck)
     if (memberCheck || userCheck) {
       this.getUserDetails()
     }

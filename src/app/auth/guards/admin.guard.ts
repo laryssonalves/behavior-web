@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { UserService } from '../../pages/user/user.service'
 
 @Injectable({ providedIn: 'root' })
@@ -8,12 +10,12 @@ export class AdminGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const currentUser = this.userService.getCurrentUser()
+    const isAdmin = currentUser?.isAdmin()
 
-    if (currentUser?.isAdmin()) {
-      return true
-    } else {
+    if (!isAdmin) {
       this.router.navigateByUrl('aprendentes/')
-      return false
     }
+
+    return isAdmin
   }
 }

@@ -50,24 +50,27 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  async saveUser() {
+  saveForm() {
     try {
       this.isLoading = true
-      this.user.errors = null
-
-      if (this.user.id) {
-        this.user = await this.userService.updateUser(this.user)
-      } else {
-        this.user = await this.userService.addUser(this.user).toPromise()
-      }
-
+      this.saveUser()
       this.goBack()
     } catch (error) {
       this.user.errors = error.error
-      console.log(error)
     } finally {
       this.isLoading = false
       this.toastService.showFormResponseToast(!this.user.errors, 'Usuário salvo com sucesso')
+    }
+  }
+
+  async saveUser() {
+    this.user.errors = null
+
+    if (this.user.id) {
+      this.user = await this.userService.updateUser(this.user).toPromise()
+      this.userService.isNeededUpdateCurrentUser(this.user)
+    } else {
+      this.user = await this.userService.addUser(this.user).toPromise()
     }
   }
 
