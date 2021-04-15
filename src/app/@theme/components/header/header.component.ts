@@ -5,12 +5,12 @@ import { map, takeUntil } from 'rxjs/operators'
 import { Observable, Subject } from 'rxjs'
 import { RippleService } from '../../../@core/utils/ripple.service'
 import { NbAuthService, NbAuthSimpleToken } from '@nebular/auth'
-import { UserService } from '../../../pages/user/user.service'
+import { UserService } from '../../../pages/security/user/user.service'
 import { GlobalAction } from '../../../action-abstract'
 import { SessionStorageService } from '../../../services/session-storage.service'
 import { CompanyService } from '../../../pages/company/company.service'
 import { Router } from '@angular/router'
-import { User } from '../../../pages/user/user.model'
+import { User } from '../../../pages/security/user/user.model'
 
 @Component({
   selector: 'ngx-header',

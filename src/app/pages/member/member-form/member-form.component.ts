@@ -12,7 +12,7 @@ import { brazilStatesChoices } from '../../../helpers/brazil-states'
 import { ActivatedRoute } from '@angular/router'
 import { NbToastrService } from '@nebular/theme'
 import { roleChoiceList } from '../../../models/choice.model'
-import { UserService } from '../../user/user.service'
+import { UserService } from '../../security/user/user.service'
 
 @Component({
   selector: 'ngx-member-form',

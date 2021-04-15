@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { NbToastrService } from '@nebular/theme'
 import { environment } from '../../../environments/environment'
-import { UserService } from '../user/user.service'
+import { UserService } from '../security/user/user.service'
 
 @Injectable({
   providedIn: 'root'

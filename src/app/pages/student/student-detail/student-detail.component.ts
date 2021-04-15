@@ -17,7 +17,7 @@ import { StudentExerciseModalFormComponent } from './student-exercise-modal-form
 })
 export class StudentDetailComponent extends GlobalAction implements OnInit {
   student: Student
-  private loading = false
+  isLoading = false
 
   constructor(
     private studentService: StudentService,
@@ -26,14 +26,6 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
     private location: Location
   ) {
     super()
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
   }
 
   async ngOnInit(): Promise<void> {
