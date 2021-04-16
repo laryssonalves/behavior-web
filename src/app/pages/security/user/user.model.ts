@@ -1,5 +1,5 @@
-import { isAdmin } from '../../models/choice.model'
-import { Member } from '../../pages/member/member.model'
+import { isAdmin } from '../../../models/choice.model'
+import { Member } from '../../../pages/member/member.model'
 
 export class User {
   id: number

@@ -1,0 +1,22 @@
+.card-header-action {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  padding-left: 1rem;
+
+  .header-action {
+    padding: 0;
+  }
+}
+
+.security-tab {
+  padding: 0 !important;
+}
+
+.card-body-tabs {
+  padding: 0 1rem 1rem;
+
+  .btn-tab-add {
+    margin: 0.5rem 0;
+  }
+}

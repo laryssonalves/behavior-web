@@ -1,5 +1,5 @@
-<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
-  <ng-container *ngIf="!showLoading && student">
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
+  <ng-container *ngIf="!isLoading && student">
     <nb-card-header class="card-header-action">
       <nav class="navigation">
         <a (click)="goBack()" aria-label="Back" class="link back-link" href="javascript:void(0);">
@@ -9,7 +9,9 @@
     </nb-card-header>
     <nb-card-body [ngClass]="'card-body-tabs'">
       <nb-tabset>
-        <nb-tab class="student-tab" tabTitle="Treinos">
+        <nb-tab 
+          class="student-tab" 
+          tabTitle="Treinos" >
           <button
             (click)="openStudentExerciseForm()"
             [ngClass]="'btn-tab-add'"
@@ -24,7 +26,9 @@
             [student]="student"
           ></ngx-student-exercise>
         </nb-tab>
-        <nb-tab class="student-tab" tabTitle="Membros">
+        <nb-tab 
+          class="student-tab" 
+          tabTitle="Membros" >
           <button
             (click)="openStudentMemberForm()" [ngClass]="'btn-tab-add'"
             nbButton

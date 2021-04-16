@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { NbToastrService } from '@nebular/theme'
 import { environment } from '../../../environments/environment'
-import { UserService } from '../user/user.service'
+import { UserService } from '../security/user/user.service'
 
 @Injectable({
   providedIn: 'root'
@@ -58,13 +58,9 @@ export class MemberService {
     return this.httpClient.post<Member>(this.memberUrl, member)
   }
 
-  async updateMember(member: Member): Promise<Member> {
+  updateMember(member: Member): Observable<Member> {
     const memberDetailUrl = `${this.memberUrl}${member.id}/`
 
-    const response = await this.httpClient.put<Member>(memberDetailUrl, member).toPromise()
-
-    this.userService.isNeededUpdateCurrentUser(member)
-
-    return response
+    return this.httpClient.put<Member>(memberDetailUrl, member)
   }
 }

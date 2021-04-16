@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router'
 import { Location } from '@angular/common'
 
 import { UserService } from '../user.service'
-import { ToastService } from '../../../services/toast.service'
+import { ToastService } from '../../../../services/toast.service'
 
 import { User } from '../user.model'
-import { Member } from '../../member/member.model'
-import { MemberService } from '../../member/member.service'
+import { Member } from '../../../member/member.model'
+import { MemberService } from '../../../member/member.service'
 
 @Component({
   selector: 'ngx-user-form',
@@ -28,7 +28,7 @@ export class UserFormComponent implements OnInit {
     private location: Location,
     private userService: UserService,
     private toastService: ToastService,
-    private memberService: MemberService
+    private memberService: MemberService,
   ) {}
 
   async ngOnInit() {
@@ -50,24 +50,27 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  async saveUser() {
+  async saveForm() {
     try {
       this.isLoading = true
-      this.user.errors = null
-
-      if (this.user.id) {
-        this.user = await this.userService.updateUser(this.user)
-      } else {
-        this.user = await this.userService.addUser(this.user).toPromise()
-      }
-
+      await this.saveUser()
       this.goBack()
     } catch (error) {
       this.user.errors = error.error
-      console.log(error)
     } finally {
       this.isLoading = false
       this.toastService.showFormResponseToast(!this.user.errors, 'Usuário salvo com sucesso')
+    }
+  }
+
+  async saveUser() {
+    this.user.errors = null
+
+    if (this.user.id) {
+      this.user = await this.userService.updateUser(this.user).toPromise()
+      this.userService.isNeededUpdateCurrentUser(this.user)
+    } else {
+      this.user = await this.userService.addUser(this.user).toPromise()
     }
   }
 

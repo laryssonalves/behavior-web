@@ -1,11 +1,9 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-
-import { NbDialogService, NbPopoverDirective } from '@nebular/theme'
 
 import { UserService } from '../user.service'
 import { User } from '../user.model'
-import { ModalService } from '../../../modals/modal.service'
+import { ModalService } from '../../../../modals/modal.service'
 
 @Component({
   selector: 'ngx-user-list',
@@ -13,8 +11,6 @@ import { ModalService } from '../../../modals/modal.service'
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
-
   userList: User[] = []
   isLoading = false
 
@@ -35,19 +31,13 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  async removeUser(user: User) {
+  async removeUser(user: User, event?: MouseEvent) {
+    event?.stopPropagation()
     await this.userService.deleteUser(user.id).toPromise()
     await this.getUsers()
   }
 
   goToUserForm(user: User) {
-    this.router.navigateByUrl(`usuarios/formulario/${user.id}`)
-  }
-
-  showPopover(event: MouseEvent, i: number) {
-    event.stopPropagation()
-    const popArr = this.popovers.toArray()
-    popArr.find(pop => pop.isShown)?.hide()
-    popArr[i].show()
+    this.router.navigateByUrl(`seguranca/usuarios/formulario/${user.id}`)
   }
 }

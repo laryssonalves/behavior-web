@@ -1,0 +1,23 @@
+<nb-list *ngIf="groupList.length; else emptyList" [nbSpinner]="isLoading">
+  <nb-list-item
+    *ngFor="let group of groupList; let i = index"
+    [ngClass]="'item-list item-list__clickable'"
+    (click)="goToGroupForm(group)">
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex flex-column">
+        <span class="item-info">{{ group.name }}</span>
+      </div>
+      <nb-actions size="small">
+        <nb-action 
+          icon="trash-outline" 
+          title="Excluir usuário" 
+          (click)="removeGroup(group, $event)"
+          [ngClass]="'item-action item-list-delete'">
+        </nb-action>
+      </nb-actions>
+    </div>
+  </nb-list-item>
+</nb-list>
+<ng-template #emptyList>
+  <div> Não existe grupos cadastrados! </div>
+</ng-template>

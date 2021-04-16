@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
 import { User } from './user.model'
 import { HttpClient } from '@angular/common/http'
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../../environments/environment'
 import { map } from 'rxjs/operators'
-import { Member } from '../member/member.model'
+import { Member } from '../../member/member.model'
 
 @Injectable({
   providedIn: 'root'
@@ -54,22 +54,16 @@ export class UserService {
     return this.httpClient.post<User>(this.userUrl, user.getPayload())
   }
 
-  async updateUser(user: User): Promise<User> {
+  updateUser(user: User): Observable<User> {
     const userDetailUrl = `${this.userUrl}${user.id}/`
-
-    const response = await this.httpClient.put<User>(userDetailUrl, user.getPayload()).toPromise()
-
-    this.isNeededUpdateCurrentUser(user)
-
-    return response
+    
+    return this.httpClient.put<User>(userDetailUrl, user.getPayload())
   }
 
   isNeededUpdateCurrentUser(obj: Member | User) {
-    console.log(obj, this.currentUser)
     const memberCheck = obj instanceof Member && obj.id === this.currentUser.person.id
     const userCheck = obj instanceof User && obj.id === this.currentUser.id
 
-    console.log(memberCheck, userCheck)
     if (memberCheck || userCheck) {
       this.getUserDetails()
     }

@@ -1,0 +1,45 @@
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
+  <ng-container *ngIf="!isLoading">
+    <!-- <nb-card-header class="card-header-action">Segurança</nb-card-header> -->
+    <nb-card-body [ngClass]="'card-body-tabs'">
+      <nb-tabset (changeTab)="onChangeTab($event)">
+        <nb-tab 
+          #nbTabUsers
+          class="security-tab" 
+          tabTitle="Usuários" 
+          tabId="1" 
+          [active]="isTabActive(nbTabUsers.tabId)">
+          <button
+            [ngClass]="'btn-tab-add'"
+            nbButton
+            routerLink='usuarios/formulario/'
+            outline
+            size="small"
+            status="primary">
+            <nb-icon icon="plus"></nb-icon>
+            Adicionar usuário
+          </button>
+          <ngx-user-list></ngx-user-list>
+        </nb-tab>
+        <nb-tab 
+          #nbTabGroups
+          class="security-tab" 
+          tabTitle="Grupos" 
+          tabId="2" 
+          [active]="isTabActive(nbTabGroups.tabId)">
+          <button
+            [ngClass]="'btn-tab-add'"
+            nbButton
+            outline
+            size="small"
+            status="primary">
+            <nb-icon icon="plus"></nb-icon>
+            Adicionar grupo
+          </button>
+          <ngx-group-list></ngx-group-list>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card-body>
+  </ng-container>
+</nb-card>
+  

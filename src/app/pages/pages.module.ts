@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import {
   NbAccordionModule,
+  NbActionsModule,
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
@@ -13,12 +14,10 @@ import {
 } from '@nebular/theme'
 
 import { ThemeModule } from '../@theme/theme.module'
-import { PagesComponent } from './pages.component'
 import { DashboardModule } from './dashboard/dashboard.module'
-import { PagesRoutingModule } from './pages-routing.module'
-import { CompanyComponent } from './company/company.component'
+import { PagesRoutingModule, routedComponents } from './pages-routing.module'
 import { FormsModule } from '@angular/forms'
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
@@ -36,8 +35,9 @@ import { NgxMaskModule } from 'ngx-mask'
     NgxMaskModule.forRoot(),
     NbAccordionModule,
     NbSpinnerModule,
-    NbSelectModule
+    NbSelectModule,
+    NbActionsModule
   ],
-  declarations: [PagesComponent, CompanyComponent]
+  declarations: [...routedComponents]
 })
 export class PagesModule {}

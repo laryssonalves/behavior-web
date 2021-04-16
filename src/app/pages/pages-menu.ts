@@ -1,12 +1,7 @@
 import { NbMenuItem } from '@nebular/theme'
+import { RoleChoice } from '../models/choice.model'
 
 export const MENU_ITEMS: NbMenuItem[] = [
-  // {
-  //   title: 'Dashboard',
-  //   icon: 'home-outline',
-  //   link: '/pages/dashboard',
-  //   home: true,
-  // },
   {
     title: 'Instituição',
     icon: 'home-outline',
@@ -14,9 +9,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true
   },
   {
-    title: 'Usuários',
-    icon: 'person-done-outline',
-    link: '/usuarios'
+    title: 'Segurança',
+    icon: 'shield-outline',
+    link: '/seguranca'
   },
   {
     title: 'Membros',
@@ -28,30 +23,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'book-outline',
     link: '/aprendentes'
   }
-  // {
-  //   title: 'FEATURES',
-  //   group: true,
-  // },
-  // {
-  //   title: 'Auth',
-  //   icon: 'lock-outline',
-  //   children: [
-  //     {
-  //       title: 'Login',
-  //       link: '/auth/login'
-  //     },
-  //     {
-  //       title: 'Register',
-  //       link: '/auth/register'
-  //     },
-  //     {
-  //       title: 'Request Password',
-  //       link: '/auth/request-password'
-  //     },
-  //     {
-  //       title: 'Reset Password',
-  //       link: '/auth/reset-password'
-  //     }
-  //   ]
-  // }
 ]
+
+export function getMenuItemsByRole(role: RoleChoice): NbMenuItem[] {
+  switch (role) {
+    case RoleChoice.APPLICATOR:
+      return MENU_ITEMS.filter(menuItem => menuItem.link === '/aprendentes')
+    default:
+      return MENU_ITEMS
+  }
+}

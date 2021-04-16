@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'aprendentes',
+        redirectTo: 'seguranca',
         pathMatch: 'full'
       },
       {
@@ -26,14 +26,19 @@ const routes: Routes = [
         loadChildren: () => import('./member/member.module').then(m => m.MemberModule)
       },
       {
+        path: 'seguranca',
+        // canActivate: [AdminGuard],
+        loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
+      },
+      {
         path: 'aprendentes',
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       },
-      {
-        path: 'usuarios',
-        canActivate: [AdminGuard],
-        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
-      }
+      // {
+      //   path: 'usuarios',
+      //   canActivate: [AdminGuard],
+      //   loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+      // }
     ]
   }
 ]
@@ -43,3 +48,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class PagesRoutingModule {}
+
+export const routedComponents = [PagesComponent, CompanyComponent]
