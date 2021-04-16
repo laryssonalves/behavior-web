@@ -9,9 +9,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true
   },
   {
-    title: 'Usuários',
-    icon: 'person-done-outline',
-    link: '/usuarios'
+    title: 'Segurança',
+    icon: 'shield-outline',
+    link: '/seguranca'
   },
   {
     title: 'Membros',

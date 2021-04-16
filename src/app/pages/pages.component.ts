@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 
 import { getMenuItemsByRole, MENU_ITEMS } from './pages-menu'
-import { UserService } from './user/user.service'
+import { UserService } from './security/user/user.service'
 
 @Component({
   selector: 'ngx-pages',

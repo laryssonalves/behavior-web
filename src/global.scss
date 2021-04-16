@@ -45,6 +45,15 @@
     .item-action {
       padding: 0;
     }
+
+    .item-list-delete {
+      margin-right: 1rem;
+      border-radius: 4px;
+    
+      &:hover {
+        background: #e3e3e3;
+      }
+    }
   }
 
 }
