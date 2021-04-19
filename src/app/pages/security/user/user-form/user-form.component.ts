@@ -26,8 +26,8 @@ export class UserFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private userService: UserService,
     private toastService: ToastService,
+    private userService: UserService,
     private memberService: MemberService,
   ) {}
 
@@ -107,9 +107,5 @@ export class UserFormComponent implements OnInit {
     } else {
       this.user.errors.password = this.user.errors.password.filter(error => error !== passwordDivergingError)
     }
-  }
-
-  compareById(source, destination): boolean {
-    return source.id === destination.id
   }
 }

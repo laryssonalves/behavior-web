@@ -22,4 +22,21 @@ export class GroupService {
 
     return this.httpClient.delete(groupDetailUrl)
   }
+
+
+  getGroup(pk: number | string): Observable<Group> {
+    const groupDetailUrl = `${this.groupUrl}${pk}/`
+
+    return this.httpClient.get<Group>(groupDetailUrl).pipe(map(group => new Group(group)))
+  }
+
+  addGroup(group: Group): Observable<Group> {
+    return this.httpClient.post<Group>(this.groupUrl, group.getPayload())
+  }
+
+  updateGroup(group: Group): Observable<Group> {
+    const groupDetailUrl = `${this.groupUrl}${group.id}/`
+    
+    return this.httpClient.put<Group>(groupDetailUrl, group.getPayload())
+  }
 }

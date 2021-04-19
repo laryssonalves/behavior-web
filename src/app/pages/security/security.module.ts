@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbListModule, NbPopoverModule, NbSelectModule, NbSpinnerModule, NbTabsetModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
+
+import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbListModule, NbPopoverModule, NbSelectModule, NbSpinnerModule, NbTabsetModule } from '@nebular/theme';
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+
 import { routedComponents, SecurityRoutingModule } from './security-routing.module';
 import { UserListComponent } from '../security/user/user-list/user-list.component';
 import { GroupListComponent } from './group/group-list/group-list.component';
@@ -21,6 +24,7 @@ import { GroupListComponent } from './group/group-list/group-list.component';
     NbIconModule,
     NbPopoverModule,
     NbTabsetModule,
+    NzTreeModule,
     SecurityRoutingModule,
   ]
 })
