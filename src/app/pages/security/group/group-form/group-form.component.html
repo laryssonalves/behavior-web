@@ -1,1 +1,50 @@
-<p>group-form works!</p>
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
+  <nb-card-header>
+    <nav class="navigation">
+      <a (click)="goBack()" aria-label="Back" class="link back-link" href="javascript:void(0);">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a>
+      {{ formTitle }}
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="form-row">
+      <div class="col-12 col-sm-12 col-md-3">
+        <div class="form-group">
+          <label class="label" for="role">Função</label>
+          <nb-select
+            [(ngModel)]="group.role"
+            [status]="group.errors?.role ? 'danger' : 'basic'"
+            fullWidth
+            id="role"
+            placeholder="Selecione"
+            size="small">
+            <nb-option *ngFor="let role of roleChoices" [value]="role.value">{{ role.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="group.errors?.role">
+            <p *ngFor="let message of group.errors?.role" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12" *ngIf="nodeList.length">
+        <nz-tree
+          [nzData]="nodeList"
+          nzCheckable
+          nzMultiple
+          [nzCheckedKeys]="defaultPermissionList"
+          (nzCheckBoxChange)="onPermissionCheckboxChange($event)">
+        </nz-tree>
+
+        <ng-container *ngIf="group.errors?.permissions">
+          <p *ngFor="let message of group.errors?.permissions" class="error-message">{{ message }}</p>
+        </ng-container>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="float-right">
+      <button (click)="saveForm()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button (click)="goBack()" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

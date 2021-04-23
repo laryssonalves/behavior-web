@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { NbToastrService } from '@nebular/theme'
 import { environment } from '../../../environments/environment'
-import { UserService } from '../security/user/user.service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,7 @@ export class MemberService {
 
   constructor(
     private httpClient: HttpClient,
-    private nbToastrService: NbToastrService,
-    private userService: UserService
+    private nbToastrService: NbToastrService
   ) {}
 
   getMemberList(): Observable<Member[]> {

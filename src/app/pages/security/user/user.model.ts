@@ -1,5 +1,6 @@
 import { isAdmin } from '../../../models/choice.model'
 import { Member } from '../../../pages/member/member.model'
+import { Permission } from '../interfaces/permission'
 
 export class User {
   id: number
@@ -7,8 +8,9 @@ export class User {
   password?: string
   name: string
   photo: string
-  is_superuser: boolean
   person: Member
+  group_role_id: number
+  permissions: Permission[]
 
   errors: UserValidationError
 
@@ -16,8 +18,8 @@ export class User {
     Object.assign(this, props)
   }
 
-  isAdmin(): boolean {
-    return this.is_superuser || isAdmin(this.person?.role)
+  hasPerms(codenames: string[]): boolean {
+    return !!this.permissions.filter(perm => codenames.includes(perm.codename)).length
   }
 
   getPayload() {
@@ -26,7 +28,8 @@ export class User {
       email: this.email,
       password: this.password,
       name: this.name,
-      person_id: this.person?.id
+      person_id: this.person?.id,
+      group_role_id: this.group_role_id
     }
   }
 }
@@ -36,4 +39,5 @@ interface UserValidationError {
   name?: string[]
   password?: string[]
   person_id?: string[]
+  group_role_id?: string[]
 }

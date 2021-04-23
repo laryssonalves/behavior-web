@@ -1,6 +1,5 @@
 <nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
   <ng-container *ngIf="!isLoading">
-    <!-- <nb-card-header class="card-header-action">Segurança</nb-card-header> -->
     <nb-card-body [ngClass]="'card-body-tabs'">
       <nb-tabset (changeTab)="onChangeTab($event)">
         <nb-tab 
@@ -30,6 +29,7 @@
           <button
             [ngClass]="'btn-tab-add'"
             nbButton
+            routerLink='grupos/formulario/'
             outline
             size="small"
             status="primary">

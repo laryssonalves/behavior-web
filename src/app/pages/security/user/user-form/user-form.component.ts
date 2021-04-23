@@ -8,6 +8,8 @@ import { ToastService } from '../../../../services/toast.service'
 import { User } from '../user.model'
 import { Member } from '../../../member/member.model'
 import { MemberService } from '../../../member/member.service'
+import { Group } from '../../group/group.model'
+import { GroupService } from '../../group/group.service'
 
 @Component({
   selector: 'ngx-user-form',
@@ -17,6 +19,7 @@ import { MemberService } from '../../../member/member.service'
 export class UserFormComponent implements OnInit {
   user = new User()
   memberList: Member[] = []
+  groupList: Group[] = []
   confirmPassword: string
   personId: number
   formTitle = 'Adicionar usuário'
@@ -26,18 +29,24 @@ export class UserFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private userService: UserService,
     private toastService: ToastService,
+    private userService: UserService,
     private memberService: MemberService,
+    private groupService: GroupService
   ) {}
 
   async ngOnInit() {
     await this.getMembers()
+    await this.getGroups()
     await this.getUser()
   }
 
   private async getMembers() {
     this.memberList = await this.memberService.getMemberList().toPromise()
+  }
+
+  private async getGroups() {
+    this.groupList = await this.groupService.getGroupList().toPromise()
   }
 
   async getUser() {
@@ -107,9 +116,5 @@ export class UserFormComponent implements OnInit {
     } else {
       this.user.errors.password = this.user.errors.password.filter(error => error !== passwordDivergingError)
     }
-  }
-
-  compareById(source, destination): boolean {
-    return source.id === destination.id
   }
 }
