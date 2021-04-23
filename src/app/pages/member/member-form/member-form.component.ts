@@ -24,7 +24,6 @@ export class MemberFormComponent implements OnInit {
   masks = masks
   formTitle = 'Adicionar membro'
 
-  roleChoices = roleChoiceList()
   stateChoices = brazilStatesChoices()
 
   private loading = false

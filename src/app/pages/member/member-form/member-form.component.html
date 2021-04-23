@@ -211,24 +211,6 @@
           </ng-container>
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <div class="form-group">
-          <label class="label" for="role">Função</label>
-          <nb-select
-            [(ngModel)]="member.role"
-            [status]="member.errors?.role ? 'danger' : 'basic'"
-            fullWidth
-            id="role"
-            placeholder="Selecione"
-            size="small"
-          >
-            <nb-option *ngFor="let role of roleChoices" [value]="role.value">{{ role.name }}</nb-option>
-          </nb-select>
-          <ng-container *ngIf="member.errors?.role">
-            <p *ngFor="let message of member.errors?.role" class="error-message">{{ message }}</p>
-          </ng-container>
-        </div>
-      </div>
     </div>
   </nb-card-body>
   <nb-card-footer>
