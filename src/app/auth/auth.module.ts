@@ -14,7 +14,6 @@ import {
 } from '@nebular/theme'
 
 import { AuthRoutingModule, routedComponents } from './auth-routing.module'
-// import { AuthGuard } from './auth.guard'
 
 @NgModule({
   imports: [
@@ -34,6 +33,5 @@ import { AuthRoutingModule, routedComponents } from './auth-routing.module'
     NbSpinnerModule
   ],
   declarations: [...routedComponents]
-  // providers: [ AuthGuard ]
 })
 export class AuthModule {}

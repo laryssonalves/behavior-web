@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'seguranca',
+        redirectTo: 'aprendentes',
         pathMatch: 'full'
       },
       {
@@ -23,15 +23,17 @@ const routes: Routes = [
       },
       {
         path: 'membros',
+        canActivate: [AdminGuard],
         loadChildren: () => import('./member/member.module').then(m => m.MemberModule)
       },
       {
         path: 'seguranca',
-        // canActivate: [AdminGuard],
+        canActivate: [AdminGuard],
         loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
       },
       {
         path: 'aprendentes',
+        // canActivate: [AdminGuard],
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       },
       // {

@@ -11,6 +11,24 @@
     <div class="form-row">
       <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
+          <label class="label" for="group">Grupo de Segurança</label>
+          <nb-select
+            [(ngModel)]="user.group_role_id"
+            [status]="user.errors?.group_role_id ? 'danger' : 'basic'"
+            fullWidth
+            id="group"
+            placeholder="Selecione"
+            size="small"
+          >
+            <nb-option *ngFor="let group of groupList" [value]="group.id">{{ group.name }}</nb-option>
+          </nb-select>
+          <ng-container *ngIf="user.errors?.group_role_id">
+            <p *ngFor="let message of user.errors?.group_role_id" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
           <label class="label" for="person">Membro</label>
           <nb-select
             [(ngModel)]="personId"

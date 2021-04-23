@@ -54,6 +54,7 @@ export class GroupFormComponent implements OnInit {
       this.group = await this.groupService.getGroup(id).toPromise()
       this.formTitle = this.group.name
       this.defaultPermissionList = this.group.permissions
+      this.checkedPermissionList = this.group.permissions
     }
   }
 

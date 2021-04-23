@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 
-import { getMenuItemsByRole, MENU_ITEMS } from './pages-menu'
+import { getMenuItemsByRole as getMenuItems, MENU_ITEMS } from './pages-menu'
 import { UserService } from './security/user/user.service'
 
 @Component({
@@ -20,7 +20,7 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.userSubject.subscribe(currentUser => {
-      this.menu = getMenuItemsByRole(currentUser.person?.role)
+      this.menu = getMenuItems(currentUser)
     })
   }
 }
