@@ -21,4 +21,8 @@ export class LocalStorageService {
     const data = localStorage.getItem('stay_connected')
     return JSON.parse(data)
   }
+
+  clear(): void {
+    localStorage.clear()
+  }
 }
