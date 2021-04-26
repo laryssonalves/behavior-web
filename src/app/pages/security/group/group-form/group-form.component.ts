@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
 
@@ -10,6 +10,9 @@ import { Group } from '../group.model';
 import { GroupService } from '../group.service';
 import { PermissionService } from '../../permission.service';
 import { roleChoiceList } from '../../../../models/choice.model';
+import { UserService } from '../../user/user.service';
+import { User } from '../../user/user.model';
+import { GlobalAction } from '../../../../action-abstract';
 
 
 @Component({
@@ -17,7 +20,9 @@ import { roleChoiceList } from '../../../../models/choice.model';
   templateUrl: './group-form.component.html',
   styleUrls: ['./group-form.component.scss']
 })
-export class GroupFormComponent implements OnInit {
+export class GroupFormComponent extends GlobalAction implements OnInit, OnDestroy {
+  private loggedUser: User
+
   group = new Group()
   permissionList: Permission[] = []
   defaultPermissionList: string[] = []
@@ -28,6 +33,7 @@ export class GroupFormComponent implements OnInit {
   formTitle = 'Adicionar grupo'
 
   isLoading = false
+  isEditing = false
 
   constructor(
     private route: ActivatedRoute,
@@ -35,11 +41,17 @@ export class GroupFormComponent implements OnInit {
     private toastService: ToastService,
     private groupService: GroupService,
     private permissionService: PermissionService,
-  ) { }
+    private userService: UserService
+  ) { super() }
 
   async ngOnInit(): Promise<void> {
     await this.getPermissions()
     await this.getGroup()
+    this.getLoggedUser()
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy()
   }
 
   private async getPermissions() {
@@ -47,7 +59,7 @@ export class GroupFormComponent implements OnInit {
     this.permissionListToNodes()
   }
 
-  async getGroup() {
+  private async getGroup() {
     const id = this.route.snapshot.paramMap.get('id')
 
     if (id) {
@@ -56,6 +68,11 @@ export class GroupFormComponent implements OnInit {
       this.defaultPermissionList = this.group.permissions
       this.checkedPermissionList = this.group.permissions
     }
+  }
+
+  private getLoggedUser() {
+    const userSubscription = this.userService.userSubject.subscribe(user => (this.loggedUser = user))
+    this.subscription.add(userSubscription)
   }
 
   async saveForm() {
@@ -77,7 +94,7 @@ export class GroupFormComponent implements OnInit {
 
     if (this.group.id) {
       this.group = await this.groupService.updateGroup(this.group).toPromise()
-      // this.groupService.isNeededUpdateCurrentUser(this.group)
+      this.userService.getUserDetails()
     } else {
       this.group = await this.groupService.addGroup(this.group).toPromise()
     }
@@ -89,7 +106,7 @@ export class GroupFormComponent implements OnInit {
 
   private permissionListToNodes(): void {
     const companyPermissions = this.permissionList.filter(perm => perm.codename.startsWith('company'))
-    const userPermissions = this.permissionList.filter(perm => perm.codename.startsWith('user'))
+    const securityPermissions = this.permissionList.filter(perm => perm.codename.startsWith('user') || perm.codename.startsWith('group'))
     const memberPermissions = this.permissionList.filter(perm => perm.codename.startsWith('member'))
     const studentPermissions = this.permissionList.filter(perm => perm.codename.startsWith('student') && !perm.codename.includes('exercise') && !perm.codename.includes('member'))
     const exercisePermissions = this.permissionList.filter(perm => perm.codename.startsWith('student_exercise'))
@@ -97,7 +114,7 @@ export class GroupFormComponent implements OnInit {
     const groupPermissions = this.permissionList.filter(perm => perm.codename.startsWith('group'))
 
     this.createNode('Empresa', 'company', companyPermissions)
-    this.createNode('Usuários', 'user', userPermissions)
+    this.createNode('Segurança', 'security', securityPermissions)
     this.createNode('Membros', 'member', memberPermissions)
     this.createNode('Aprendentes', 'student', studentPermissions)
     this.createNode('Treinos', 'student_exercise', exercisePermissions)
@@ -125,9 +142,9 @@ export class GroupFormComponent implements OnInit {
     const checkedNode = event.node
     
     if (checkedNode.isLeaf) {
-      this.checkPermission(checkedNode.key)
+      this.checkChildPermission(checkedNode.key)
     } else {
-      checkedNode.children.forEach(childNode => this.checkPermission(childNode.key))
+      checkedNode.children.forEach(childNode => this.checkParentPermission(childNode.key))
     }
   }
 
@@ -135,11 +152,21 @@ export class GroupFormComponent implements OnInit {
     return this.checkedPermissionList.includes(key)
   }
 
-  private checkPermission(key: string): void {
+  private checkChildPermission(key: string): void {
     if (!this.isInCheckedPermissionList(key)) {
       this.checkedPermissionList.push(key)
     } else {
       this.checkedPermissionList = this.checkedPermissionList.filter(permId => permId !== key)
     }
+  }
+
+  private checkParentPermission(key: string): void {
+    if (!this.isInCheckedPermissionList(key)) {
+      this.checkedPermissionList.push(key)
+    }
+  }
+
+  checkUserPerm(perm: string) {
+    return this.loggedUser?.hasPerms([perm])
   }
 }

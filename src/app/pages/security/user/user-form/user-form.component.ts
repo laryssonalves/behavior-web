@@ -17,6 +17,8 @@ import { GroupService } from '../../group/group.service'
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
+  private loggedUser: User
+
   user = new User()
   memberList: Member[] = []
   groupList: Group[] = []
@@ -25,6 +27,7 @@ export class UserFormComponent implements OnInit {
   formTitle = 'Adicionar usuário'
 
   isLoading = false
+  isEditing = false
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +42,7 @@ export class UserFormComponent implements OnInit {
     await this.getMembers()
     await this.getGroups()
     await this.getUser()
+    this.getLoggedUser()
   }
 
   private async getMembers() {
@@ -59,6 +63,10 @@ export class UserFormComponent implements OnInit {
     }
   }
 
+  private getLoggedUser() {
+    this.userService.userSubject.subscribe(user => (this.loggedUser = user))
+  }
+
   async saveForm() {
     try {
       this.isLoading = true
@@ -68,6 +76,7 @@ export class UserFormComponent implements OnInit {
       this.user.errors = error.error
     } finally {
       this.isLoading = false
+      this.isEditing = false
       this.toastService.showFormResponseToast(!this.user.errors, 'Usuário salvo com sucesso')
     }
   }
@@ -116,5 +125,13 @@ export class UserFormComponent implements OnInit {
     } else {
       this.user.errors.password = this.user.errors.password.filter(error => error !== passwordDivergingError)
     }
+  }
+
+  editForm() {
+    this.isEditing = true
+  }
+
+  checkUserPerm(perm: string): boolean {
+    return this.loggedUser.hasPerms([perm])
   }
 }

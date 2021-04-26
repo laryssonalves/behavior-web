@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ModalService } from '../../../../modals/modal.service';
+import { User } from '../../user/user.model';
 import { Group } from '../group.model';
 import { GroupService } from '../group.service';
 
@@ -11,6 +12,8 @@ import { GroupService } from '../group.service';
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit {
+  @Input() private user: User
+
   groupList: Group[] = []
   isLoading = false
 
@@ -39,5 +42,9 @@ export class GroupListComponent implements OnInit {
 
   goToGroupForm(group: Group) {
     this.router.navigateByUrl(`seguranca/grupos/formulario/${group.id}`)
+  }
+
+  checkUserPerm(perm: string): boolean {
+    return this.user.hasPerms([perm])
   }
 }

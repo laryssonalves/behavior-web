@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Company } from './company.model'
 import { Observable, ReplaySubject } from 'rxjs'
 import { environment } from '../../../environments/environment'
+import { SessionStorageService } from '../../services/session-storage.service'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CompanyService {
 
   private selectedCompany$ = new ReplaySubject<Company>()
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) {
   }
 
   get selectedCompanySubject() {
@@ -21,6 +22,7 @@ export class CompanyService {
 
   set nextSelectedCompany(company: Company) {
     this.selectedCompany$.next(company)
+    this.sessionStorageService.setSelectedCompany(company)
   }
 
   getSelectedCompany() {

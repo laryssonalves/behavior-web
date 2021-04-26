@@ -1,10 +1,11 @@
 import { RouterModule, Routes } from '@angular/router'
 import { NgModule } from '@angular/core'
 
-import { AdminGuard } from '../auth/guards/admin.guard'
+import { PermissionGuard } from '../auth/guards/permission.guard'
 
 import { PagesComponent } from './pages.component'
-import { CompanyComponent } from './company/company.component'
+
+import { CompanyViewGuard } from './company/guards/company-view.guard'
 
 const routes: Routes = [
   {
@@ -18,29 +19,21 @@ const routes: Routes = [
       },
       {
         path: 'empresa',
-        canActivate: [AdminGuard],
-        component: CompanyComponent
+        canActivate: [CompanyViewGuard],
+        loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
       },
       {
         path: 'membros',
-        canActivate: [AdminGuard],
         loadChildren: () => import('./member/member.module').then(m => m.MemberModule)
       },
       {
         path: 'seguranca',
-        canActivate: [AdminGuard],
         loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
       },
       {
         path: 'aprendentes',
-        // canActivate: [AdminGuard],
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       },
-      // {
-      //   path: 'usuarios',
-      //   canActivate: [AdminGuard],
-      //   loadChildren: () => import('./user/user.module').then(m => m.UserModule)
-      // }
     ]
   }
 ]
@@ -51,4 +44,4 @@ const routes: Routes = [
 })
 export class PagesRoutingModule {}
 
-export const routedComponents = [PagesComponent, CompanyComponent]
+export const routedComponents = [PagesComponent]

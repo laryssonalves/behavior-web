@@ -8,7 +8,7 @@
         <span class="item-info">{{ user.name }}</span>
         <span class="item-info item-info-secondary">{{ user.email }}</span>
       </div>
-      <nb-actions size="small">
+      <nb-actions size="small" *ngIf="checkUserPerm(user_del)">
         <nb-action 
           icon="trash-outline" 
           title="Excluir usuário" 

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../../environments/environment'
 import { map } from 'rxjs/operators'
 import { Member } from '../../member/member.model'
+import { SessionStorageService } from '../../../services/session-storage.service'
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,16 @@ import { Member } from '../../member/member.model'
 export class UserService {
   private userUrl = `${environment.apiUrl}users/`
   private user$ = new ReplaySubject<User>()
-  private currentUser: User
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) {}
 
   get userSubject(): ReplaySubject<User> {
     return this.user$
   }
 
   set nextUser(user: User) {
-    this.currentUser = user
     this.userSubject.next(user)
+    this.sessionStorageService.setLoggedUser(user)
   }
 
   getUserDetails() {
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   getCurrentUser(): User {
-    return this.currentUser
+    return this.sessionStorageService.getLoggedUser()
   }
 
   getUserList(): Observable<User[]> {
@@ -61,8 +61,9 @@ export class UserService {
   }
 
   isNeededUpdateCurrentUser(obj: Member | User) {
-    const memberCheck = obj instanceof Member && obj.id === this.currentUser.person.id
-    const userCheck = obj instanceof User && obj.id === this.currentUser.id
+    const currentUser = this.getCurrentUser()
+    const memberCheck = obj instanceof Member && obj.id === currentUser.person.id
+    const userCheck = obj instanceof User && obj.id === currentUser.id
 
     if (memberCheck || userCheck) {
       this.getUserDetails()

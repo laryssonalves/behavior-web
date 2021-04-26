@@ -19,7 +19,7 @@
             id="group"
             placeholder="Selecione"
             size="small"
-          >
+            [disabled]="!isEditing">
             <nb-option *ngFor="let group of groupList" [value]="group.id">{{ group.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="user.errors?.group_role_id">
@@ -38,7 +38,7 @@
             id="person"
             placeholder="Selecione"
             size="small"
-          >
+            [disabled]="!isEditing">
             <nb-option *ngFor="let member of memberList" [value]="member.id">{{ member.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="user.errors?.person_id">
@@ -58,7 +58,7 @@
             name="name"
             nbInput
             type="text"
-          />
+            [disabled]="!isEditing"/>
           <ng-container *ngIf="user.errors?.name">
             <p *ngFor="let message of user.errors?.name" class="error-message">{{ message }}</p>
           </ng-container>
@@ -76,7 +76,7 @@
             name="email"
             nbInput
             type="email"
-          />
+            [disabled]="!isEditing"/>
           <ng-container *ngIf="user.errors?.email">
             <p *ngFor="let message of user.errors?.email" class="error-message">{{ message }}</p>
           </ng-container>
@@ -96,7 +96,7 @@
             nbInput
             type="password"
             autocomplete="disabled"
-          />
+            [disabled]="!isEditing"/>
           <ng-container *ngIf="user.errors?.password">
             <p *ngFor="let message of user.errors?.password" class="error-message">{{ message }}</p>
           </ng-container>
@@ -116,7 +116,7 @@
             nbInput
             type="password"
             autocomplete="disabled"
-          />
+            [disabled]="!isEditing"/>
           <ng-container *ngIf="user.errors?.password">
             <p *ngFor="let message of user.errors?.password" class="error-message">{{ message }}</p>
           </ng-container>
@@ -126,7 +126,8 @@
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button (click)="saveForm()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button *ngIf="isEditing" (click)="saveForm()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button *ngIf="!isEditing && checkUserPerm('company_edit')" (click)="editForm()" class="mx-2" nbButton size="small" status="primary">Editar</button>
       <button (click)="goBack()" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
     </div>
   </nb-card-footer>

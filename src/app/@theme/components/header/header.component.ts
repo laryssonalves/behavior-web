@@ -60,7 +60,6 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     private rippleService: RippleService,
     private nbAuthService: NbAuthService,
     private userService: UserService,
-    private sessionStorageService: SessionStorageService,
     private companyService: CompanyService,
     private router: Router
   ) {
@@ -73,10 +72,6 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     )
 
     const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
-    const companySubscription = this.companyService.selectedCompanySubject.subscribe(company => {
-      this.sessionStorageService.setSelectedCompany(company)
-    })
-
     const tokenSubscription = this.nbAuthService.onTokenChange().subscribe((token: NbAuthSimpleToken) => {
       if (token.isValid()) {
         this.userService.getUserDetails()
@@ -86,7 +81,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
       }
     })
 
-    const subsArr = [tokenSubscription, userSubscription, companySubscription]
+    const subsArr = [tokenSubscription, userSubscription]
 
     subsArr.forEach(sub => this.subscription.add(sub))
   }
