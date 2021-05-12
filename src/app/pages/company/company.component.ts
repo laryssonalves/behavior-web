@@ -82,6 +82,6 @@ export class CompanyComponent extends GlobalAction implements OnInit, OnDestroy 
   }
 
   checkUserPerm(perm: string): boolean {
-    return this.user.hasPerms([perm])
+    return this.user?.hasPerms([perm])
   }
 }

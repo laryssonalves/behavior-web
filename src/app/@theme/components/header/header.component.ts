@@ -48,7 +48,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     }
   ]
   currentTheme = 'default'
-  userMenu = [{ title: 'Profile' }, { title: 'Log out', link: 'auth/logout' }]
+  userMenu = [{ title: 'Perfil' }, { title: 'Log out', link: 'auth/logout' }]
   private destroy$: Subject<void> = new Subject<void>()
 
   public constructor(

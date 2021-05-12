@@ -27,7 +27,7 @@ export class UserFormComponent implements OnInit {
   formTitle = 'Adicionar usuário'
 
   isLoading = false
-  isEditing = false
+  isFormEnable = false
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +55,8 @@ export class UserFormComponent implements OnInit {
 
   async getUser() {
     const id = this.route.snapshot.paramMap.get('id')
+  
+    this.isFormEnable = !id
 
     if (id) {
       this.user = await this.userService.getUser(id).toPromise()
@@ -76,7 +78,7 @@ export class UserFormComponent implements OnInit {
       this.user.errors = error.error
     } finally {
       this.isLoading = false
-      this.isEditing = false
+      this.isFormEnable = false
       this.toastService.showFormResponseToast(!this.user.errors, 'Usuário salvo com sucesso')
     }
   }
@@ -128,10 +130,10 @@ export class UserFormComponent implements OnInit {
   }
 
   editForm() {
-    this.isEditing = true
+    this.isFormEnable = true
   }
 
   checkUserPerm(perm: string): boolean {
-    return this.loggedUser.hasPerms([perm])
+    return this.loggedUser?.hasPerms([perm])
   }
 }

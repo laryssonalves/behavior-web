@@ -44,6 +44,6 @@ export class UserListComponent implements OnInit {
   }
 
   checkUserPerm(perm: string): boolean {
-    return this.user.hasPerms([perm])
+    return this.user?.hasPerms([perm])
   }
 }

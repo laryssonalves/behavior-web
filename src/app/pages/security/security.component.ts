@@ -41,6 +41,6 @@ export class SecurityComponent extends GlobalAction implements OnInit, OnDestroy
   }
 
   checkUserPerm(perm: string) {
-    return this.user.hasPerms([perm])
+    return this.user?.hasPerms([perm])
   }
 }

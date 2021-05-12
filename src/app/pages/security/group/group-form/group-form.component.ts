@@ -33,7 +33,7 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
   formTitle = 'Adicionar grupo'
 
   isLoading = false
-  isEditing = false
+  isFormEnable = false
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +62,8 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
   private async getGroup() {
     const id = this.route.snapshot.paramMap.get('id')
 
+    this.isFormEnable = !id
+
     if (id) {
       this.group = await this.groupService.getGroup(id).toPromise()
       this.formTitle = this.group.name
@@ -85,6 +87,7 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
       this.group.errors = error.error
     } finally {
       this.isLoading = false
+      this.isFormEnable = false
       this.toastService.showFormResponseToast(!this.group.errors, 'Grupo salvo com sucesso')
     }
   }
@@ -111,7 +114,6 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
     const studentPermissions = this.permissionList.filter(perm => perm.codename.startsWith('student') && !perm.codename.includes('exercise') && !perm.codename.includes('member'))
     const exercisePermissions = this.permissionList.filter(perm => perm.codename.startsWith('student_exercise'))
     const teamPermissions = this.permissionList.filter(perm => perm.codename.startsWith('student_member'))
-    const groupPermissions = this.permissionList.filter(perm => perm.codename.startsWith('group'))
 
     this.createNode('Empresa', 'company', companyPermissions)
     this.createNode('Segurança', 'security', securityPermissions)
@@ -119,7 +121,6 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
     this.createNode('Aprendentes', 'student', studentPermissions)
     this.createNode('Treinos', 'student_exercise', exercisePermissions)
     this.createNode('Equipe', 'student_member', teamPermissions)
-    this.createNode('Grupo de Segurança', 'group', groupPermissions)
   }
 
   private createNode(title: string, key: string, perms: Permission[]): void {
@@ -168,5 +169,9 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
 
   checkUserPerm(perm: string) {
     return this.loggedUser?.hasPerms([perm])
+  }
+
+  editForm() {
+    this.isFormEnable = true
   }
 }
