@@ -50,7 +50,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     }
   ]
   currentTheme = 'default'
-  userMenu = [{ title: 'Perfil' }, { title: 'Log out', link: 'auth/logout' }]
+  userMenu = [{ title: 'Perfil' }, { title: 'Sair' }]
   private destroy$: Subject<void> = new Subject<void>()
 
   public constructor(
@@ -79,7 +79,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
         this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
       } else {
-        this.router.navigateByUrl('auth/logout')
+        this.logoutUser()
       }
     })
 
@@ -112,6 +112,8 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
       })
 
     this.authService.refreshToken()
+
+    this.onMenuItemClick()
   }
 
   ngOnDestroy() {
@@ -131,8 +133,26 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     return false
   }
 
+  onMenuItemClick() {
+    this.nbMenuService.onItemClick().subscribe(menuBag => {
+      switch (menuBag.item.title) {
+        case 'Perfil':
+          break
+        case 'Sair':
+          this.logoutUser()
+          break
+      }
+    })
+  }
+
   navigateHome() {
     this.nbMenuService.navigateHome()
     return false
+  }
+
+  logoutUser() {
+    this.authService.logout()
+    .then(() => this.router.navigateByUrl('auth/login'))
+    .catch((e) => console.log(e))
   }
 }

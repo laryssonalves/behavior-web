@@ -53,4 +53,8 @@ export class SessionStorageService {
 
     return new AuthToken(authToken)
   }
+
+  clearSession() {
+    sessionStorage.clear()
+  }
 }

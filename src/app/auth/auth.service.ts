@@ -21,7 +21,7 @@ export class AuthService {
     const loginUrl = `${this.authUrl}login/`
     await this.httpClient.post(loginUrl, user).pipe(
       map(response => new AuthToken(response)),
-      tap(authToken => this.changeToken(authToken))
+      tap(authToken => this.setToken(authToken))
     ).toPromise()
   }
 
@@ -29,17 +29,24 @@ export class AuthService {
     return this.sessionStorageService.getAuthToken()
   }
 
-  changeToken(authToken: AuthToken) {
+  setToken(authToken: AuthToken) {
     this.sessionStorageService.setAuthToken(authToken)
     this.onTokenChange.next(authToken)
   }
 
+  clearSession() {
+    this.sessionStorageService.clearSession()
+  }
+
   refreshToken() {
     const token = this.getToken()
-    this.changeToken(token)
+    this.setToken(token)
   }
 
   async logout() {
-    
+    const logoutUrl = `${this.authUrl}logout/`
+    await this.httpClient.delete(logoutUrl).pipe(
+      tap(() => this.clearSession())
+    ).toPromise()
   }
 }
