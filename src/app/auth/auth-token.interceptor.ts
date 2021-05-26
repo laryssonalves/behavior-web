@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core'
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { NbAuthService, NbAuthSimpleToken } from '@nebular/auth'
 import { Observable } from 'rxjs'
-import { switchMap } from 'rxjs/operators'
+import { SessionStorageService } from '../services/session-storage.service'
+import { AuthService } from './auth.service'
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
-  constructor(private nbAuthService: NbAuthService) {
-  }
+  constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.nbAuthService.getToken()
-    .pipe(
-      switchMap((token: NbAuthSimpleToken) => {
-        if (token && token.getValue()) {
-          req = req.clone({
-            setHeaders: {
-              Authorization: `Token ${ token.getValue() }`
-            }
-          })
+    if (req.url.includes('auth/login')) {
+      return next.handle(req)
+    }
+
+    const token = this.authService.getToken()
+    
+    if (token && token.isValid()) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Token ${ token.getValue() }`
         }
-        return next.handle(req)
       })
-    )
+    }
+
+    return next.handle(req)
   }
 }

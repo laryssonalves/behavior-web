@@ -9,13 +9,12 @@
     <nb-list-item
       *ngFor="let member of memberList"
       [ngClass]="'item-list item-list__clickable'"
-      (click)="goToMemberForm(member)"
-    >
+      (click)="goToMemberForm(member)">
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
           <span class="item-info">{{ member.name }}</span>
         </div>
-        <nb-actions size="small">
+        <!-- <nb-actions size="small">
           <nb-action
             [nbPopover]="popTemplate"
             [ngClass]="'item-action'"
@@ -33,7 +32,7 @@
               </button>
             </div>
           </ng-template>
-        </nb-actions>
+        </nb-actions> -->
       </div>
     </nb-list-item>
   </nb-list>

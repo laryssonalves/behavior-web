@@ -1,6 +1,6 @@
 <nb-list *ngIf="userList.length; else emptyList" [nbSpinner]="isLoading">
   <nb-list-item
-    *ngFor="let user of userList; let i = index"
+    *ngFor="let user of userList"
     [ngClass]="'item-list item-list__clickable'"
     (click)="goToUserForm(user)">
     <div class="d-flex justify-content-between w-100">

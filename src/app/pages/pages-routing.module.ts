@@ -1,8 +1,6 @@
 import { RouterModule, Routes } from '@angular/router'
 import { NgModule } from '@angular/core'
 
-import { PermissionGuard } from '../auth/guards/permission.guard'
-
 import { PagesComponent } from './pages.component'
 
 import { CompanyViewGuard } from './company/guards/company-view.guard'
@@ -35,7 +33,7 @@ const routes: Routes = [
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       },
     ]
-  }
+  },
 ]
 
 @NgModule({

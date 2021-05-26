@@ -1,6 +1,6 @@
 <nb-list *ngIf="groupList.length; else emptyList" [nbSpinner]="isLoading">
   <nb-list-item
-    *ngFor="let group of groupList; let i = index"
+    *ngFor="let group of groupList"
     [ngClass]="'item-list item-list__clickable'"
     (click)="goToGroupForm(group)">
     <div class="d-flex justify-content-between w-100">

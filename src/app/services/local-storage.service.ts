@@ -18,7 +18,7 @@ export class LocalStorageService {
   }
 
   getRememberMe(): boolean {
-    const data = localStorage.getItem('stay_connected')
+    const data = localStorage.getItem('remember_me')
     return JSON.parse(data)
   }
 

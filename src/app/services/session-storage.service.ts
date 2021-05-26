@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { AuthToken } from '../auth/interfaces/token'
 import { Company } from '../pages/company/company.model'
 import { User } from '../pages/security/user/user.model'
 
@@ -9,31 +10,47 @@ export class SessionStorageService {
   constructor() {
   }
 
-  setSelectedCompany(company: Company): void {
-    const companyStr = JSON.stringify(company)
-    const encodedValue = btoa(companyStr)
+  getEncodedData(data: any): string {
+    return btoa(JSON.stringify(data))      
+  }
 
+  getDecodedData<T>(encodedData: string): T {
+    return JSON.parse(atob(encodedData))
+  }
+
+  setSelectedCompany(company: Company): void {
+    const encodedValue = this.getEncodedData(company)
     sessionStorage.setItem('company', encodedValue)
   }
 
   getSelectedCompany(): Company {
     const encodedValue = sessionStorage.getItem('company')
-    const companyStr = atob(encodedValue)
+    const company = this.getDecodedData<Company>(encodedValue)
 
-    return Company.createFromJSON(JSON.parse(companyStr))
+    return Company.createFromJSON(company)
   }
 
   setLoggedUser(user: User): void {
-    const userStr = JSON.stringify(user)
-    const encodedValue = btoa(userStr)
-
+    const encodedValue = this.getEncodedData(user)
     sessionStorage.setItem('user', encodedValue)
   }
 
   getLoggedUser(): User {
     const encodedValue = sessionStorage.getItem('user')
-    const userStr = atob(encodedValue)
+    const user = this.getDecodedData<User>(encodedValue)
 
-    return new User(JSON.parse(userStr))
+    return new User(user)
+  }
+
+  setAuthToken(authToken: AuthToken): void {
+    const encodedValue = this.getEncodedData(authToken)
+    sessionStorage.setItem('auth_token', encodedValue)
+  }
+
+  getAuthToken(): AuthToken {
+    const encodedValue = sessionStorage.getItem('auth_token') || ''
+    const authToken = this.getDecodedData<AuthToken>(encodedValue)
+
+    return new AuthToken(authToken)
   }
 }

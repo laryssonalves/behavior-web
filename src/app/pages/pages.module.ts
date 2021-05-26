@@ -20,7 +20,6 @@ import { FormsModule } from '@angular/forms'
 
 @NgModule({
   imports: [
-    PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
     DashboardModule,
@@ -34,7 +33,8 @@ import { FormsModule } from '@angular/forms'
     NbAccordionModule,
     NbSpinnerModule,
     NbSelectModule,
-    NbActionsModule
+    NbActionsModule,
+    PagesRoutingModule,
   ],
   declarations: [...routedComponents]
 })
