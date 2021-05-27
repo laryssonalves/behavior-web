@@ -2,13 +2,15 @@
   <ng-container *ngIf="!isLoading">
     <nb-card-body [ngClass]="'card-body-tabs'">
       <nb-tabset (changeTab)="onChangeTab($event)">
-        <nb-tab 
+        <nb-tab
+          *ngIf="checkUserPerm('user_view')"
           #nbTabUsers
           class="security-tab" 
           tabTitle="Usuários" 
           tabId="1" 
           [active]="isTabActive(nbTabUsers.tabId)">
           <button
+            *ngIf="checkUserPerm('user_add')"
             [ngClass]="'btn-tab-add'"
             nbButton
             routerLink='usuarios/formulario/'
@@ -18,15 +20,17 @@
             <nb-icon icon="plus"></nb-icon>
             Adicionar usuário
           </button>
-          <ngx-user-list></ngx-user-list>
+          <ngx-user-list [user]="user"></ngx-user-list>
         </nb-tab>
         <nb-tab 
+          *ngIf="checkUserPerm('group_view')"
           #nbTabGroups
           class="security-tab" 
           tabTitle="Grupos" 
           tabId="2" 
           [active]="isTabActive(nbTabGroups.tabId)">
           <button
+            *ngIf="checkUserPerm('group_add')"
             [ngClass]="'btn-tab-add'"
             nbButton
             routerLink='grupos/formulario/'
@@ -36,7 +40,7 @@
             <nb-icon icon="plus"></nb-icon>
             Adicionar grupo
           </button>
-          <ngx-group-list></ngx-group-list>
+          <ngx-group-list [user]="user"></ngx-group-list>
         </nb-tab>
       </nb-tabset>
     </nb-card-body>

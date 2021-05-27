@@ -4,13 +4,15 @@ import { LayoutService } from '../../../@core/utils'
 import { map, takeUntil } from 'rxjs/operators'
 import { Observable, Subject } from 'rxjs'
 import { RippleService } from '../../../@core/utils/ripple.service'
-import { NbAuthService, NbAuthSimpleToken } from '@nebular/auth'
+
 import { UserService } from '../../../pages/security/user/user.service'
 import { GlobalAction } from '../../../action-abstract'
-import { SessionStorageService } from '../../../services/session-storage.service'
+
 import { CompanyService } from '../../../pages/company/company.service'
 import { Router } from '@angular/router'
 import { User } from '../../../pages/security/user/user.model'
+import { AuthService } from '../../../auth/auth.service'
+import { AuthToken } from '../../../auth/interfaces/token'
 
 @Component({
   selector: 'ngx-header',
@@ -48,7 +50,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     }
   ]
   currentTheme = 'default'
-  userMenu = [{ title: 'Profile' }, { title: 'Log out', link: 'auth/logout' }]
+  userMenu = [{ title: 'Perfil' }, { title: 'Sair' }]
   private destroy$: Subject<void> = new Subject<void>()
 
   public constructor(
@@ -58,9 +60,8 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private nbBreakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
-    private nbAuthService: NbAuthService,
+    private authService: AuthService,
     private userService: UserService,
-    private sessionStorageService: SessionStorageService,
     private companyService: CompanyService,
     private router: Router
   ) {
@@ -73,20 +74,16 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     )
 
     const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
-    const companySubscription = this.companyService.selectedCompanySubject.subscribe(company => {
-      this.sessionStorageService.setSelectedCompany(company)
-    })
-
-    const tokenSubscription = this.nbAuthService.onTokenChange().subscribe((token: NbAuthSimpleToken) => {
+    const tokenSubscription = this.authService.onTokenChange.subscribe((token: AuthToken) => {
       if (token.isValid()) {
         this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
       } else {
-        this.router.navigateByUrl('auth/logout')
+        this.logoutUser()
       }
     })
 
-    const subsArr = [tokenSubscription, userSubscription, companySubscription]
+    const subsArr = [tokenSubscription, userSubscription]
 
     subsArr.forEach(sub => this.subscription.add(sub))
   }
@@ -113,6 +110,10 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
         this.currentTheme = themeName
         this.rippleService.toggle(themeName?.startsWith('material'))
       })
+
+    this.authService.refreshToken()
+
+    this.onMenuItemClick()
   }
 
   ngOnDestroy() {
@@ -132,8 +133,26 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     return false
   }
 
+  onMenuItemClick() {
+    this.nbMenuService.onItemClick().subscribe(menuBag => {
+      switch (menuBag.item.title) {
+        case 'Perfil':
+          break
+        case 'Sair':
+          this.logoutUser()
+          break
+      }
+    })
+  }
+
   navigateHome() {
     this.nbMenuService.navigateHome()
     return false
+  }
+
+  logoutUser() {
+    this.authService.logout()
+    .then(() => this.router.navigateByUrl('auth/login'))
+    .catch((e) => console.log(e))
   }
 }

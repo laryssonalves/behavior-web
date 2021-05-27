@@ -17,11 +17,9 @@ import { ThemeModule } from '../@theme/theme.module'
 import { DashboardModule } from './dashboard/dashboard.module'
 import { PagesRoutingModule, routedComponents } from './pages-routing.module'
 import { FormsModule } from '@angular/forms'
-import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   imports: [
-    PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
     DashboardModule,
@@ -32,11 +30,11 @@ import { NgxMaskModule } from 'ngx-mask';
     NbButtonModule,
     NbCheckboxModule,
     FormsModule,
-    NgxMaskModule.forRoot(),
     NbAccordionModule,
     NbSpinnerModule,
     NbSelectModule,
-    NbActionsModule
+    NbActionsModule,
+    PagesRoutingModule,
   ],
   declarations: [...routedComponents]
 })

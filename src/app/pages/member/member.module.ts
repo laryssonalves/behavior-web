@@ -12,7 +12,7 @@ import {
   NbSelectModule,
   NbSpinnerModule
 } from '@nebular/theme'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { NgxMaskModule } from 'ngx-mask'
 
 @NgModule({
@@ -23,13 +23,14 @@ import { NgxMaskModule } from 'ngx-mask'
     NbListModule,
     NbActionsModule,
     FormsModule,
+    ReactiveFormsModule,
     NbInputModule,
     NbButtonModule,
     NgxMaskModule,
     NbSpinnerModule,
     NbSelectModule,
     NbIconModule,
-    NbPopoverModule
+    NbPopoverModule,
   ],
   declarations: [...routedComponents]
 })

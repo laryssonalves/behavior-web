@@ -11,7 +11,6 @@ import { SessionStorageService } from '../../../services/session-storage.service
 import { brazilStatesChoices } from '../../../helpers/brazil-states'
 import { ActivatedRoute } from '@angular/router'
 import { NbToastrService } from '@nebular/theme'
-import { roleChoiceList } from '../../../models/choice.model'
 import { UserService } from '../../security/user/user.service'
 
 @Component({
@@ -26,7 +25,7 @@ export class MemberFormComponent implements OnInit {
 
   stateChoices = brazilStatesChoices()
 
-  private loading = false
+  isLoading = false
 
   constructor(
     private buscaCepService: BuscaCepService,
@@ -37,14 +36,6 @@ export class MemberFormComponent implements OnInit {
     private nbToastrService: NbToastrService,
     private userService: UserService
   ) {}
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
-  }
 
   async ngOnInit() {
     await this.getMember()
@@ -64,7 +55,7 @@ export class MemberFormComponent implements OnInit {
 
   async saveMember() {
     try {
-      this.showLoading = true
+      this.isLoading = true
       this.member.errors = null
 
       if (this.member.id) {
@@ -78,7 +69,7 @@ export class MemberFormComponent implements OnInit {
     } catch (error) {
       this.member.errors = error.error
     } finally {
-      this.showLoading = false
+      this.isLoading = false
       this.showToastr(!this.member.errors)
     }
   }
@@ -88,13 +79,13 @@ export class MemberFormComponent implements OnInit {
       return
     }
 
-    this.showLoading = true
+    this.isLoading = true
 
     const cepResult = await this.buscaCepService.buscaCep(this.member.postal_code)
 
     this.member = Member.createFromJSON({ ...this.member, ...cepResult })
 
-    this.showLoading = false
+    this.isLoading = false
   }
 
   goBack() {

@@ -1,6 +1,6 @@
 <nb-list *ngIf="userList.length; else emptyList" [nbSpinner]="isLoading">
   <nb-list-item
-    *ngFor="let user of userList; let i = index"
+    *ngFor="let user of userList"
     [ngClass]="'item-list item-list__clickable'"
     (click)="goToUserForm(user)">
     <div class="d-flex justify-content-between w-100">
@@ -8,7 +8,7 @@
         <span class="item-info">{{ user.name }}</span>
         <span class="item-info item-info-secondary">{{ user.email }}</span>
       </div>
-      <nb-actions size="small">
+      <nb-actions size="small" *ngIf="checkUserPerm('user_del')">
         <nb-action 
           icon="trash-outline" 
           title="Excluir usuário" 

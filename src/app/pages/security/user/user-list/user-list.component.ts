@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { UserService } from '../user.service'
@@ -11,6 +11,8 @@ import { ModalService } from '../../../../modals/modal.service'
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  @Input() private user: User
+  
   userList: User[] = []
   isLoading = false
 
@@ -39,5 +41,9 @@ export class UserListComponent implements OnInit {
 
   goToUserForm(user: User) {
     this.router.navigateByUrl(`seguranca/usuarios/formulario/${user.id}`)
+  }
+
+  checkUserPerm(perm: string): boolean {
+    return this.user?.hasPerms([perm])
   }
 }

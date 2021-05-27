@@ -1,9 +1,10 @@
+
 <div class="logo-container">
-  <img alt="" class="logo-login" src="assets/logos/logobeehave01.png" />
+  <img alt="" class="logo-login" src="assets/logos/logobeehave01.png" />  
 </div>
 
 <nb-alert
-  *ngIf="showMessages.error && errors?.length && !submitted"
+  *ngIf="errors?.length && !submitted"
   [ngClass]="'login-alert'"
   outline="danger"
   role="alert"
@@ -14,14 +15,14 @@
   </ul>
 </nb-alert>
 
-<form #form="ngForm" (ngSubmit)="login()" aria-labelledby="title">
+<form (ngSubmit)="login()" aria-labelledby="title">
   <div class="form-control-group">
     <label class="label" for="input-email">Email :</label>
     <input
-      #email="ngModel"
+      #email
       [(ngModel)]="user.email"
       [attr.aria-invalid]="(email.invalid || errors?.length) && email.touched ? true : null"
-      [required]="getConfigValue('forms.validation.email.required')"
+      required
       [status]="email.dirty ? (email.invalid || errors?.length ? 'danger' : 'success') : 'basic'"
       autofocus
       fullWidth
@@ -40,10 +41,10 @@
   <div class="form-control-group">
     <label class="label" for="input-password">Senha:</label>
     <input
-      #password="ngModel"
+      #password
       [(ngModel)]="user.password"
       [attr.aria-invalid]="(password.invalid || errors?.length) && password.touched ? true : null"
-      [required]="getConfigValue('forms.validation.password.required')"
+      required
       [status]="password.dirty ? (password.invalid || errors?.length ? 'danger' : 'success') : 'basic'"
       fullWidth
       id="input-password"
@@ -60,7 +61,7 @@
   <button
     [nbSpinner]="loading"
     [class.btn-pulse]="submitted"
-    [disabled]="submitted || !form.valid"
+    [disabled]="!isUserValid"
     fullWidth
     nbButton
     status="success"

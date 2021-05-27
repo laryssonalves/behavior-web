@@ -13,7 +13,7 @@ import {
   NbSpinnerModule
 } from '@nebular/theme'
 
-import { AuthRoutingModule, routedComponents } from './auth-routing.module'
+import { AuthRoutingModule, routedComponents } from './auth-routing.module';
 
 @NgModule({
   imports: [
@@ -32,6 +32,6 @@ import { AuthRoutingModule, routedComponents } from './auth-routing.module'
     NbIconModule,
     NbSpinnerModule
   ],
-  declarations: [...routedComponents]
+  declarations: [...routedComponents ]
 })
 export class AuthModule {}

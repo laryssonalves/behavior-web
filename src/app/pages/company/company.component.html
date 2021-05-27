@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
   <nb-card-header>Dados da instituição</nb-card-header>
   <nb-card-body>
     <div class="form-row">
@@ -9,6 +9,7 @@
             [(ngModel)]="company.document"
             [mask]="masks.DOCUMENTO"
             [status]="company.errors?.document ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="document"
@@ -26,6 +27,7 @@
           <input
             [(ngModel)]="company.name"
             [status]="company.errors?.name ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="name"
@@ -43,6 +45,7 @@
           <input
             [(ngModel)]="company.email"
             [status]="company.errors?.email ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="email"
@@ -61,6 +64,7 @@
             [(ngModel)]="company.phone"
             [mask]="masks.TELEFONE"
             [status]="company.errors?.phone ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="phone"
@@ -80,6 +84,7 @@
             [(ngModel)]="company.postal_code"
             [mask]="masks.CEP"
             [status]="company.errors?.postal_code ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="postal_code"
@@ -97,6 +102,7 @@
           <nb-select
             [(ngModel)]="company.state"
             [status]="company.errors?.state ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fullWidth
             id="state"
             placeholder="Selecione"
@@ -114,6 +120,7 @@
           <input
             [(ngModel)]="company.city"
             [status]="company.errors?.city ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="city"
@@ -131,6 +138,7 @@
           <input
             [(ngModel)]="company.district"
             [status]="company.errors?.district ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="district"
@@ -148,6 +156,7 @@
           <input
             [(ngModel)]="company.street"
             [status]="company.errors?.street ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="street"
@@ -165,6 +174,7 @@
           <input
             [(ngModel)]="company.number"
             [status]="company.errors?.number ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="number"
@@ -182,6 +192,7 @@
           <input
             [(ngModel)]="company.complement"
             [status]="company.errors?.complement ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="complement"
@@ -196,7 +207,7 @@
     </div>
   </nb-card-body>
 </nb-card>
-<nb-card [nbSpinner]="showLoading" nbSpinnerStatus="primary">
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
   <nb-card-header>Dados do responsável</nb-card-header>
   <nb-card-body>
     <div class="form-row">
@@ -206,6 +217,7 @@
           <input
             [(ngModel)]="company.responsible_name"
             [status]="company.errors?.responsible_name ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="responsible_name"
@@ -224,6 +236,7 @@
           <input
             [(ngModel)]="company.responsible_email"
             [status]="company.errors?.responsible_email ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="responsible_email"
@@ -243,6 +256,7 @@
             [(ngModel)]="company.responsible_phone"
             [mask]="masks.TELEFONE"
             [status]="company.errors?.responsible_phone ? 'danger' : 'basic'"
+            [disabled]="!isEditing"
             fieldSize="small"
             fullWidth
             id="responsible_phone"
@@ -259,7 +273,8 @@
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button (click)="updateCompany()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button *ngIf="isEditing" (click)="updateCompany()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button *ngIf="!isEditing && checkUserPerm('company_edit')" (click)="editForm()" class="mx-2" nbButton size="small" status="primary">Editar</button>
     </div>
   </nb-card-footer>
 </nb-card>
