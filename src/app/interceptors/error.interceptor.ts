@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core'
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { Router } from '@angular/router'
+
 import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { HTTP_403_FORBIDDEN, HTTP_500_INTERNAL_SERVER_ERROR } from '../constants'
 import { ModalService } from '../modals/modal.service'
+import { AuthService } from '../auth/auth.service'
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private modalService: ModalService) {
+  constructor(private authService: AuthService, private modalService: ModalService) {
   }
 
   intercept(
@@ -19,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if (err.status === HTTP_403_FORBIDDEN) {
-          this.router.navigateByUrl('auth/logout')
+          this.authService.logout()
         }
 
         if (err.status === HTTP_500_INTERNAL_SERVER_ERROR) {

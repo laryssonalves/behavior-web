@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 
 import { map, tap } from 'rxjs/operators';
@@ -15,7 +16,11 @@ export class AuthService {
 
   onTokenChange = new ReplaySubject<AuthToken>()
 
-  constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) { }
+  constructor(
+    private httpClient: HttpClient, 
+    private sessionStorageService: SessionStorageService,
+    private router: Router
+  ) { }
 
   async authenticate(user: any) {
     const loginUrl = `${this.authUrl}login/`
@@ -45,8 +50,9 @@ export class AuthService {
 
   async logout() {
     const logoutUrl = `${this.authUrl}logout/`
-    await this.httpClient.delete(logoutUrl).pipe(
-      tap(() => this.clearSession())
-    ).toPromise()
+    await this.httpClient.delete(logoutUrl)
+      .pipe(tap(() => this.clearSession()))
+      .toPromise()
+      .then(() => this.router.navigateByUrl('auth/login'))
   }
 }

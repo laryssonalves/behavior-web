@@ -62,7 +62,7 @@
           <label class="label" for="phone">Telefone</label>
           <input
             [(ngModel)]="company.phone"
-            [mask]="masks.TELEFONE"
+            [mask]="getPhoneMask(company.phone)"
             [status]="company.errors?.phone ? 'danger' : 'basic'"
             [disabled]="!isEditing"
             fieldSize="small"
@@ -254,7 +254,7 @@
           <label class="label" for="responsible_phone">Telefone</label>
           <input
             [(ngModel)]="company.responsible_phone"
-            [mask]="masks.TELEFONE"
+            [mask]="getPhoneMask(company.responsible_phone)"
             [status]="company.errors?.responsible_phone ? 'danger' : 'basic'"
             [disabled]="!isEditing"
             fieldSize="small"
