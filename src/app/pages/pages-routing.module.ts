@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core'
 import { PagesComponent } from './pages.component'
 
 import { CompanyViewGuard } from './company/guards/company-view.guard'
+import { SecurityViewGuard } from './security/security-view.guard'
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'seguranca',
+        canActivate: [SecurityViewGuard],
         loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
       },
       {

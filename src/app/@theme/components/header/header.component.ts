@@ -75,11 +75,11 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
 
     const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
     const tokenSubscription = this.authService.onTokenChange.subscribe((token: AuthToken) => {
-      if (token.isValid()) {
+      if (token?.isValid()) {
         this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
       } else {
-        this.logoutUser()
+        this.authService.logout()
       }
     })
 
@@ -139,7 +139,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
         case 'Perfil':
           break
         case 'Sair':
-          this.logoutUser()
+          this.authService.logout()
           break
       }
     })
@@ -150,9 +150,4 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     return false
   }
 
-  logoutUser() {
-    this.authService.logout()
-    .then(() => this.router.navigateByUrl('auth/login'))
-    .catch((e) => console.log(e))
-  }
 }

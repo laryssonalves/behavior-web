@@ -10,6 +10,7 @@ import { GlobalAction } from '../../action-abstract'
 import { brazilStatesChoices } from '../../helpers/brazil-states'
 import { UserService } from '../security/user/user.service'
 import { User } from '../security/user/user.model'
+import { getPhoneMask } from '../../utils'
 
 @Component({
   selector: 'ngx-company',
@@ -21,6 +22,7 @@ export class CompanyComponent extends GlobalAction implements OnInit, OnDestroy 
 
   company = new Company()
   masks = masks
+  getPhoneMask = getPhoneMask
 
   stateChoices = brazilStatesChoices()
 
