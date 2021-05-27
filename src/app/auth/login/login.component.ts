@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       .catch((e) => this.errors = ['Combinação de email/senha incorreta, por favor tente novamente.'])
       .finally(() => {
         this.loading = false
+        this.submitted = false
       })
   }
 

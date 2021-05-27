@@ -26,7 +26,7 @@ import { NgxMaskModule } from 'ngx-mask'
     ReactiveFormsModule,
     NbInputModule,
     NbButtonModule,
-    NgxMaskModule,
+    NgxMaskModule.forRoot(),
     NbSpinnerModule,
     NbSelectModule,
     NbIconModule,

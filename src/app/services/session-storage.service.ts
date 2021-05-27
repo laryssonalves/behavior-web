@@ -15,7 +15,7 @@ export class SessionStorageService {
   }
 
   getDecodedData<T>(encodedData: string): T {
-    return JSON.parse(atob(encodedData))
+    return encodedData ? JSON.parse(atob(encodedData)) : null
   }
 
   setSelectedCompany(company: Company): void {
@@ -48,7 +48,7 @@ export class SessionStorageService {
   }
 
   getAuthToken(): AuthToken {
-    const encodedValue = sessionStorage.getItem('auth_token') || ''
+    const encodedValue = sessionStorage.getItem('auth_token')
     const authToken = this.getDecodedData<AuthToken>(encodedValue)
 
     return new AuthToken(authToken)

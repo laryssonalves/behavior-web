@@ -37,7 +37,7 @@ import { StudentExerciseModalFormComponent } from './student-detail/student-exer
     ReactiveFormsModule,
     NbInputModule,
     NbButtonModule,
-    NgxMaskModule,
+    NgxMaskModule.forRoot(),
     NbSpinnerModule,
     NbSelectModule,
     NbIconModule,
