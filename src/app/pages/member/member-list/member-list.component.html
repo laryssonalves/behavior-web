@@ -1,7 +1,7 @@
 <nb-card [nbSpinner]="showLoading">
   <nb-card-header class="card-header-action">
     <span>Membros</span>
-    <nb-actions size="small">
+    <nb-actions size="small" *ngIf="checkUserPerm('member_add')">
       <nb-action [ngClass]="'header-action'" icon="plus-circle-outline" link="formulario/"></nb-action>
     </nb-actions>
   </nb-card-header>
@@ -11,9 +11,16 @@
       [ngClass]="'item-list item-list__clickable'"
       (click)="goToMemberForm(member)">
       <div class="d-flex justify-content-between w-100">
-        <div class="d-flex flex-column">
-          <span class="item-info">{{ member.name }}</span>
-        </div>
+        <span class="item-info">{{ member.name }}</span>
+        <nb-actions size="small">
+          <nb-action 
+            *ngIf="checkUserPerm('member_del')"
+            icon="trash-outline" 
+            title="Excluir membro" 
+            (click)="$event.stopPropagation();removeMember(member)"
+            [ngClass]="'item-action item-list-btn'">
+          </nb-action>
+        </nb-actions>
       </div>
     </nb-list-item>
   </nb-list>

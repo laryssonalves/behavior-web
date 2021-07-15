@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../pages/security/user/user.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   redirectDelay = 200
   
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +35,10 @@ export class LoginComponent implements OnInit {
     this.submitted = true
 
     this.authService.authenticate(this.user)
-      .then(() => this.redirect())
+      .then(() => {
+        this.userService.getUserDetails()
+        this.redirect()
+      })
       .catch((e) => this.errors = ['Combinação de email/senha incorreta, por favor tente novamente.'])
       .finally(() => {
         this.loading = false

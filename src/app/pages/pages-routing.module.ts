@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component'
 
 import { CompanyViewGuard } from './company/guards/company-view.guard'
 import { SecurityViewGuard } from './security/security-view.guard'
+import { StudentViewGuard } from './student/student-view.guard'
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'aprendentes',
+        canActivate: [StudentViewGuard],
         loadChildren: () => import('./student/student.module').then(m => m.StudentModule)
       },
     ]

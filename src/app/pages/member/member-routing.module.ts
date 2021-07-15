@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core'
 
 import { MemberListComponent } from './member-list/member-list.component'
 import { MemberFormComponent } from './member-form/member-form.component'
+import { MemberAddGuard } from './member-form/member-add.guard'
+import { MemberEditGuard } from './member-form/member-edit.guard'
 
 const routes: Routes = [
   {
@@ -12,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'formulario',
-    component: MemberFormComponent
+    component: MemberFormComponent,
+    canActivate: [MemberAddGuard]
   },
   {
     path: 'formulario/:id',
-    component: MemberFormComponent
+    component: MemberFormComponent,
+    canActivate: [MemberEditGuard]
   }
 ]
 

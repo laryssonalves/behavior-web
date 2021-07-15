@@ -8,7 +8,7 @@ export enum RoleChoice {
   APPLICATOR = 2,
   ADMIN = 3,
   COORDINATOR = 4,
-  SUPERVISOR = 4
+  SUPERVISOR = 5
 }
 
 export const isAdmin = (role: RoleChoice) => role === RoleChoice.ADMIN

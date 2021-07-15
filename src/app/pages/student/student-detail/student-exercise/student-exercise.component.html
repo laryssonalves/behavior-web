@@ -1,7 +1,7 @@
 <nb-list [nbSpinner]="showLoading">
   <nb-list-item
     *ngFor="let studentExercise of studentExerciseList; let i = index"
-    [ngClass]="'item-list item-list__clickable'"
+    [ngClass]="checkUserPerm('student_exercise_edit') ? 'item-list item-list__clickable' : 'item-list'"
     (click)="openStudentExerciseForm(studentExercise)">
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex flex-column">
@@ -9,21 +9,13 @@
         <span class="item-info item-info-secondary">{{ studentExercise.applicationTypeDisplay() }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action
-          [nbPopover]="popTemplate"
-          [ngClass]="'item-action'"
-          (click)="showPopover($event, i)"
-          icon="more-vertical-outline"
-          title="Mais opcões">
+        <nb-action 
+          *ngIf="checkUserPerm('student_exercise_del')"
+          icon="trash-outline" 
+          title="Excluir exercício do aprendente" 
+          (click)="$event.stopPropagation();removeStudentExercise(studentExercise)"
+          [ngClass]="'item-action item-list-btn'">
         </nb-action>
-        <ng-template #popTemplate>
-          <div class="d-flex flex-column">
-            <button (click)="removeStudentExercise(studentExercise)" [ngClass]="'btn-list-action'" nbButton
-                    size="small">Excluir
-            </button>
-            <button [ngClass]="'btn-list-action'" nbButton size="small">Finalizar</button>
-          </div>
-        </ng-template>
       </nb-actions>
     </div>
   </nb-list-item>

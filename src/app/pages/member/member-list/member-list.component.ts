@@ -6,6 +6,8 @@ import { MemberService } from '../member.service'
 import { GlobalAction } from '../../../action-abstract'
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
 import { NbDialogService } from '@nebular/theme/'
+import { User } from '../../security/user/user.model'
+import { UserService } from '../../security/user/user.service'
 
 @Component({
   selector: 'ngx-member-list',
@@ -15,9 +17,15 @@ import { NbDialogService } from '@nebular/theme/'
 export class MemberListComponent extends GlobalAction implements OnInit {
   memberList: Member[] = []
 
+  private user: User
   private loading = false
 
-  constructor(private router: Router, private memberService: MemberService, private nbDialogService: NbDialogService) {
+  constructor(
+    private router: Router, 
+    private memberService: MemberService, 
+    private nbDialogService: NbDialogService,
+    private userService: UserService
+  ) {
     super()
   }
 
@@ -36,6 +44,9 @@ export class MemberListComponent extends GlobalAction implements OnInit {
       await this.getMembers()
     })
 
+    const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
+
+    this.subscription.add(userSubscription)
     this.subscription.add(refreshList)
   }
 
@@ -64,5 +75,9 @@ export class MemberListComponent extends GlobalAction implements OnInit {
       hasScroll: true,
       dialogClass: 'basic-modal'
     })
+  }
+  
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }
