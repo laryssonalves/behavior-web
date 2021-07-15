@@ -9,6 +9,8 @@ import { StudentMemberModalFormComponent } from './student-member-modal-form/stu
 import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
 import { StudentExercise } from './student-exercise/student-exercise.model'
 import { StudentExerciseModalFormComponent } from './student-exercise-modal-form/student-exercise-modal-form.component'
+import { User } from '../../security/user/user.model'
+import { UserService } from '../../security/user/user.service'
 
 @Component({
   selector: 'ngx-student-detail',
@@ -16,11 +18,13 @@ import { StudentExerciseModalFormComponent } from './student-exercise-modal-form
   styleUrls: [ './student-detail.component.scss' ]
 })
 export class StudentDetailComponent extends GlobalAction implements OnInit {
+  user: User
   student: Student
   isLoading = false
 
   constructor(
     private studentService: StudentService,
+    private userService: UserService,
     private nbDialogService: NbDialogService,
     private route: ActivatedRoute,
     private location: Location
@@ -30,6 +34,10 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getStudent()
+
+    const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
+
+    this.subscription.add(userSubscription)
   }
 
   goBack() {
@@ -65,5 +73,9 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
       ErrorModalComponent,
       { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
     )
+  }
+
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }

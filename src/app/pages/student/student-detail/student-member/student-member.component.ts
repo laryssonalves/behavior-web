@@ -6,6 +6,7 @@ import { Student } from '../../student.model'
 import { NbDialogService } from '@nebular/theme'
 import { StudentMemberRoleModalComponent } from '../student-member-role-modal/student-member-role-modal.component'
 import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
+import { User } from '../../../security/user/user.model'
 
 @Component({
   selector: 'ngx-student-member',
@@ -13,6 +14,7 @@ import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
   styleUrls: [ './student-member.component.scss' ]
 })
 export class StudentMemberComponent extends GlobalAction implements OnInit {
+  @Input() user: User
   @Input() student: Student
 
   studentMemberList: StudentMember[] = []
@@ -71,5 +73,9 @@ export class StudentMemberComponent extends GlobalAction implements OnInit {
       ErrorModalComponent,
       { context: { error: error }, hasScroll: true, dialogClass: 'basic-modal' }
     )
+  }
+
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }

@@ -6,6 +6,7 @@ import { NbDialogService, NbPopoverDirective } from '@nebular/theme'
 import { Student } from '../../student.model'
 import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
 import { StudentExerciseModalFormComponent } from '../student-exercise-modal-form/student-exercise-modal-form.component'
+import { User } from '../../../security/user/user.model'
 
 @Component({
   selector: 'ngx-student-exercise',
@@ -13,9 +14,8 @@ import { StudentExerciseModalFormComponent } from '../student-exercise-modal-for
   styleUrls: [ './student-exercise.component.scss' ]
 })
 export class StudentExerciseComponent extends GlobalAction implements OnInit {
+  @Input() user: User
   @Input() student: Student
-
-  @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
 
   studentExerciseList: StudentExercise[] = []
 
@@ -69,16 +69,18 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
   }
 
   openStudentExerciseForm(studentExercise: StudentExercise) {
+    if (!this.checkUserPerm('student_exercise_edit')) {
+      return
+    }
+
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
       { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
     )
   }
 
-  showPopover(event: MouseEvent, i: number) {
-    event.stopPropagation()
-    const popArr = this.popovers.toArray()
-    popArr.find(pop => pop.isShown)?.hide()
-    popArr[i].show()
+
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }

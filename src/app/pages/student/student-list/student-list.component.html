@@ -1,7 +1,7 @@
 <nb-card [nbSpinner]="showLoading">
   <nb-card-header class="card-header-action">
     <span>Aprendentes</span>
-    <nb-actions size="small">
+    <nb-actions size="small" *ngIf="checkUserPerm('student_add')">
       <nb-action (click)="openStudentForm()" [ngClass]="'header-action'" icon="plus-circle-outline"></nb-action>
     </nb-actions>
   </nb-card-header>
@@ -9,35 +9,27 @@
     <nb-list-item
       *ngFor="let student of studentList; let i = index"
       [ngClass]="'item-list item-list__clickable'"
-      (click)="goToStudentDetails(student)"
-    >
+      (click)="goToStudentDetails(student)">
       <div class="d-flex justify-content-between w-100">
         <div class="d-flex flex-column">
           <span class="item-info">{{ student.name }}</span>
           <span class="item-info item-info-secondary">{{ student.age }} anos</span>
         </div>
         <nb-actions size="small">
-          <nb-action
-            (click)="showPopover($event, i)"
-            [nbPopover]="popTemplate"
-            [ngClass]="'item-action'"
-            icon="more-vertical-outline"
-            title="Mais opcões"
-          >
+          <nb-action 
+            *ngIf="checkUserPerm('student_edit')"
+            icon="edit-outline" 
+            title="Alterar aprendente"
+            (click)="$event.stopPropagation();openStudentForm(student)" 
+            [ngClass]="'item-action item-list-btn'">
           </nb-action>
-          <ng-template #popTemplate>
-            <div class="d-flex flex-column">
-              <button [ngClass]="'btn-list-action'" nbButton routerLink="detalhes/{{ student.id }}" size="small">
-                Detalhes
-              </button>
-              <button (click)="openStudentForm(student)" [ngClass]="'btn-list-action'" nbButton size="small">
-                Alterar
-              </button>
-              <button (click)="removeStudent(student)" [ngClass]="'btn-list-action'" nbButton size="small">
-                Excluir
-              </button>
-            </div>
-          </ng-template>
+          <nb-action 
+            *ngIf="checkUserPerm('student_del')"
+            icon="trash-outline" 
+            title="Excluir aprendente" 
+            (click)="$event.stopPropagation();removeStudent(student)"
+            [ngClass]="'item-action item-list-btn'">
+          </nb-action>
         </nb-actions>
       </div>
     </nb-list-item>

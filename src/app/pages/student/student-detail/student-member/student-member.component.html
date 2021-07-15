@@ -6,27 +6,20 @@
         <span class="item-info item-info-secondary">{{ studentMember.roleDisplay() }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action [nbPopover]="popTemplate" [ngClass]="'item-action'" icon="more-vertical-outline"
-                   title="Mais opcões">
+        <nb-action 
+        *ngIf="checkUserPerm('student_member_edit')"
+        icon="edit-outline" 
+        title="Alterar função do membro da equipe"
+        (click)="$event.stopPropagation();openStudentMemberRoleModal(studentMember)" 
+        [ngClass]="'item-action item-list-btn'">
+      </nb-action>
+        <nb-action 
+          *ngIf="checkUserPerm('student_member_del')"
+          icon="trash-outline" 
+          title="Excluir membro da equipe do aprendente" 
+          (click)="$event.stopPropagation();removeStudentMember(studentMember)"
+          [ngClass]="'item-action item-list-btn'">
         </nb-action>
-        <ng-template #popTemplate>
-          <div class="d-flex flex-column">
-            <button
-              (click)="removeStudentMember(studentMember)"
-              [ngClass]="'btn-list-action'"
-              nbButton
-              size="small">
-              Excluir
-            </button>
-            <button
-              (click)="openStudentMemberRoleModal(studentMember)"
-              [ngClass]="'btn-list-action'"
-              nbButton
-              size="small">
-              Alterar função
-            </button>
-          </div>
-        </ng-template>
       </nb-actions>
     </div>
   </nb-list-item>
