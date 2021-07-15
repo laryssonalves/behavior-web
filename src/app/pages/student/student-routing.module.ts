@@ -3,16 +3,18 @@ import { NgModule } from '@angular/core'
 
 import { StudentListComponent } from './student-list/student-list.component'
 import { StudentDetailComponent } from './student-detail/student-detail.component'
+import { StudentDetailViewGuard } from './student-detail/student-detail-view.guard'
 
 const routes: Routes = [
   {
     path: '',
     component: StudentListComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'detalhes/:id',
-    component: StudentDetailComponent
+    component: StudentDetailComponent,
+    canActivate: [StudentDetailViewGuard]
   }
 ]
 

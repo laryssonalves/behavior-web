@@ -10,9 +10,11 @@
     <nb-card-body [ngClass]="'card-body-tabs'">
       <nb-tabset>
         <nb-tab 
+          *ngIf="checkUserPerm('student_exercise_view')"
           class="student-tab" 
           tabTitle="Treinos" >
           <button
+            *ngIf="checkUserPerm('student_exercise_add')"
             (click)="openStudentExerciseForm()"
             [ngClass]="'btn-tab-add'"
             nbButton
@@ -23,12 +25,14 @@
             Adicionar treino
           </button>
           <ngx-student-exercise
+            [user]="user"
             [student]="student"
           ></ngx-student-exercise>
         </nb-tab>
         <nb-tab 
           class="student-tab" 
-          tabTitle="Membros" >
+          *ngIf="checkUserPerm('student_member_view')"
+          tabTitle="Equipe" >
           <button
             (click)="openStudentMemberForm()" [ngClass]="'btn-tab-add'"
             nbButton
@@ -39,6 +43,7 @@
             Adicionar membro
           </button>
           <ngx-student-member
+            [user]="user"
             [student]="student"
           ></ngx-student-member>
         </nb-tab>

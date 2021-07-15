@@ -6,6 +6,8 @@ import { NbDialogService, NbPopoverDirective } from '@nebular/theme'
 import { StudentModalFormComponent } from '../student-modal-form/student-modal-form'
 import { ModalService } from '../../../modals/modal.service'
 import { Router } from '@angular/router'
+import { User } from '../../security/user/user.model'
+import { UserService } from '../../security/user/user.service'
 
 @Component({
   selector: 'ngx-student-list',
@@ -13,14 +15,14 @@ import { Router } from '@angular/router'
   styleUrls: ['./student-list.component.scss']
 })
 export class StudentListComponent extends GlobalAction implements OnInit {
-  @ViewChildren(NbPopoverDirective) popovers: QueryList<NbPopoverDirective>
-
   studentList: Student[] = []
 
+  private user: User
   private loading = false
 
   constructor(
     private studentService: StudentService,
+    private userService: UserService,
     private nbDialogService: NbDialogService,
     private modalService: ModalService,
     private router: Router
@@ -43,7 +45,10 @@ export class StudentListComponent extends GlobalAction implements OnInit {
       await this.getStudents()
     })
 
+    const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
+
     this.subscription.add(refreshList)
+    this.subscription.add(userSubscription)
   }
 
   removeStudent(student: Student) {
@@ -74,13 +79,6 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     this.router.navigateByUrl(`aprendentes/detalhes/${student.id}`)
   }
 
-  showPopover(event: MouseEvent, i: number) {
-    event.stopPropagation()
-    const popArr = this.popovers.toArray()
-    popArr.find(pop => pop.isShown)?.hide()
-    popArr[i].show()
-  }
-
   private async getStudents() {
     try {
       this.showLoading = true
@@ -90,5 +88,9 @@ export class StudentListComponent extends GlobalAction implements OnInit {
     } finally {
       this.showLoading = false
     }
+  }
+
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }
