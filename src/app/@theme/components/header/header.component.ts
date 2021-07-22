@@ -63,7 +63,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService,
     private companyService: CompanyService,
-    private router: Router
+    // private router: Router
   ) {
     super()
     this.materialTheme$ = this.nbThemeService.onThemeChange().pipe(
@@ -76,7 +76,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     const userSubscription = this.userService.userSubject.subscribe(user => (this.user = user))
     const tokenSubscription = this.authService.onTokenChange.subscribe((token: AuthToken) => {
       if (token?.isValid()) {
-        this.userService.getUserDetails()
+        // this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
       } else {
         this.authService.logout()

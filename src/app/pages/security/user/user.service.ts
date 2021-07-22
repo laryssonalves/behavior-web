@@ -25,9 +25,10 @@ export class UserService {
     this.sessionStorageService.setLoggedUser(user)
   }
 
-  getUserDetails() {
+  async getUserDetails() {
     const url = `${this.userUrl}details/`
-    this.httpClient.get<User>(url).subscribe(user => (this.nextUser = new User(user)))
+    const user = await this.httpClient.get<User>(url).toPromise()
+    this.nextUser = new User(user)
   }
 
   getCurrentUser(): User {
