@@ -145,7 +145,7 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
     if (checkedNode.isLeaf) {
       this.checkChildPermission(checkedNode.key)
     } else {
-      checkedNode.children.forEach(childNode => this.checkParentPermission(childNode.key))
+      checkedNode.children.forEach(childNode => this.checkChildPermission(childNode.key))
     }
   }
 
@@ -158,12 +158,6 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
       this.checkedPermissionList.push(key)
     } else {
       this.checkedPermissionList = this.checkedPermissionList.filter(permId => permId !== key)
-    }
-  }
-
-  private checkParentPermission(key: string): void {
-    if (!this.isInCheckedPermissionList(key)) {
-      this.checkedPermissionList.push(key)
     }
   }
 
