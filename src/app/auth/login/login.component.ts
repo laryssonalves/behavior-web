@@ -29,21 +29,22 @@ export class LoginComponent implements OnInit {
   }
 
 
-  login(): void {
-    this.loading = true
-    this.errors = []
-    this.submitted = true
+  async login() {
+    try {
+      this.loading = true
+      this.errors = []
+      this.submitted = true
 
-    this.authService.authenticate(this.user)
-      .then(() => {
-        this.userService.getUserDetails()
-        this.redirect()
-      })
-      .catch((e) => this.errors = ['Combinação de email/senha incorreta, por favor tente novamente.'])
-      .finally(() => {
-        this.loading = false
-        this.submitted = false
-      })
+      await this.authService.authenticate(this.user)
+      await this.userService.getUserDetails()
+      this.redirect()
+    } catch(e) {
+      console.log(e)
+      this.errors = ['Combinação de email/senha incorreta, por favor tente novamente.']
+    } finally {
+      this.loading = false
+      this.submitted = false
+    }
   }
 
   redirect() {
