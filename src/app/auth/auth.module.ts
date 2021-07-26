@@ -7,6 +7,7 @@ import {
   NbButtonModule,
   NbCardModule,
   NbCheckboxModule,
+  NbFormFieldModule,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
@@ -30,7 +31,8 @@ import { AuthRoutingModule, routedComponents } from './auth-routing.module';
     NbLayoutModule,
     ReactiveFormsModule,
     NbIconModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbFormFieldModule
   ],
   declarations: [...routedComponents ]
 })

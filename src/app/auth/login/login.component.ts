@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
   errors = []
   submitted = false
   redirectDelay = 200
+
+  passwordVisible = false
   
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
@@ -55,5 +57,9 @@ export class LoginComponent implements OnInit {
 
   isUserValid() {
     return !!this.user.password && !!this.user.password
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible
   }
 }

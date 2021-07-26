@@ -17,7 +17,7 @@
 
 <form (ngSubmit)="login()" aria-labelledby="title">
   <div class="form-control-group">
-    <label class="label" for="input-email">Email :</label>
+    <label class="label" for="input-email">Email</label>
     <input
       #email
       [(ngModel)]="user.email"
@@ -39,20 +39,32 @@
   </div>
 
   <div class="form-control-group">
-    <label class="label" for="input-password">Senha:</label>
-    <input
-      #password
-      [(ngModel)]="user.password"
-      [attr.aria-invalid]="(password.invalid || errors?.length) && password.touched ? true : null"
-      required
-      [status]="password.dirty ? (password.invalid || errors?.length ? 'danger' : 'success') : 'basic'"
-      fullWidth
-      id="input-password"
-      name="password"
-      nbInput
-      placeholder="Informe a senha"
-      type="password"
-    />
+    <label class="label" for="input-password">Senha</label>
+    <nb-form-field>
+      <input
+        #password
+        [(ngModel)]="user.password"
+        [attr.aria-invalid]="(password.invalid || errors?.length) && password.touched ? true : null"
+        required
+        [status]="password.dirty ? (password.invalid || errors?.length ? 'danger' : 'success') : 'basic'"
+        fullWidth
+        id="input-password"
+        name="password"
+        nbInput
+        placeholder="Informe a senha"
+        [type]="passwordVisible ? 'text' : 'password'"
+      />
+      <button
+        (click)="togglePasswordVisibility()"
+        ghost
+        nbButton
+        nbSuffix
+        type="button"
+        size="small"
+        nbSpinnerSize="tiny">
+        <nb-icon [icon]="passwordVisible ? 'eye-off-outline' : 'eye'" pack="eva"></nb-icon>
+      </button>
+    </nb-form-field>
     <ng-container *ngIf="(password.invalid || errors?.length) && password.touched">
       <p *ngIf="password.errors?.required" class="error-message">Senha é obrigatório</p>
     </ng-container>
