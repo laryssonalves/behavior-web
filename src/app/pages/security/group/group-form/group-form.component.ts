@@ -127,11 +127,13 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
     const node = {
       title,
       key,
+      disabled: !this.isFormEnable,
       children: perms.map(perm => {
           return {
           title: perm.name,
           key: perm.id,
-          isLeaf: true
+          isLeaf: true,
+          disabled: !this.isFormEnable,
         }
       })
     }
@@ -140,21 +142,19 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
   }
 
   onPermissionCheckboxChange(event: NzFormatEmitEvent): void {
-    const checkedNode = event.node
-    
-    if (checkedNode.isLeaf) {
-      this.checkChildPermission(checkedNode.key)
+    const {isLeaf, isChecked, key, children} = event.node
+
+    if (isLeaf) {
+      this.checkChildPermission(key, isChecked)
     } else {
-      checkedNode.children.forEach(childNode => this.checkChildPermission(childNode.key))
+      children.forEach(childNode => this.checkChildPermission(childNode.key, isChecked))
     }
+
+    console.log(this.checkedPermissionList)
   }
 
-  private isInCheckedPermissionList(key: string): boolean {
-    return this.checkedPermissionList.includes(key)
-  }
-
-  private checkChildPermission(key: string): void {
-    if (!this.isInCheckedPermissionList(key)) {
+  private checkChildPermission(key: string, isChecked: boolean): void {
+    if (isChecked) {
       this.checkedPermissionList.push(key)
     } else {
       this.checkedPermissionList = this.checkedPermissionList.filter(permId => permId !== key)
