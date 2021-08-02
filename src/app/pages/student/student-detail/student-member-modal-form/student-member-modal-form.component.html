@@ -1,4 +1,4 @@
-<nb-card [nbSpinner]="showLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
+<nb-card [nbSpinner]="isLoading" [ngClass]="'card-modal'" nbSpinnerStatus="primary">
   <nb-card-header>
     <nav class="navigation">
       {{ title }}
@@ -6,14 +6,53 @@
   </nb-card-header>
   <nb-card-body>
     <div>
-      <div *ngFor="let member of memberList">
-        <nb-checkbox (checkedChange)="onCheckBoxChange($event, member)">{{ member.name }}</nb-checkbox>
-      </div>
+      <div class="form-row">
+        <div class="col-12 col-sm-12 col-md-12" *ngIf="!isEditing">
+          <div class="form-group">
+            <label class="label" for="member">Membro</label>
+            <nb-select
+              [(ngModel)]="studentMember.member"
+              [status]="studentMember.errors?.member ? 'danger' : 'basic'"
+              fullWidth
+              id="member"
+              placeholder="Selecione"
+              size="small"
+            >
+              <nb-option *ngFor="let member of memberList" [value]="member">{{
+                member.name
+              }}</nb-option>
+            </nb-select>
+            <ng-container *ngIf="studentMember.errors?.member">
+              <p *ngFor="let message of studentMember.errors?.member" class="error-message">{{ message }}</p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12">
+          <div class="form-group">
+            <label class="label" for="role">Função</label>
+            <nb-select
+              [(ngModel)]="studentMember.role"
+              [status]="studentMember.errors?.role ? 'danger' : 'basic'"
+              fullWidth
+              id="role"
+              placeholder="Selecione"
+              size="small"
+            >
+              <nb-option *ngFor="let role of roleChoices" [value]="role.value">{{
+                role.name
+              }}</nb-option>
+            </nb-select>
+            <ng-container *ngIf="studentMember.errors?.role">
+              <p *ngFor="let message of studentMember.errors?.role" class="error-message">{{ message }}</p>
+            </ng-container>
+          </div>
+        </div>
+      </div>  
     </div>
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button (click)="saveStudentMembers()" [disabled]="!selectedMembers.length" class="mx-2" nbButton
+      <button (click)="saveStudentMembers()" [disabled]="!canSave" class="mx-2" nbButton
               size="small" status="primary">
         Salvar
       </button>

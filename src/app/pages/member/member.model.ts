@@ -6,6 +6,11 @@ export class Member extends CorePerson {
 
   errors: MemberValidationError
 
+  constructor(data?: Partial<Member>) {
+    super()
+    Object.assign(this, data)
+  }
+
   static createFromJSON(data): Member {
     return Object.assign(new Member(), data)
   }

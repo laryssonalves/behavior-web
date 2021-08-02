@@ -1,0 +1,18 @@
+<nb-list [nbSpinner]="isLoading">
+  <nb-list-item
+    *ngFor="let consultation of consultationList; let i = index"
+    [ngClass]="'item-list item-list__clickable'">
+    <div class="d-flex flex-column w-100">
+      <div class="d-flex flex-row justify-content-between">
+        <span class="item-info">Terapeuta: {{ consultation.owner.name }}</span>
+        <span class="item-info">{{ consultation.duration }}</span>
+      </div>
+      <div class="d-flex flex-row justify-content-between">
+        <span class="item-info item-info-secondary">{{ consultation.create_date.format('DD/MM/YYYY') }}</span>
+        <span class="item-info item-info-secondary">
+          {{ consultation.create_date.format('HH:mm') }} às {{consultation.concluded_date.format('HH:mm') }}
+        </span>
+      </div>
+    </div>
+  </nb-list-item>
+</nb-list>

@@ -24,7 +24,7 @@ export class StudentService {
       .get<Student[]>(this.studentUrl)
       .pipe(
         map((students) =>
-          students.map((student) => Student.createFromJSON(student))
+          students.map((student) => new Student(student))
         )
       );
   }

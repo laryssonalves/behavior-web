@@ -18,8 +18,7 @@
             fullWidth
             id="role"
             placeholder="Selecione"
-            size="small"
-            [disabled]="!isFormEnable">
+            size="small">
             <nb-option *ngFor="let role of roleChoices" [value]="role.value">{{ role.name }}</nb-option>
           </nb-select>
           <ng-container *ngIf="group.errors?.role">
@@ -28,8 +27,8 @@
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-12" *ngIf="nodeList.length">
+        
         <nz-tree
-          [disabled]="!isFormEnable"
           [nzData]="nodeList"
           nzCheckable
           nzMultiple
@@ -45,8 +44,7 @@
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button *ngIf="isFormEnable" (click)="saveForm()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
-      <button *ngIf="!isFormEnable && checkUserPerm('group_edit')" (click)="editForm()" class="mx-2" nbButton size="small" status="primary">Editar</button>
+      <button (click)="saveForm()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
       <button (click)="goBack()" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
     </div>
   </nb-card-footer>

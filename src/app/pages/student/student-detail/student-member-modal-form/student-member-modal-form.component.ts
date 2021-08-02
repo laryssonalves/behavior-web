@@ -4,6 +4,8 @@ import { NbDialogRef, NbToastrService } from '@nebular/theme'
 import { StudentMemberService } from '../student-member/student-member.service'
 import { MemberService } from '../../../member/member.service'
 import { Member } from '../../../member/member.model'
+import { StudentMember } from '../student-member/student-member.model'
+import { roleChoiceList } from '../../../../models/choice.model'
 
 @Component({
   selector: 'ngx-student-member-modal-form',
@@ -14,11 +16,12 @@ export class StudentMemberModalFormComponent implements OnInit {
   title = 'Adicionar membro'
 
   memberList: Member[] = []
-  selectedMembers: number[] = []
+  roleChoices = roleChoiceList()
 
-  student: Student
+  studentMember: StudentMember
 
-  private loading = false
+  isEditing = false
+  isLoading = false
 
   constructor(
     protected ref: NbDialogRef<StudentMemberModalFormComponent>,
@@ -33,8 +36,15 @@ export class StudentMemberModalFormComponent implements OnInit {
 
   private async getMemberList() {
     try {
-      this.showLoading = true
-      this.memberList = await this.memberService.getMembersAvailable(this.student.id).toPromise()
+      if (this.studentMember.id) {
+        this.isEditing = true
+        this.title = this.studentMember.member.name
+        return
+      }
+
+      this.isLoading = true
+
+      this.memberList = await this.memberService.getMembersAvailable(this.studentMember.student.id).toPromise()
 
       if (!this.memberList.length) {
         this.nbToastrService.info(null, 'Todos os membros possíveis já foram adicionados')
@@ -43,40 +53,29 @@ export class StudentMemberModalFormComponent implements OnInit {
     } catch (e) {
       this.nbToastrService.danger(null, 'Erro ao tentar buscar membros disponíveis')
     } finally {
-      this.showLoading = false
+      this.isLoading = false
     }
   }
 
   async saveStudentMembers() {
     try {
-      this.showLoading = true
+      this.isLoading = true
 
-      await this.studentMemberService.addStudentMemberList(this.student, this.selectedMembers).toPromise()
+      if (this.isEditing) {
+        await this.studentMemberService.updateStudentMember(this.studentMember).toPromise()
+      } else {
+        await this.studentMemberService.addStudentMember(this.studentMember).toPromise()
+      }
       this.studentMemberService.refreshStudentMemberList.emit()
 
       this.close(true)
       this.showToastr(true, null)
     } catch (e) {
+      this.studentMember.errors = e.error
       this.showToastr(false, e.error.error)
     } finally {
-      this.showLoading = false
+      this.isLoading = false
     }
-  }
-
-  onCheckBoxChange(checked: boolean, member: Member) {
-    if (checked) {
-      this.selectedMembers.push(member.id)
-    } else {
-      this.selectedMembers = this.selectedMembers.filter(obj => obj !== member.id)
-    }
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(saving: boolean) {
-    this.loading = saving
   }
 
   close(success: boolean) {
@@ -85,9 +84,13 @@ export class StudentMemberModalFormComponent implements OnInit {
 
   private showToastr(success: boolean, error: string) {
     if (success) {
-      this.nbToastrService.success(null, 'Membro vinculado a aprendente com sucesso')
+      this.nbToastrService.success(null, this.isEditing ? 'Função do membro alterada com sucesso' : 'Membro vinculado a aprendente com sucesso')
     } else {
-      this.nbToastrService.warning(error, 'Erro ao tentar vincular membro ao aprendente')
+      this.nbToastrService.warning(error, this.isEditing ? 'Erro ao tentar alterar função' : 'Erro ao tentar vincular membro ao aprendente')
     }
+  }
+
+  get canSave(): boolean {
+    return !!this.studentMember.member && !!this.studentMember.role
   }
 }

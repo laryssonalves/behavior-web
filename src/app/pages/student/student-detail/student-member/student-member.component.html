@@ -10,14 +10,14 @@
         *ngIf="checkUserPerm('student_member_edit')"
         icon="edit-outline" 
         title="Alterar função do membro da equipe"
-        (click)="$event.stopPropagation();openStudentMemberRoleModal(studentMember)" 
+        (click)="openStudentMemberForm(studentMember)" 
         [ngClass]="'item-action item-list-btn'">
       </nb-action>
         <nb-action 
           *ngIf="checkUserPerm('student_member_del')"
           icon="trash-outline" 
           title="Excluir membro da equipe do aprendente" 
-          (click)="$event.stopPropagation();removeStudentMember(studentMember)"
+          (click)="removeStudentMember(studentMember)"
           [ngClass]="'item-action item-list-btn'">
         </nb-action>
       </nb-actions>
