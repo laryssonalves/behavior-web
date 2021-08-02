@@ -11,9 +11,10 @@ export class StudentMember extends CoreModel {
 
   errors: StudentMemberValidationError
 
-  static createFromJSON(data): StudentMember {
-    const member = Member.createFromJSON(data.member)
-    return Object.assign(new StudentMember(), data, { member })
+  constructor(data?: Partial<StudentMember>) {
+    super()
+    const member = new Member(data?.member)
+    Object.assign(this, data,  { member })
   }
 
   roleDisplay(): string {

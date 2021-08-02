@@ -11,6 +11,7 @@ import { StudentExercise } from './student-exercise/student-exercise.model'
 import { StudentExerciseModalFormComponent } from './student-exercise-modal-form/student-exercise-modal-form.component'
 import { User } from '../../security/user/user.model'
 import { UserService } from '../../security/user/user.service'
+import { StudentMember } from './student-member/student-member.model'
 
 @Component({
   selector: 'ngx-student-detail',
@@ -45,9 +46,10 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
   }
 
   openStudentMemberForm() {
+    const studentMember = new StudentMember({ student: this.student })
     this.nbDialogService.open(
       StudentMemberModalFormComponent,
-      { context: { student: this.student }, dialogClass: 'basic-modal' }
+      { context: { studentMember }, dialogClass: 'basic-modal' }
     )
   }
 
@@ -55,7 +57,7 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
     const studentExercise = StudentExercise.createFromJSON({ student: this.student })
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
-      { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
+      { context: { studentExercise }, dialogClass: 'basic-modal' }
     )
   }
 

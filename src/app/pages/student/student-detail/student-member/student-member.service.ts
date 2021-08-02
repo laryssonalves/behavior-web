@@ -22,7 +22,7 @@ export class StudentMemberService {
 
     return this.httpClient
       .get<StudentMember[]>(studentMemberUrl)
-      .pipe(map(studentMembers => studentMembers.map(studentMember => StudentMember.createFromJSON(studentMember))))
+      .pipe(map(studentMembers => studentMembers.map(studentMember => new StudentMember(studentMember))))
   }
 
   addStudentMember(studentMember: StudentMember): Observable<StudentMember> {

@@ -7,6 +7,7 @@ import { NbDialogService } from '@nebular/theme'
 import { StudentMemberRoleModalComponent } from '../student-member-role-modal/student-member-role-modal.component'
 import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
 import { User } from '../../../security/user/user.model'
+import { StudentMemberModalFormComponent } from '../student-member-modal-form/student-member-modal-form.component'
 
 @Component({
   selector: 'ngx-student-member',
@@ -50,10 +51,10 @@ export class StudentMemberComponent extends GlobalAction implements OnInit {
     this.studentMemberService.deleteStudentMember(studentMember)
   }
 
-  openStudentMemberRoleModal(studentMember: StudentMember) {
+  openStudentMemberForm(studentMember: StudentMember) {
     this.nbDialogService.open(
-      StudentMemberRoleModalComponent,
-      { context: { studentMember: StudentMember.createFromJSON(studentMember) }, dialogClass: 'basic-modal' }
+      StudentMemberModalFormComponent,
+      { context: { studentMember: new StudentMember(studentMember) }, dialogClass: 'basic-modal' }
     )
   }
 
