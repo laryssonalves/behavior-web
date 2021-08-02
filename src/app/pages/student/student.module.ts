@@ -24,7 +24,8 @@ import { StudentExerciseComponent } from './student-detail/student-exercise/stud
 import { StudentMemberComponent } from './student-detail/student-member/student-member.component'
 import { StudentMemberModalFormComponent } from './student-detail/student-member-modal-form/student-member-modal-form.component'
 import { StudentMemberRoleModalComponent } from './student-detail/student-member-role-modal/student-member-role-modal.component'
-import { StudentExerciseModalFormComponent } from './student-detail/student-exercise-modal-form/student-exercise-modal-form.component'
+import { StudentExerciseModalFormComponent } from './student-detail/student-exercise-modal-form/student-exercise-modal-form.component';
+import { StudentConsultationComponent } from './student-detail/student-consultation/student-consultation.component'
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { StudentExerciseModalFormComponent } from './student-detail/student-exer
     StudentMemberComponent,
     StudentMemberModalFormComponent,
     StudentMemberRoleModalComponent,
-    StudentExerciseModalFormComponent
+    StudentExerciseModalFormComponent,
+    StudentConsultationComponent
   ],
   entryComponents: [ StudentModalFormComponent ]
 })
