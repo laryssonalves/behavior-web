@@ -62,7 +62,7 @@ export class StudentListComponent extends GlobalAction implements OnInit {
   }
 
   openStudentForm(studentToEdit?: Student) {
-    const studentModal = Student.createFromJSON(studentToEdit || new Student())
+    const studentModal = new Student(studentToEdit)
     this.nbDialogService
       .open(StudentModalFormComponent, {
         context: { student: studentModal },

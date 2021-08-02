@@ -10,6 +10,15 @@
     <nb-card-body [ngClass]="'card-body-tabs'">
       <nb-tabset>
         <nb-tab 
+        class="student-tab" 
+        *ngIf="checkUserPerm('consultation_view')"
+        tabTitle="Atendimentos" >
+        <ngx-student-consultation
+          [user]="user"
+          [student]="student"
+        ></ngx-student-consultation>
+      </nb-tab>
+        <nb-tab 
           *ngIf="checkUserPerm('student_exercise_view')"
           class="student-tab" 
           tabTitle="Treinos" >
@@ -47,6 +56,7 @@
             [student]="student"
           ></ngx-student-member>
         </nb-tab>
+
       </nb-tabset>
     </nb-card-body>
   </ng-container>
