@@ -3,6 +3,8 @@ import { NbDialogService } from '@nebular/theme'
 import { ErrorModalComponent } from './error-modal/error-modal'
 import { HttpErrorResponse } from '@angular/common/http'
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component'
+import { Consultation } from '../pages/student/student-detail/student-consultation/consultation.model'
+import { StudentConsultationResumeComponent } from '../pages/student/student-detail/student-consultation-resume/student-consultation-resume.component'
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,16 @@ export class ModalService {
       {
         context: { title, question, callback },
         dialogClass: 'confirmation-modal'
+      }
+    )
+  }
+
+  openStudentConsultationResumeModal(consultation: Consultation) {
+    this.nbDialogService.open(
+      StudentConsultationResumeComponent,
+      {
+        context: { consultation },
+        dialogClass: 'medium-modal'
       }
     )
   }

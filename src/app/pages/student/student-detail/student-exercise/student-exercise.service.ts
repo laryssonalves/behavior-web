@@ -19,13 +19,9 @@ export class StudentExerciseService {
   getStudentExerciseList(studentId: number): Observable<StudentExercise[]> {
     const studentExerciseUrl = `${this.studentUrl}${studentId}/exercise/`
 
-    return this.httpClient
-      .get<StudentExercise[]>(studentExerciseUrl)
-      .pipe(
-        map(studentExercises =>
-          studentExercises.map(studentExercise => StudentExercise.createFromJSON(studentExercise))
-        )
-      )
+    return this.httpClient.get<StudentExercise[]>(studentExerciseUrl).pipe(
+      map(studentExercises => studentExercises.map(studentExercise => new StudentExercise(studentExercise)))
+    )
   }
 
   addStudentExercise(studentExercise: StudentExercise): Observable<StudentExercise> {

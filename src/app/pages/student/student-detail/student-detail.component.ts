@@ -54,7 +54,7 @@ export class StudentDetailComponent extends GlobalAction implements OnInit {
   }
 
   openStudentExerciseForm() {
-    const studentExercise = StudentExercise.createFromJSON({ student: this.student })
+    const studentExercise = new StudentExercise({ student: this.student })
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
       { context: { studentExercise }, dialogClass: 'basic-modal' }

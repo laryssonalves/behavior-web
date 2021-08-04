@@ -30,8 +30,9 @@ export class StudentExercise extends CoreModel {
 
   errors: StudentExerciseValidationError
 
-  static createFromJSON(data): StudentExercise {
-    return Object.assign(new StudentExercise(), data)
+  constructor(data?: Partial<StudentExercise>) {
+    super() 
+    Object.assign(this, data)
   }
 
   applicationTypeDisplay(): string {

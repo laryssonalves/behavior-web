@@ -1,0 +1,50 @@
+<nb-card [nbSpinner]="isLoading" nbSpinnerStatus="primary">
+  <nb-card-header>
+    <div class="d-flex flex-column">
+      <span>{{ title }}</span>
+      <span class="modal-subtitle">{{ subTitle }}</span>
+    </div>
+  </nb-card-header>
+  <nb-list [nbSpinner]="isLoading">
+    <nb-list-item
+      *ngFor="let consultationExercise of consultationExerciseList;"
+      [ngClass]="'item-list exercise__container'">
+      <div class="exercise">
+        <div class="exercise__detail">
+          <span class="item-info">{{consultationExercise.exercise.program}}</span>
+          <span class="item-info-secondary">{{consultationExercise.exercise.applicationTypeDisplay()}}</span>
+        </div>
+        <div class="exercise__resume">
+          <span class="item-info-secondary" *ngIf="!consultationExercise.is_applied">Não aplicado</span>
+          <ng-container *ngIf="consultationExercise.is_applied">
+            <div class="exercise__resume__result">
+              <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              <span class="item-info-secondary">{{consultationExercise.result.result_indepent}}</span>
+            </div>
+            <div class="exercise__resume__result">
+              <nb-icon icon="checkmark-circle-2-outline" status="info"></nb-icon>
+              <span class="item-info-secondary">{{consultationExercise.result.result_correct_with_help}}</span>
+            </div>
+            <div class="exercise__resume__result">
+              <nb-icon icon="close-outline" status="danger"></nb-icon>
+              <span class="item-info-secondary">{{consultationExercise.result.result_wrong}}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="targets__container">
+        <span class="item-info targets__title">Resultados por alvo</span>
+        <div 
+          *ngFor="let consultationExerciseTarget of consultationExercise.targets" 
+          class="item-info-secondary target">
+          <span class="target__detail">{{consultationExerciseTarget.student_target.target}}</span>
+          <div class="target__resume">
+            <span class="target__resume__result">{{consultationExerciseTarget.checkResult(ResultTypeChoice.INDEPENDENT) ? '1' : '0'}}</span>
+            <span class="target__resume__result target__resume__result--mid">{{consultationExerciseTarget.checkResult(ResultTypeChoice.CORRECT_WITH_HELP) ? '1' : '0'}}</span>
+            <span class="target__resume__result">{{consultationExerciseTarget.checkResult(ResultTypeChoice.WRONG) ? '1' : '0'}}</span>
+          </div>
+        </div>
+      </div>
+    </nb-list-item>
+  </nb-list>
+</nb-card>

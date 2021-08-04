@@ -32,7 +32,9 @@ export class StudentExerciseModalFormComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.title = this.studentExercise.id ? 'Alterar treino' : 'Adicionar treino'
+  }
 
   async saveStudentExercise() {
     try {
