@@ -40,4 +40,8 @@ export class StudentConsultationComponent extends GlobalAction implements OnInit
       this.isLoading = false
     }
   }
+
+  openStudentConsultationResume(consultation: Consultation) {
+    this.modalService.openStudentConsultationResumeModal(consultation)
+  }
 }
