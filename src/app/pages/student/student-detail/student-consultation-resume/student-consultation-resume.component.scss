@@ -9,7 +9,7 @@
   align-items: flex-start; 
   padding: 1rem;
 
-  .exercise__row {
+  .exercise {
     display: flex; 
     flex-direction: row; 
     justify-content: space-between; 
@@ -48,7 +48,7 @@
       font-size: 0.7rem
     }
 
-    .target__row {
+    .target {
       display: flex; 
       flex-direction: row; 
       width: 100%;
@@ -59,20 +59,20 @@
         align-items: center;
       }
 
-      &__result {
+      &__resume {
         display: flex;
         flex-basis: 20%; 
         flex-direction: row; 
         justify-content: space-between;
+
+        &__result {
+          padding: 0 8px;
+
+          &.--mid {
+            padding: 0 4px;
+          }
+        }
       }
     }
-  }
-}
-
-.target__result {
-  padding: 0 8px;
-
-  &.target__mid {
-    padding: 0 4px;
   }
 }
