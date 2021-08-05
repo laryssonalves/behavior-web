@@ -19,6 +19,8 @@ export class StudentConsultationResumeComponent implements OnInit {
   subTitle = ''
   isLoading = false
 
+  targetsVisibleIndexList: number[] = []
+
   constructor(protected ref: NbDialogRef<StudentConsultationResumeComponent>, private consultationService: ConsultationService) {}
 
   ngOnInit(): void {
@@ -33,5 +35,22 @@ export class StudentConsultationResumeComponent implements OnInit {
       .then(consultationExercises => this.consultationExerciseList = consultationExercises)
       .catch(error => console.error(error))
       .finally(() => this.isLoading = false)
+  }
+
+  isTargetListVisible(index: number): boolean {
+    const consultationExercise = this.consultationExerciseList[index]
+    return consultationExercise.is_applied && this.isTargetVisible(index)
+  }
+
+  setTargetListVisible(index: number) {
+    if (this.isTargetVisible(index)) {
+      this.targetsVisibleIndexList = this.targetsVisibleIndexList.filter(i => i !== index)
+    } else {
+      this.targetsVisibleIndexList.push(index)
+    }
+  }
+
+  isTargetVisible(index: number): boolean {
+    return this.targetsVisibleIndexList.includes(index)
   }
 }
