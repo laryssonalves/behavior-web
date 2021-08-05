@@ -7,9 +7,9 @@
   </nb-card-header>
   <nb-list [nbSpinner]="isLoading">
     <nb-list-item
-      *ngFor="let consultationExercise of consultationExerciseList;"
+      *ngFor="let consultationExercise of consultationExerciseList; let index = index"
       [ngClass]="'item-list exercise__container'">
-      <div class="exercise">
+      <div class="exercise" (click)="setTargetListVisible(index)">
         <div class="exercise__detail">
           <span class="item-info">{{consultationExercise.exercise.program}}</span>
           <span class="item-info-secondary">{{consultationExercise.exercise.applicationTypeDisplay()}}</span>
@@ -32,7 +32,7 @@
           </ng-container>
         </div>
       </div>
-      <div class="targets__container">
+      <div class="targets__container" *ngIf="isTargetListVisible(index)">
         <span class="item-info targets__title">Resultados por alvo</span>
         <div 
           *ngFor="let consultationExerciseTarget of consultationExercise.targets" 
