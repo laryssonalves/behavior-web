@@ -68,7 +68,7 @@
           <input
             (change)="onAttemptsChange()"
             [(ngModel)]="studentExercise.total_attempts"
-            [status]="studentExercise.errors?.total_attempts ? 'danger' : 'basic'"
+            [status]="studentExercise.errors?.total_attempts || attemptsError ? 'danger' : 'basic'"
             fieldSize="small"
             fullWidth
             id="total_attempts"
@@ -78,6 +78,9 @@
           />
           <ng-container *ngIf="studentExercise.errors?.total_attempts">
             <p *ngFor="let message of studentExercise.errors?.total_attempts" class="error-message">{{ message }}</p>
+          </ng-container>
+          <ng-container *ngIf="attemptsError">
+            <p class="error-message">{{ ERROR_ATTEMPTS }}</p>
           </ng-container>
         </div>
       </div>

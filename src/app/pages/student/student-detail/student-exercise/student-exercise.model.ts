@@ -55,6 +55,20 @@ export class StudentExercise extends CoreModel {
       procedure: this.procedure
     }
   }
+
+  isTotalAttemptsGreaterThanZero(): boolean {
+    return this.total_attempts > 0
+  }
+
+  isTotalAttemptsValid(): boolean {
+    if (this.total_attempts < this.targets.length) {
+      return false
+    }
+
+    const targetAttempts = this.total_attempts / this.targets.length 
+
+    return Math.floor(targetAttempts) === targetAttempts
+  }
 }
 
 interface StudentExerciseValidationError {
