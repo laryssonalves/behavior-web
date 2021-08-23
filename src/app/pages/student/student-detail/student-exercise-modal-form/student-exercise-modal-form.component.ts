@@ -13,6 +13,7 @@ import { delay } from 'rxjs/operators'
 export class StudentExerciseModalFormComponent implements OnInit {
   readonly ERROR_TARGET_BLANK = 'O alvo não pode ficar em branco.'
   readonly ERROR_TARGET_EMPTY = 'Deve ser adicionado pelo menos um alvo.'
+  readonly ERROR_ATTEMPTS = 'Verifique as tentativas e os alvos.'
 
   title = 'Adicionar treino'
 
@@ -25,6 +26,8 @@ export class StudentExerciseModalFormComponent implements OnInit {
   targetDeletingIndex = null
   isDeletingTarget = false
   isLoading = false
+
+  attemptsError = false
 
   constructor(
     protected ref: NbDialogRef<StudentExerciseModalFormComponent>,
@@ -41,6 +44,11 @@ export class StudentExerciseModalFormComponent implements OnInit {
       if (!this.studentExercise.targets.length) {
         this.targetError = true
         this.targetErrorMessage = this.ERROR_TARGET_EMPTY
+      }
+      
+      this.attemptsError = !this.studentExercise.isTotalAttemptsValid()
+
+      if (this.targetError || this.attemptsError) {
         return
       }
 
@@ -69,9 +77,7 @@ export class StudentExerciseModalFormComponent implements OnInit {
   }
 
   onAttemptsChange() {
-    if (this.studentExercise.total_attempts < 1) {
-      this.studentExercise.total_attempts = 1
-    }
+    this.studentExercise.fixTotalAttemptsLesserThanZero()
   }
 
   addTarget(targetInput: HTMLInputElement) {

@@ -46,7 +46,7 @@ export class StudentMemberService {
         this.refreshStudentMemberList.emit(studentMember.student.id)
       },
       error => {
-        this.nbToastrService.danger(null, 'Não foi possível disvincular membro')
+        this.nbToastrService.danger(null, 'Não foi possível desvincular membro')
       }
     )
   }

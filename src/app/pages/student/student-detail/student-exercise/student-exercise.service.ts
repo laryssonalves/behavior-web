@@ -44,8 +44,9 @@ export class StudentExerciseService {
         this.nbToastrService.success(null, 'Treino desvinculado do aprendente com sucesso')
         this.refreshStudentExerciseList.emit(studentExercise.student.id)
       },
-      error => {
-        this.nbToastrService.danger(null, 'Não foi possível disvincular treino')
+      httpError => {
+        const error_detail = httpError.error.detail || 'Não foi possível desvincular treino'
+        this.nbToastrService.danger(null, error_detail)
       }
     )
   }
