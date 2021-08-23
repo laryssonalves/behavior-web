@@ -60,6 +60,12 @@ export class StudentExercise extends CoreModel {
     return this.total_attempts > 0
   }
 
+  fixTotalAttemptsLesserThanZero() {
+    if (!this.isTotalAttemptsGreaterThanZero()) {
+      this.total_attempts = 1
+    }
+  }
+
   isTotalAttemptsValid(): boolean {
     if (this.total_attempts < this.targets.length) {
       return false

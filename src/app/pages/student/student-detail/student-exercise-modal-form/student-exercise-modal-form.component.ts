@@ -77,9 +77,7 @@ export class StudentExerciseModalFormComponent implements OnInit {
   }
 
   onAttemptsChange() {
-    if (!this.studentExercise.isTotalAttemptsGreaterThanZero()) {
-      this.studentExercise.total_attempts = 1
-    }
+    this.studentExercise.fixTotalAttemptsLesserThanZero()
   }
 
   addTarget(targetInput: HTMLInputElement) {
