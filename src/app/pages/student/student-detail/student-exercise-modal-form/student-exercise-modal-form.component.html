@@ -12,6 +12,7 @@
           <input
             [(ngModel)]="studentExercise.program"
             [status]="studentExercise.errors?.program ? 'danger' : 'basic'"
+            [disabled]="studentExercise.has_consultation"
             fieldSize="small"
             fullWidth
             id="program"
@@ -69,6 +70,7 @@
             (change)="onAttemptsChange()"
             [(ngModel)]="studentExercise.total_attempts"
             [status]="studentExercise.errors?.total_attempts || attemptsError ? 'danger' : 'basic'"
+            [disabled]="studentExercise.has_consultation"
             fieldSize="small"
             fullWidth
             id="total_attempts"
