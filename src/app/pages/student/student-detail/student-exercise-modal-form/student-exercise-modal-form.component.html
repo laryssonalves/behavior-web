@@ -102,6 +102,7 @@
                 [nbSpinner]
               />
               <button
+                *ngIf="!studentExercise.has_consultation"
                 (click)="removeTarget(i)"
                 ghost
                 nbButton
@@ -118,7 +119,7 @@
               <p class="error-message mb-0">{{ ERROR_TARGET_BLANK }}</p>
             </ng-container>
           </div>
-          <nb-form-field>
+          <nb-form-field *ngIf="!studentExercise.has_consultation">
             <input
               #inputTarget
               [status]="targetError ? 'danger' : 'basic'"
@@ -129,7 +130,13 @@
               nbInput
               type="text"
             />
-            <button (click)="addTarget(inputTarget)" ghost nbButton nbSuffix size="small">
+            <button
+              (click)="addTarget(inputTarget)" 
+              ghost 
+              nbButton 
+              nbSuffix 
+              size="small"
+            >
               <nb-icon icon="plus-circle-outline" pack="eva"></nb-icon>
             </button>
           </nb-form-field>
