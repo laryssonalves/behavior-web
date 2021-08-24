@@ -27,6 +27,8 @@ export class StudentExercise extends CoreModel {
   targets: StudentExerciseTarget[] = []
   procedure: string
   concluded: boolean
+  total_targets: number
+  has_consultation: boolean
 
   errors: StudentExerciseValidationError
 
