@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
-import { ResultTypeChoice } from '../../../../models/choice.model';
-import { Consultation, ConsultationExercise } from '../student-consultation/consultation.model';
-import { ConsultationService } from '../student-consultation/consultation.service';
+import { Component, OnInit } from '@angular/core'
+import { NbDialogRef } from '@nebular/theme'
+import { ResultTypeChoice } from '../../../../models/choice.model'
+import { Consultation, ConsultationExercise } from '../student-consultation/consultation.model'
+import { ConsultationService } from '../student-consultation/consultation.service'
 
 @Component({
   selector: 'ngx-student-consultation-resume',
@@ -21,7 +21,10 @@ export class StudentConsultationResumeComponent implements OnInit {
 
   targetsVisibleIndexList: number[] = []
 
-  constructor(protected ref: NbDialogRef<StudentConsultationResumeComponent>, private consultationService: ConsultationService) {}
+  constructor(
+    protected ref: NbDialogRef<StudentConsultationResumeComponent>,
+    private consultationService: ConsultationService
+  ) {}
 
   ngOnInit(): void {
     this.subTitle = `${this.consultation.student.name} - Terapeuta: ${this.consultation.owner.name}`
@@ -30,11 +33,13 @@ export class StudentConsultationResumeComponent implements OnInit {
 
   getExercises() {
     this.isLoading = true
-    
-    this.consultationService.getConsultationExerciceList(this.consultation.id).toPromise()
-      .then(consultationExercises => this.consultationExerciseList = consultationExercises)
+
+    this.consultationService
+      .getConsultationExerciceList(this.consultation.id)
+      .toPromise()
+      .then(consultationExercises => (this.consultationExerciseList = consultationExercises))
       .catch(error => console.error(error))
-      .finally(() => this.isLoading = false)
+      .finally(() => (this.isLoading = false))
   }
 
   isTargetListVisible(index: number): boolean {
@@ -52,5 +57,20 @@ export class StudentConsultationResumeComponent implements OnInit {
 
   isTargetVisible(index: number): boolean {
     return this.targetsVisibleIndexList.includes(index)
+  }
+
+  isDividerVisible(consultationExercise: ConsultationExercise, index: number): boolean {
+    const isLastIndex = index === consultationExercise.targets.length - 1
+
+    const dividend = index + 1
+    const divisor = consultationExercise.exercise.total_targets
+
+    if (dividend === 1 || divisor === 1 || isLastIndex) {
+      return false
+    }
+
+    const quotient = dividend > divisor ? dividend / divisor : divisor / dividend
+
+    return Math.floor(quotient) === quotient
   }
 }
