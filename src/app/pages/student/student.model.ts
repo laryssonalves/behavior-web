@@ -17,8 +17,8 @@ export class Student extends CoreModel {
   constructor(data: Partial<Student>) {
     super()
     const dates = {
-      birth_date: data.birth_date ? moment(`${ data.birth_date }`) : null,
-      first_avaliation_date: data.first_avaliation_date ? moment(`${ data.first_avaliation_date }`) : null
+      birth_date: data?.birth_date ? moment(`${ data.birth_date }`) : null,
+      first_avaliation_date: data?.first_avaliation_date ? moment(`${ data.first_avaliation_date }`) : null
     }
     return Object.assign(this, data, dates)
   }
