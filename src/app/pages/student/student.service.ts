@@ -43,10 +43,10 @@ export class StudentService {
         this.nbToastrService.success(null, "Aprendente deletado com sucesso");
         this.refreshStudentList.emit();
       },
-      (error) => {
+      (httpError) => {
         this.nbToastrService.danger(
           null,
-          "Não foi possível deletar o Aprendente"
+          httpError?.error?.detail || "Não foi possível deletar o Aprendente",
         );
       }
     );
