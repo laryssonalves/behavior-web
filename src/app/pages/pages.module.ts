@@ -14,7 +14,6 @@ import {
 } from '@nebular/theme'
 
 import { ThemeModule } from '../@theme/theme.module'
-import { DashboardModule } from './dashboard/dashboard.module'
 import { PagesRoutingModule, routedComponents } from './pages-routing.module'
 import { FormsModule } from '@angular/forms'
 
@@ -22,7 +21,6 @@ import { FormsModule } from '@angular/forms'
   imports: [
     ThemeModule,
     NbMenuModule,
-    DashboardModule,
     NbCardModule,
     NbIconModule,
     NbTabsetModule,

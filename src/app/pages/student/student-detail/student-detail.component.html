@@ -56,7 +56,11 @@
             [student]="student"
           ></ngx-student-member>
         </nb-tab>
-
+        <nb-tab 
+          class="student-tab" 
+          tabTitle="Dashboard">
+          <ngx-dashboard [student]="student"></ngx-dashboard>
+        </nb-tab>
       </nb-tabset>
     </nb-card-body>
   </ng-container>
