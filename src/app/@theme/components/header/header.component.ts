@@ -29,27 +29,11 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
       name: 'Light'
     },
     {
-      value: 'dark',
-      name: 'Dark'
-    },
-    {
-      value: 'cosmic',
-      name: 'Cosmic'
-    },
-    {
-      value: 'corporate',
-      name: 'Corporate'
-    },
-    {
-      value: 'material-light',
-      name: 'Material Light'
-    },
-    {
-      value: 'material-dark',
-      name: 'Material Dark'
+      value: 'beehave',
+      name: 'Beehave'
     }
   ]
-  currentTheme = 'default'
+  currentTheme = 'beehave'
   userMenu = [{ title: 'Perfil' }, { title: 'Sair' }]
   private destroy$: Subject<void> = new Subject<void>()
 
@@ -63,7 +47,6 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService,
     private companyService: CompanyService,
-    // private router: Router
   ) {
     super()
     this.materialTheme$ = this.nbThemeService.onThemeChange().pipe(

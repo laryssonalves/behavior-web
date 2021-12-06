@@ -27,6 +27,7 @@ import { StudentMemberRoleModalComponent } from './student-detail/student-member
 import { StudentExerciseModalFormComponent } from './student-detail/student-exercise-modal-form/student-exercise-modal-form.component';
 import { StudentConsultationComponent } from './student-detail/student-consultation/student-consultation.component';
 import { StudentConsultationResumeComponent } from './student-detail/student-consultation-resume/student-consultation-resume.component'
+import { DashboardModule } from '../dashboard/dashboard.module'
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { StudentConsultationResumeComponent } from './student-detail/student-con
     NbTabsetModule,
     NbCheckboxModule,
     NbRadioModule,
-    NbFormFieldModule
+    NbFormFieldModule,
+    DashboardModule,
   ],
   declarations: [
     ...routedComponents,
