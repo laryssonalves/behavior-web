@@ -61,16 +61,16 @@
         <div class="form-group">
           <label class="label" for="first_avaliation_date">Primeira Avaliação</label>
           <input
+            [(ngModel)]="student.first_avaliation_date"
+            [nbDatepicker]="first_avaliation_date_picker"
             [status]="student.errors?.first_avaliation_date ? 'danger' : 'basic'"
-            [value]="student.getAvaliationDate()"
-            disabled
             fieldSize="small"
             fullWidth
             id="first_avaliation_date"
             nbInput>
-          <!--          <nb-datepicker #first_avaliation_date_picker format="DD/MM/YYYY"></nb-datepicker>-->
-          <ng-container *ngIf="student.errors?.birth_date">
-            <p *ngFor="let message of student.errors?.birth_date" class="error-message">{{ message }}</p>
+          <nb-datepicker #first_avaliation_date_picker format="DD/MM/YYYY"></nb-datepicker>
+          <ng-container *ngIf="student.errors?.first_avaliation_date">
+            <p *ngFor="let message of student.errors?.first_avaliation_date" class="error-message">{{ message }}</p>
           </ng-container>
         </div>
       </div>

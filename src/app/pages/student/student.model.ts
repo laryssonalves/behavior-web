@@ -33,6 +33,7 @@ export class Student extends CoreModel {
       name: this.name,
       genre: this.genre,
       birth_date: this.birth_date.format('YYYY-MM-DD'),
+      first_avaliation_date: this.first_avaliation_date.format('YYYY-MM-DD'),
       company: this.company
     }
   }
