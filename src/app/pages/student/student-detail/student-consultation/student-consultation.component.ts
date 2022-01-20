@@ -28,6 +28,12 @@ export class StudentConsultationComponent extends GlobalAction implements OnInit
 
   async ngOnInit() {
     await this.getConsultationList()
+
+    const refreshStudentConsultationList = this.consultationService.refreshStudentConsultationList.subscribe(async () => {
+      await this.getConsultationList()
+    })
+
+    this.subscription.add(refreshStudentConsultationList)
   }
   
   private async getConsultationList() {
@@ -43,5 +49,13 @@ export class StudentConsultationComponent extends GlobalAction implements OnInit
 
   openStudentConsultationResume(consultation: Consultation) {
     this.modalService.openStudentConsultationResumeModal(consultation)
+  }
+
+  removeStudentConsultation(consultation: Consultation) {
+    this.consultationService.deleteStudentConsultation(consultation)
+  }
+
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }
