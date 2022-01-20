@@ -3,17 +3,28 @@
     *ngFor="let consultation of consultationList; let i = index"
     [ngClass]="'item-list item-list__clickable'"
     (click)="openStudentConsultationResume(consultation)">
-    <div class="d-flex flex-column w-100">
-      <div class="d-flex flex-row justify-content-between">
-        <span class="item-info">Terapeuta: {{ consultation.owner.name }}</span>
-        <span class="item-info">{{ consultation.duration }}</span>
+    <div class="d-flex justify-content-between w-100">
+      <div class="d-flex flex-column w-100 mr-3">
+        <div class="d-flex flex-row justify-content-between">
+          <span class="item-info">Terapeuta: {{ consultation.owner.name }}</span>
+          <span class="item-info">{{ consultation.duration }}</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between">
+          <span class="item-info item-info-secondary">{{ consultation.create_date.format('DD/MM/YYYY') }}</span>
+          <span class="item-info item-info-secondary">
+            {{ consultation.create_date.format('HH:mm') }} às {{consultation.concluded_date.format('HH:mm') }}
+          </span>
+        </div>
       </div>
-      <div class="d-flex flex-row justify-content-between">
-        <span class="item-info item-info-secondary">{{ consultation.create_date.format('DD/MM/YYYY') }}</span>
-        <span class="item-info item-info-secondary">
-          {{ consultation.create_date.format('HH:mm') }} às {{consultation.concluded_date.format('HH:mm') }}
-        </span>
-      </div>
+      <nb-actions size="small">
+        <nb-action 
+          *ngIf="checkUserPerm('consultation_del')"
+          icon="trash-outline" 
+          title="Excluir atendimento do aprendente" 
+          (click)="$event.stopPropagation();removeStudentConsultation(consultation)"
+          [ngClass]="'item-action item-list-btn'">
+        </nb-action>
+      </nb-actions>
     </div>
   </nb-list-item>
 </nb-list>
