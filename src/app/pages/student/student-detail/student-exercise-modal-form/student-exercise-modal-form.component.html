@@ -148,16 +148,17 @@
       <div class="col-12 col-sm-12 col-md-12">
         <div class="form-group">
           <label class="label" for="procedure">Procedimento</label>
-          <input
+          <textarea
             [(ngModel)]="studentExercise.procedure"
             [status]="studentExercise.errors?.procedure ? 'danger' : 'basic'"
-            fieldSize="small"
+            fieldSize="large"
+            rows="5"
             fullWidth
             id="procedure"
             name="procedure"
-            nbInput
-            type="text"
-          />
+            maxlength="3000"
+            nbInput>
+          </textarea>
           <ng-container *ngIf="studentExercise.errors?.procedure">
             <p *ngFor="let message of studentExercise.errors?.procedure" class="error-message">{{ message }}</p>
           </ng-container>
