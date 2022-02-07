@@ -55,22 +55,32 @@ export const applicationTypeChoiceList = (): Choice[] => {
 }
 
 export enum HelpTypeChoice {
-  ECHO_HELP = 1,
+  PHYSICAL_HELP = 1,
   PARTIAL_PHYSICAL_HELP = 2,
-  TOTAL_PHYSICAL_HELP = 3,
-  GESTURE_HELP = 4,
-  INDEPENDENT = 5,
-  NECESSARY_HELP = 6
+  PHYSICAL_TIP = 3,
+  ECHO_TIP = 4,
+  PARTIAL_ECHO_TIP = 5,
+  TEXT_TIP = 6,
+  GEST_TIP = 7,
+  MODEL_TIP = 8,
+  LATE_TIP = 9,
+  NECESSARY_HELP = 10,
+  INDEPENDENT = 11,
 }
 
 export const helpTypeChoiceList = (): Choice[] => {
   return [
-    { value: HelpTypeChoice.ECHO_HELP, name: 'Ajuda ecoica' },
+    { value: HelpTypeChoice.PHYSICAL_HELP, name: 'Ajuda ecoica' },
     { value: HelpTypeChoice.PARTIAL_PHYSICAL_HELP, name: 'Ajuda física parcial' },
-    { value: HelpTypeChoice.TOTAL_PHYSICAL_HELP, name: 'Ajuda física total' },
-    { value: HelpTypeChoice.GESTURE_HELP, name: 'Ajuda gestual' },
-    { value: HelpTypeChoice.INDEPENDENT, name: 'Independente (Sem Ajuda)' },
-    { value: HelpTypeChoice.NECESSARY_HELP, name: 'Ajuda necessária' }
+    { value: HelpTypeChoice.PHYSICAL_TIP, name: 'Dica física' },
+    { value: HelpTypeChoice.ECHO_TIP, name: 'Dica ecoica' },
+    { value: HelpTypeChoice.PARTIAL_ECHO_TIP, name: 'Dica ecoica parcial' },
+    { value: HelpTypeChoice.TEXT_TIP, name: 'Dica textual' },
+    { value: HelpTypeChoice.GEST_TIP, name: 'Dica Gestual' },
+    { value: HelpTypeChoice.MODEL_TIP, name: 'Dica modelo' },
+    { value: HelpTypeChoice.LATE_TIP, name: 'Atraso de Dica' },
+    { value: HelpTypeChoice.NECESSARY_HELP, name: 'Ajuda necessária' },
+    { value: HelpTypeChoice.INDEPENDENT, name: 'Independente' },
   ]
 }
 
