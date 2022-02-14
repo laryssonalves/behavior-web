@@ -12,7 +12,7 @@
         <nb-tab 
           *ngIf="checkUserPerm('student_exercise_view')"
           class="student-tab" 
-          tabTitle="Treinos" >
+          tabTitle="Programas de Ensino" >
           <button
             *ngIf="checkUserPerm('student_exercise_add')"
             (click)="openStudentExerciseForm()"
@@ -22,7 +22,7 @@
             size="small"
             status="primary">
             <nb-icon icon="plus"></nb-icon>
-            Adicionar treino
+            Adicionar programa
           </button>
           <ngx-student-exercise
             [user]="user"
