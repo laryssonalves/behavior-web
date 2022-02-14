@@ -78,9 +78,9 @@ export const helpTypeChoiceList = (): Choice[] => {
     { value: HelpTypeChoice.PARTIAL_ECHO_TIP, name: 'Dica ecoica parcial' },
     { value: HelpTypeChoice.VISUAL_TIP, name: 'Dica visual' },
     { value: HelpTypeChoice.TEXT_TIP, name: 'Dica textual' },
-    { value: HelpTypeChoice.GEST_TIP, name: 'Dica Gestual' },
+    { value: HelpTypeChoice.GEST_TIP, name: 'Dica gestual' },
     { value: HelpTypeChoice.MODEL_TIP, name: 'Dica modelo' },
-    { value: HelpTypeChoice.LATE_TIP, name: 'Atraso de Dica' },
+    { value: HelpTypeChoice.LATE_TIP, name: 'Atraso de dica' },
     { value: HelpTypeChoice.NECESSARY_HELP, name: 'Ajuda necessária' },
     { value: HelpTypeChoice.INDEPENDENT, name: 'Independente' },
   ]
