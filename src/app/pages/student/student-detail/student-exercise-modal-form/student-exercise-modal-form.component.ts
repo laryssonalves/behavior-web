@@ -15,7 +15,7 @@ export class StudentExerciseModalFormComponent implements OnInit {
   readonly ERROR_TARGET_EMPTY = 'Deve ser adicionado pelo menos um alvo.'
   readonly ERROR_ATTEMPTS = 'Verifique as tentativas e os alvos.'
 
-  title = 'Adicionar treino'
+  title = 'Programa de Ensino'
 
   applicationTypeChoices = applicationTypeChoiceList()
   helpTypeChoices = helpTypeChoiceList()
@@ -36,7 +36,6 @@ export class StudentExerciseModalFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.title = this.studentExercise.id ? 'Alterar treino' : 'Adicionar treino'
   }
 
   async saveStudentExercise() {
@@ -120,7 +119,7 @@ export class StudentExerciseModalFormComponent implements OnInit {
 
   private showToastr(success: boolean) {
     if (success) {
-      this.nbToastrService.success(null, 'Treino vinculado com sucesso')
+      this.nbToastrService.success(null, 'Programa de ensino vinculado com sucesso')
     } else {
       this.nbToastrService.warning('Por favor, verique os campos do formulário', 'Há campos inválidos no formulário')
     }

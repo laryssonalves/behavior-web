@@ -41,11 +41,11 @@ export class StudentExerciseService {
 
     this.httpClient.delete(studentExerciseUrl).subscribe(
       () => {
-        this.nbToastrService.success(null, 'Treino desvinculado do aprendente com sucesso')
+        this.nbToastrService.success(null, 'Programa de ensino desvinculado do aprendente com sucesso')
         this.refreshStudentExerciseList.emit(studentExercise.student.id)
       },
       httpError => {
-        const error_detail = httpError.error.detail || 'Não foi possível desvincular treino'
+        const error_detail = httpError.error.detail || 'Não foi possível desvincular programa de ensino'
         this.nbToastrService.danger(null, error_detail)
       }
     )

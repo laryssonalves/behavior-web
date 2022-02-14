@@ -116,7 +116,7 @@ export class GroupFormComponent extends GlobalAction implements OnInit, OnDestro
     this.createNode('Segurança', 'security', securityPermissions)
     this.createNode('Membros', 'member', memberPermissions)
     this.createNode('Aprendentes', 'student', studentPermissions)
-    this.createNode('Treinos', 'student_exercise', exercisePermissions)
+    this.createNode('Programas de Ensino', 'student_exercise', exercisePermissions)
     this.createNode('Equipe', 'student_member', teamPermissions)
     this.createNode('Atendimentos', 'consultation', consultationPermissions)
 
