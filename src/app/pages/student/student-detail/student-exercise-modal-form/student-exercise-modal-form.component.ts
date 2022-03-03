@@ -38,7 +38,9 @@ export class StudentExerciseModalFormComponent implements OnInit {
     private nbToastrService: NbToastrService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isFormActive = !this.studentExercise?.id
+  }
 
   async saveStudentExercise() {
 

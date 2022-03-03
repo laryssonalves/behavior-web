@@ -67,7 +67,13 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
-      { context: { studentExercise, user: this.user }, dialogClass: 'basic-modal' }
+      { 
+        context: { 
+          studentExercise: new StudentExercise(studentExercise),
+          user: this.user 
+        },
+        dialogClass: 'basic-modal' 
+      }
     )
   }
 
