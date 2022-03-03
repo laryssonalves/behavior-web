@@ -67,10 +67,9 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
-      { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
+      { context: { studentExercise, user: this.user }, dialogClass: 'basic-modal' }
     )
   }
-
 
   checkUserPerm(perm: string) {
     return this.user?.hasPerms([perm])

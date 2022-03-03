@@ -1,12 +1,12 @@
 <nb-list [nbSpinner]="isLoading">
   <nb-list-item
     *ngFor="let studentExercise of studentExerciseList; let i = index"
-    [ngClass]="checkUserPerm('student_exercise_edit') ? 'item-list item-list__clickable' : 'item-list'"
+    [ngClass]="checkUserPerm('student_exercise_view') ? 'item-list item-list__clickable' : 'item-list'"
     (click)="openStudentExerciseForm(studentExercise)">
     <div class="d-flex justify-content-between w-100">
       <div class="d-flex flex-column">
         <span class="item-info">{{ studentExercise.program }}</span>
-        <span class="item-info item-info-secondary">{{ studentExercise.applicationTypeDisplay() }}</span>
+        <span class="item-info item-info-secondary">{{ studentExercise.application_type_description }}</span>
       </div>
       <nb-actions size="small">
         <nb-action 

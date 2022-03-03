@@ -1,6 +1,6 @@
 import * as moment from 'moment'
 import { Moment } from 'moment'
-import { ResultTypeChoice } from '../../../../models/choice.model'
+import { ApplicationTypeChoice, HelpTypeChoice, ResultTypeChoice } from '../../../../models/choice.model'
 import CoreModel from '../../../../models/core-model.model'
 import { getDuration } from '../../../../utils'
 import { User } from '../../../security/user/user.model'
@@ -31,8 +31,16 @@ export class ConsultationExercise {
   readonly id: number
   consultation_id: number
   exercise: StudentExercise
+  application_type: ApplicationTypeChoice
+  application_type_description: string
+  help_type: HelpTypeChoice
+  help_type_description: string
+  help_description: string
+  total_attempts: number
+  procedure: string
   concluded: boolean
   concluded_date: Moment
+  create_date: Moment
   result: ConsultationExerciseResult
   targets: ConsultationExerciseTarget[]
   is_applied: boolean
@@ -43,8 +51,9 @@ export class ConsultationExercise {
   constructor(data?: Partial<ConsultationExercise>) {
     const exercise = new StudentExercise(data?.exercise)
     const concluded_date = moment(data?.concluded_date)
+    const create_date = moment(data?.create_date, 'YYYY-MM-DDTHH:mm:ss')
     const targets = data?.targets?.map(target => new ConsultationExerciseTarget(target))
-    const parsedData = { exercise, concluded_date, targets }
+    const parsedData = { exercise, concluded_date, create_date, targets }
     Object.assign(this, data, parsedData)
   }
 }
@@ -53,23 +62,30 @@ export class ConsultationExerciseTarget {
   readonly id: number
   consultation_exercise_id: number
   result_type: ResultTypeChoice
+  result_type_description: string
   student_target: StudentExerciseTarget
+  target_description: string
   sequence: number
+  application_sequence: number
 
   constructor(props?: Partial<ConsultationExerciseTarget>) {
     Object.assign(this, props)
   }
 
-  isNotApplied(): boolean {
-    return this.checkResult(ResultTypeChoice.NOT_APPLIED)
+  isWrong(): boolean {
+    return this.checkResult(ResultTypeChoice.WRONG)
+  }
+
+  isIndependent(): boolean {
+    return this.checkResult(ResultTypeChoice.INDEPENDENT)
+  }
+
+  isCorrectWithHelp(): boolean {
+    return this.checkResult(ResultTypeChoice.CORRECT_WITH_HELP)
   }
 
   checkResult(resultType: ResultTypeChoice): boolean {
     return this.result_type === resultType
-  }
-
-  isIndependent(): boolean {
-    return this.result_type === ResultTypeChoice.NOT_APPLIED
   }
 }
 

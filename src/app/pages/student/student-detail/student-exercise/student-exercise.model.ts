@@ -22,6 +22,7 @@ export class StudentExercise extends CoreModel {
   student: Student
   program: string
   application_type: ApplicationTypeChoice
+  application_type_description: string
   help_type: HelpTypeChoice
   total_attempts: number
   targets: StudentExerciseTarget[] = []
@@ -35,10 +36,6 @@ export class StudentExercise extends CoreModel {
   constructor(data?: Partial<StudentExercise>) {
     super() 
     Object.assign(this, data)
-  }
-
-  applicationTypeDisplay(): string {
-    return applicationTypeChoiceList().find(appType => this.application_type === appType.value).name
   }
 
   helpTypeDisplay(): string {
