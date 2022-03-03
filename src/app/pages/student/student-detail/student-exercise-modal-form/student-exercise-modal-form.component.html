@@ -4,7 +4,7 @@
       {{ title }}
     </nav>
   </nb-card-header>
-  <nb-card-body>
+  <nb-card-body [ngClass]="'card-body'">
     <div class="form-row">
       <div class="col-12 col-sm-12 col-md-12">
         <div class="form-group">
@@ -12,7 +12,7 @@
           <input
             [(ngModel)]="studentExercise.program"
             [status]="studentExercise.errors?.program ? 'danger' : 'basic'"
-            [disabled]="studentExercise.has_consultation"
+            [disabled]="studentExercise.id"
             fieldSize="small"
             fullWidth
             id="program"
@@ -25,12 +25,13 @@
           </ng-container>
         </div>
       </div>
-      <div class="col-12 col-sm-5 col-md-5">
+      <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
-          <label class="label" for="application_type">Tipo de aplicação</label>
+          <label class="label" for="application_type">Etapa de aplicação</label>
           <nb-select
             [(ngModel)]="studentExercise.application_type"
             [status]="studentExercise.errors?.application_type ? 'danger' : 'basic'"
+            [disabled]="!isFormActive"
             fullWidth
             id="application_type"
             placeholder="Selecione"
@@ -45,13 +46,14 @@
           </ng-container>
         </div>
       </div>
-      <div class="col-12 col-sm-4 col-md-4">
+      <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
           <label class="label" for="help_type">Tipo de ajuda</label>
           <nb-select
             [(ngModel)]="studentExercise.help_type"
             [status]="studentExercise.errors?.help_type ? 'danger' : 'basic'"
             fullWidth
+            [disabled]="!isFormActive"
             id="help_type"
             placeholder="Selecione"
             size="small"
@@ -63,14 +65,33 @@
           </ng-container>
         </div>
       </div>
-      <div class="col-12 col-sm-3 col-md-3">
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="form-group">
+          <label class="label" for="help_description">Observações de ajuda</label>
+          <input
+            [(ngModel)]="studentExercise.help_description"
+            [status]="studentExercise.errors?.help_description ? 'danger' : 'basic'"
+            [disabled]="!isFormActive"
+            fieldSize="small"
+            fullWidth
+            id="help_description"
+            name="help_description"
+            nbInput
+            type="text"
+          />
+          <ng-container *ngIf="studentExercise.errors?.help_description">
+            <p *ngFor="let message of studentExercise.errors?.help_description" class="error-message">{{ message }}</p>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
         <div class="form-group">
           <label class="label" for="total_attempts">Total de Tentativas</label>
           <input
             (change)="onAttemptsChange()"
             [(ngModel)]="studentExercise.total_attempts"
             [status]="studentExercise.errors?.total_attempts || attemptsError ? 'danger' : 'basic'"
-            [disabled]="studentExercise.has_consultation"
+            [disabled]="!isFormActive"
             fieldSize="small"
             fullWidth
             id="total_attempts"
@@ -94,6 +115,7 @@
               <input
                 [(ngModel)]="studentExerciseTarget.target"
                 [status]="!studentExerciseTarget.target ? 'danger' : 'basic'"
+                [disabled]="!isFormActive"
                 fieldSize="small"
                 fullWidth
                 name="target{{ i }}"
@@ -102,7 +124,7 @@
                 [nbSpinner]
               />
               <button
-                *ngIf="!studentExercise.has_consultation"
+                *ngIf="isFormActive"
                 (click)="removeTarget(i)"
                 ghost
                 nbButton
@@ -119,7 +141,7 @@
               <p class="error-message mb-0">{{ ERROR_TARGET_BLANK }}</p>
             </ng-container>
           </div>
-          <nb-form-field *ngIf="!studentExercise.has_consultation">
+          <nb-form-field *ngIf="isFormActive">
             <input
               #inputTarget
               [status]="targetError ? 'danger' : 'basic'"
@@ -151,6 +173,7 @@
           <textarea
             [(ngModel)]="studentExercise.procedure"
             [status]="studentExercise.errors?.procedure ? 'danger' : 'basic'"
+            [disabled]="!isFormActive"
             fieldSize="large"
             rows="5"
             fullWidth
@@ -168,7 +191,8 @@
   </nb-card-body>
   <nb-card-footer>
     <div class="float-right">
-      <button (click)="saveStudentExercise()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button *ngIf="isFormActive" (click)="saveStudentExercise()" class="mx-2" nbButton size="small" status="primary">Salvar</button>
+      <button *ngIf="!isFormActive && checkUserPerm('student_exercise_edit')" (click)="setFormActive()" class="mx-2" nbButton size="small" status="primary">Editar</button>
       <button (click)="close(false)" class="mx-2" nbButton size="small" status="secondary">Voltar</button>
     </div>
   </nb-card-footer>

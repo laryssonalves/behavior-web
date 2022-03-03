@@ -19,7 +19,7 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
   studentExerciseList: StudentExercise[] = []
 
-  private loading = false
+  isLoading = false
 
   constructor(
     private studentExerciseService: StudentExerciseService,
@@ -40,25 +40,17 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
   private async getStudentExerciseList() {
     try {
-      this.showLoading = true
+      this.isLoading = true
       this.studentExerciseList = await this.studentExerciseService.getStudentExerciseList(this.student.id).toPromise()
     } catch (e) {
       this.openDialogError(e)
     } finally {
-      this.showLoading = false
+      this.isLoading = false
     }
   }
 
   removeStudentExercise(studentExercise: StudentExercise) {
     this.studentExerciseService.deleteStudentExercise(studentExercise)
-  }
-
-  get showLoading(): boolean {
-    return this.loading
-  }
-
-  set showLoading(loading: boolean) {
-    this.loading = loading
   }
 
   private openDialogError(error: any) {
@@ -75,10 +67,15 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
-      { context: { studentExercise: studentExercise }, dialogClass: 'basic-modal' }
+      { 
+        context: { 
+          studentExercise: new StudentExercise(studentExercise),
+          user: this.user 
+        },
+        dialogClass: 'basic-modal' 
+      }
     )
   }
-
 
   checkUserPerm(perm: string) {
     return this.user?.hasPerms([perm])

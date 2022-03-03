@@ -22,7 +22,10 @@ export class StudentExercise extends CoreModel {
   student: Student
   program: string
   application_type: ApplicationTypeChoice
+  application_type_description: string
   help_type: HelpTypeChoice
+  help_type_descrition: string
+  help_description: string
   total_attempts: number
   targets: StudentExerciseTarget[] = []
   procedure: string
@@ -37,14 +40,6 @@ export class StudentExercise extends CoreModel {
     Object.assign(this, data)
   }
 
-  applicationTypeDisplay(): string {
-    return applicationTypeChoiceList().find(appType => this.application_type === appType.value).name
-  }
-
-  helpTypeDisplay(): string {
-    return applicationTypeChoiceList().find(helpType => this.help_type === helpType.value).name
-  }
-
   getPayload(): Object {
     return {
       id: this.id,
@@ -52,6 +47,7 @@ export class StudentExercise extends CoreModel {
       program: this.program,
       application_type: this.application_type,
       help_type: this.help_type,
+      help_description: this.help_description,
       total_attempts: this.total_attempts,
       targets: this.targets,
       procedure: this.procedure
@@ -84,6 +80,7 @@ interface StudentExerciseValidationError {
   program: string[]
   application_type: string[]
   help_type: string[]
+  help_description: string[]
   total_attempts: string[]
   targets: string[]
   procedure: string[]

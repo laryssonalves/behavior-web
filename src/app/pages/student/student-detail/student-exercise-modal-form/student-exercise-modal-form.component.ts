@@ -4,6 +4,7 @@ import { StudentExercise, StudentExerciseTarget } from '../student-exercise/stud
 import { applicationTypeChoiceList, helpTypeChoiceList } from '../../../../models/choice.model'
 import { StudentExerciseService } from '../student-exercise/student-exercise.service'
 import { delay } from 'rxjs/operators'
+import { User } from '../../../security/user/user.model'
 
 @Component({
   selector: 'ngx-student-exercise-modal-form',
@@ -21,11 +22,13 @@ export class StudentExerciseModalFormComponent implements OnInit {
   helpTypeChoices = helpTypeChoiceList()
 
   studentExercise: StudentExercise
+  user: User
   targetError = false
   targetErrorMessage = ''
   targetDeletingIndex = null
   isDeletingTarget = false
   isLoading = false
+  isFormActive = false
 
   attemptsError = false
 
@@ -36,15 +39,16 @@ export class StudentExerciseModalFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isFormActive = !this.studentExercise?.id
   }
 
   async saveStudentExercise() {
+
     try {
       if (!this.studentExercise.targets.length) {
         this.targetError = true
         this.targetErrorMessage = this.ERROR_TARGET_EMPTY
       }
-      
       this.attemptsError = !this.studentExercise.isTotalAttemptsValid()
 
       if (this.targetError || this.attemptsError) {
@@ -123,5 +127,13 @@ export class StudentExerciseModalFormComponent implements OnInit {
     } else {
       this.nbToastrService.warning('Por favor, verique os campos do formulário', 'Há campos inválidos no formulário')
     }
+  }
+
+  setFormActive() {
+    this.isFormActive = true
+  }
+
+  checkUserPerm(perm: string) {
+    return this.user?.hasPerms([perm])
   }
 }

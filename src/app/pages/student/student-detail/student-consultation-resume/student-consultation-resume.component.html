@@ -12,7 +12,7 @@
       <div class="exercise" (click)="setTargetListVisible(index)">
         <div class="exercise__detail">
           <span class="item-info">{{consultationExercise.exercise.program}}</span>
-          <span class="item-info-secondary">{{consultationExercise.exercise.applicationTypeDisplay()}}</span>
+          <span class="item-info-secondary">{{consultationExercise.application_type_description}}</span>
         </div>
         <div class="exercise__resume">
           <span class="item-info-secondary" *ngIf="!consultationExercise.is_applied">Não aplicado</span>
@@ -36,7 +36,7 @@
         <div style="display: flex; flex-direction: row; justify-content: space-between;">
           <span class="item-info-secondary targets__title">Tentativas</span>
           <span class="item-info targets__title">
-            {{ consultationExercise.total_targets_answered }}/{{ consultationExercise.exercise.total_attempts }}
+            {{ consultationExercise.total_targets_answered }}/{{ consultationExercise.total_attempts }}
           </span>
         </div>
         <div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -52,11 +52,11 @@
           *ngFor="let consultationExerciseTarget of consultationExercise.targets; let indexTarget = index" 
           class="d-flex flex-column">
           <div class="item-info-secondary target">
-            <span class="target__detail">{{ consultationExerciseTarget.sequence }}. {{consultationExerciseTarget.student_target.target}}</span>
+            <span class="target__detail">{{ consultationExerciseTarget.sequence }}. {{consultationExerciseTarget.target_description}}</span>
             <div class="target__resume">
-              <span class="target__resume__result">{{consultationExerciseTarget.checkResult(ResultTypeChoice.WRONG) ? '1' : '0'}}</span>
-              <span class="target__resume__result target__resume__result--mid">{{consultationExerciseTarget.checkResult(ResultTypeChoice.CORRECT_WITH_HELP) ? '1' : '0'}}</span>
-              <span class="target__resume__result">{{consultationExerciseTarget.checkResult(ResultTypeChoice.INDEPENDENT) ? '1' : '0'}}</span>
+              <span class="target__resume__result">{{consultationExerciseTarget.isWrong() ? '1' : '0'}}</span>
+              <span class="target__resume__result target__resume__result--mid">{{consultationExerciseTarget.isCorrectWithHelp() ? '1' : '0'}}</span>
+              <span class="target__resume__result">{{consultationExerciseTarget.isIndependent() ? '1' : '0'}}</span>
             </div>
           </div>
           <div *ngIf="isDividerVisible(consultationExercise, indexTarget)" style="height: 1px; margin: 0.25rem 0; width: 100%; background-color: #f1f1f1;"></div>
