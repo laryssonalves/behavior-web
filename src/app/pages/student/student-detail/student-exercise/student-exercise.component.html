@@ -1,4 +1,4 @@
-<nb-list [nbSpinner]="showLoading">
+<nb-list [nbSpinner]="isLoading">
   <nb-list-item
     *ngFor="let studentExercise of studentExerciseList; let i = index"
     [ngClass]="checkUserPerm('student_exercise_edit') ? 'item-list item-list__clickable' : 'item-list'"
