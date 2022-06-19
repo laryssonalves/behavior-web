@@ -1,9 +1,9 @@
-<nb-card status="danger">
-  <nb-card-header>Ocorreu um erro inesperado.</nb-card-header>
+<nb-card status="primary">
+  <nb-card-header>{{ title }}</nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-md-12">
-        {{ getErrorString() }}
+        {{ message }}
       </div>
     </div>
   </nb-card-body>

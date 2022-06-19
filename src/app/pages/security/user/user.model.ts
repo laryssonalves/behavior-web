@@ -1,5 +1,6 @@
 import { isAdmin } from '../../../models/choice.model'
 import { Member } from '../../../pages/member/member.model'
+import { Group } from '../group/group.model'
 import { Permission } from '../interfaces/permission'
 
 export class User {
@@ -9,6 +10,7 @@ export class User {
   name: string
   photo: string
   person: Member
+  group_role: Group
   group_role_id: number
   permissions: Permission[]
 

@@ -7,6 +7,7 @@
       <div class="d-flex flex-column">
         <span class="item-info">{{ user.name }}</span>
         <span class="item-info item-info-secondary">{{ user.email }}</span>
+        <span class="item-info item-info-secondary">{{ user.group_role.name }}</span>
       </div>
       <nb-actions size="small" *ngIf="checkUserPerm('user_del')">
         <nb-action 
