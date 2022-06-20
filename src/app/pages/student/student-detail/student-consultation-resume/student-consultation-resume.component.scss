@@ -51,6 +51,12 @@
     border: 1px solid #918f8f;
     margin-top: 0.25rem;
 
+    &__detail {
+      display: flex; 
+      flex-direction: row; 
+      justify-content: space-between;
+    }
+
     .targets__title {
       font-size: 0.7rem;
     }

@@ -11,7 +11,7 @@
       [ngClass]="'item-list exercise__container'">
       <div class="exercise" (click)="setTargetListVisible(index)">
         <div class="exercise__detail">
-          <span class="item-info">{{consultationExercise.exercise.program}}</span>
+          <span class="item-info">{{consultationExercise.program}}</span>
           <span class="item-info-secondary">{{consultationExercise.application_type_description}}</span>
         </div>
         <div class="exercise__resume">
@@ -33,19 +33,27 @@
         </div>
       </div>
       <div class="targets__container" *ngIf="isTargetListVisible(index)">
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <div class="targets__container__detail">
           <span class="item-info-secondary targets__title">Tentativas</span>
           <span class="item-info targets__title">
             {{ consultationExercise.total_targets_answered }}/{{ consultationExercise.total_attempts }}
           </span>
         </div>
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-          <span class="item-info-secondary targets__title">Respostas corretas</span>
-          <span class="item-info targets__title">{{ consultationExercise.total_targets_correct }}</span>
+        <div class="targets__container__detail">
+          <span class="item-info-secondary targets__title">Corretas independentes</span>
+          <span class="item-info targets__title">{{ consultationExercise.result.result_indepent }}</span>
         </div>
-        <div style="display: flex; flex-direction: row; justify-content: space-between;">
-          <span class="item-info-secondary targets__title">Porcentagem de acerto</span>
-          <span class="item-info targets__title">{{ consultationExercise.percentage_correct_targets }}%</span>
+        <div class="targets__container__detail">
+          <span class="item-info-secondary targets__title">Porcentagem de acerto independente</span>
+          <span class="item-info targets__title">{{ independentPercentage(consultationExercise) }}</span>
+        </div>
+        <div class="targets__container__detail">
+          <span class="item-info-secondary targets__title">Corretas com ajuda</span>
+          <span class="item-info targets__title">{{ consultationExercise.result.result_correct_with_help }}</span>
+        </div>
+        <div class="targets__container__detail">
+          <span class="item-info-secondary targets__title">Porcentagem de acerto com ajuda</span>
+          <span class="item-info targets__title">{{ withHelpPercentage(consultationExercise) }}</span>
         </div>
         <span class="item-info targets__title mt-1">Resultado detalhado</span>
         <div 
