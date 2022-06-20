@@ -20,3 +20,5 @@ export const getDuration = (create_date: Moment, concluded_date: Moment) => {
   const min = diff.minutes() ? `${diff.minutes()}min` : ''
   return `${days} ${hours} ${min}`
 }
+
+export const percentage = (value: number, total: number): number => (100 * value) / total

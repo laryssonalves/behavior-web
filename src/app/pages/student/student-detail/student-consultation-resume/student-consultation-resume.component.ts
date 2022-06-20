@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { NbDialogRef } from '@nebular/theme'
 import { ResultTypeChoice } from '../../../../models/choice.model'
+import { percentage } from '../../../../utils'
 import { Consultation, ConsultationExercise } from '../student-consultation/consultation.model'
 import { ConsultationService } from '../student-consultation/consultation.service'
 
@@ -20,6 +21,7 @@ export class StudentConsultationResumeComponent implements OnInit {
   isLoading = false
 
   targetsVisibleIndexList: number[] = []
+  consultationExercise: any
 
   constructor(
     protected ref: NbDialogRef<StudentConsultationResumeComponent>,
@@ -63,7 +65,7 @@ export class StudentConsultationResumeComponent implements OnInit {
     const isLastIndex = index === consultationExercise.targets.length - 1
 
     const dividend = index + 1
-    const divisor = consultationExercise.exercise.total_targets
+    const divisor = consultationExercise.targets.length
 
     if (dividend === 1 || divisor === 1 || isLastIndex) {
       return false
@@ -72,5 +74,15 @@ export class StudentConsultationResumeComponent implements OnInit {
     const quotient = dividend > divisor ? dividend / divisor : divisor / dividend
 
     return Math.floor(quotient) === quotient
+  }
+
+  independentPercentage(consultationExercise: ConsultationExercise): string {
+    const { result: { result_indepent }, targets } = consultationExercise;
+    return `${percentage(result_indepent, targets.length)}%`;
+  }
+
+  withHelpPercentage(consultationExercise: ConsultationExercise): string {
+    const { result: { result_correct_with_help }, targets } = consultationExercise;
+    return `${percentage(result_correct_with_help, targets.length)}%`;
   }
 }

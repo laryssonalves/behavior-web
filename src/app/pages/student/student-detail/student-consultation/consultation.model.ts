@@ -31,6 +31,7 @@ export class ConsultationExercise {
   readonly id: number
   consultation_id: number
   exercise: StudentExercise
+  program: string
   application_type: ApplicationTypeChoice
   application_type_description: string
   help_type: HelpTypeChoice
