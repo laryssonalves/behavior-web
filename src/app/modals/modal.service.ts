@@ -5,13 +5,25 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component'
 import { Consultation } from '../pages/student/student-detail/student-consultation/consultation.model'
 import { StudentConsultationResumeComponent } from '../pages/student/student-detail/student-consultation-resume/student-consultation-resume.component'
-
+import { WarningModal } from './warning-modal/warning-modal.interface'
+import { WarningModalComponent } from './warning-modal/warning-modal.component'
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
 
   constructor(private nbDialogService: NbDialogService) { }
+
+  showDialogInfo({ title, message }: WarningModal) {
+    this.nbDialogService.open(
+      WarningModalComponent,
+      {
+        context: { title, message },
+        hasScroll: true,
+        dialogClass: 'basic-modal'
+      }
+    )
+  }
 
   showDialogError(err: HttpErrorResponse) {
     const { error } = err

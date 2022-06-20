@@ -12,7 +12,7 @@
           <input
             [(ngModel)]="studentExercise.program"
             [status]="studentExercise.errors?.program ? 'danger' : 'basic'"
-            [disabled]="studentExercise.id"
+            [disabled]="!isFormActive"
             fieldSize="small"
             fullWidth
             id="program"

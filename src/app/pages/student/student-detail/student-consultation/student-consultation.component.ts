@@ -52,6 +52,14 @@ export class StudentConsultationComponent extends GlobalAction implements OnInit
   }
 
   removeStudentConsultation(consultation: Consultation) {
+    if (!this.checkUserPerm('consultation_del')) {
+      this.modalService.showDialogInfo({
+        title: 'Atenção',
+        message: 'Você não tem permissão para remover esta consulta'
+      })
+      return;
+    };
+  
     this.consultationService.deleteStudentConsultation(consultation)
   }
 
