@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AnswersByResultType, ComparativeResultType, ComparativeTries } from './interfaces/charts';
+import { AnswersByResultType, ComparativeData, ComparativeTries } from './interfaces/charts';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,18 @@ export class DashboardService {
     return this.httpClient.get<AnswersByResultType>(answersByResultTypeUrl);
   }
 
-  getComparativeResultType(studentId: number): Observable<ComparativeResultType[]> {
+  getComparativeResultType(studentId: number): Observable<ComparativeData[]> {
     const comparativeResultTypeUrl = `${ this.dashboardUrl }comparative-result-type/?student=${ studentId }`;
-    return this.httpClient.get<ComparativeResultType[]>(comparativeResultTypeUrl);
+    return this.httpClient.get<ComparativeData[]>(comparativeResultTypeUrl);
   }
 
   getTriesResult(studentId: number): Observable<ComparativeTries> {
     const triesResultUrl = `${ this.dashboardUrl }comparative-tries/?student=${ studentId }`;
     return this.httpClient.get<ComparativeTries>(triesResultUrl);
+  }
+
+  getComparativeApplicationType(studentId: number, exerciseId: number): Observable<ComparativeData[]> {
+    const url = `${ this.dashboardUrl }comparative-application-type/?student=${ studentId }&exercise=${ exerciseId }`;
+    return this.httpClient.get<ComparativeData[]>(url);
   }
 }

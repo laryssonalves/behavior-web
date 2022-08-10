@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core'
 import { StudentListComponent } from './student-list/student-list.component'
 import { StudentDetailComponent } from './student-detail/student-detail.component'
 import { StudentDetailViewGuard } from './student-detail/student-detail-view.guard'
+import { StudentExerciseChartsComponent } from './student-detail/student-exercise/student-exercise-charts/student-exercise-charts.component'
 
 const routes: Routes = [
   {
@@ -14,7 +15,12 @@ const routes: Routes = [
   {
     path: 'detalhes/:id',
     component: StudentDetailComponent,
-    canActivate: [StudentDetailViewGuard]
+    canActivate: [StudentDetailViewGuard],
+  },
+  {
+    path: 'detalhes/:studentId/programa/:id',
+    component: StudentExerciseChartsComponent,
+    canActivate: [StudentDetailViewGuard],
   }
 ]
 
@@ -25,4 +31,4 @@ const routes: Routes = [
 export class StudentRoutingModule {
 }
 
-export const routedComponents = [ StudentListComponent, StudentDetailComponent ]
+export const routedComponents = [ StudentListComponent, StudentDetailComponent, StudentExerciseChartsComponent ]
