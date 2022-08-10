@@ -9,12 +9,12 @@ export interface AnswersByResultType {
   data: AnswersByResultTypeData[];
 }
 
-export interface ComparativeResultType {
-  name: string;
-  data: number[];
-}
-
 export interface ComparativeTries {
   total_tries: number;
   total_applied_tries: number;
+}
+
+export interface ComparativeData {
+  name: string;
+  data: number[];
 }

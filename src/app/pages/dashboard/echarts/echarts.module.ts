@@ -19,6 +19,6 @@ const components = [
     NgxEchartsModule,
   ],
   declarations: [ ...components ],
-  exports: [ EchartsComponent ],
+  exports: [ EchartsComponent, EchartsLineComponent, EchartsPieComponent ],
 })
 export class EchartsModule { }

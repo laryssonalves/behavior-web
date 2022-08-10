@@ -1,0 +1,12 @@
+<nb-card [nbSpinner]="isLoading">
+  <nb-card-header class="card-header-action">
+    <div *ngIf="!!exercise" class="d-flex flex-column">
+      <span>{{ exercise.student.name }}</span>
+      <span *ngIf="!!exercise">{{ exercise.program }}</span>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <h6>Comparativo tipos de aplicação</h6>
+    <ngx-echarts-line [chartData]="chartData"></ngx-echarts-line>
+  </nb-card-body>
+</nb-card>

@@ -9,10 +9,17 @@
         <span class="item-info item-info-secondary">{{ studentExercise.application_type_description }}</span>
       </div>
       <nb-actions size="small">
-        <nb-action 
+        <nb-action
+          *ngIf="checkUserPerm('student_exercise_view')"
+          icon="pie-chart-outline"
+          title="Gráfico do programa de ensino do aprendente"
+          (click)="$event.stopPropagation();goToStudentExerciseChart(studentExercise)"
+          [ngClass]="'item-action item-list-btn'">
+        </nb-action>
+        <nb-action
           *ngIf="checkUserPerm('student_exercise_del')"
-          icon="trash-outline" 
-          title="Excluir programa de ensino do aprendente" 
+          icon="trash-outline"
+          title="Excluir programa de ensino do aprendente"
           (click)="$event.stopPropagation();removeStudentExercise(studentExercise)"
           [ngClass]="'item-action item-list-btn'">
         </nb-action>
