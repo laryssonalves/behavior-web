@@ -7,6 +7,7 @@ import { Student } from '../../student.model'
 import { ErrorModalComponent } from '../../../../modals/error-modal/error-modal'
 import { StudentExerciseModalFormComponent } from '../student-exercise-modal-form/student-exercise-modal-form.component'
 import { User } from '../../../security/user/user.model'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'ngx-student-exercise',
@@ -23,7 +24,9 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
   constructor(
     private studentExerciseService: StudentExerciseService,
-    private nbDialogService: NbDialogService
+    private nbDialogService: NbDialogService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     super()
   }
@@ -67,17 +70,21 @@ export class StudentExerciseComponent extends GlobalAction implements OnInit {
 
     this.nbDialogService.open(
       StudentExerciseModalFormComponent,
-      { 
-        context: { 
+      {
+        context: {
           studentExercise: new StudentExercise(studentExercise),
-          user: this.user 
+          user: this.user
         },
-        dialogClass: 'basic-modal' 
+        dialogClass: 'basic-modal'
       }
     )
   }
 
   checkUserPerm(perm: string) {
     return this.user?.hasPerms([perm])
+  }
+
+  async goToStudentExerciseChart(exercise: StudentExercise) {
+    this.router.navigateByUrl(`aprendentes/detalhes/${exercise.student.id}/programa/${exercise.id}`)
   }
 }
