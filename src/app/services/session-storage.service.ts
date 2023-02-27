@@ -10,12 +10,20 @@ export class SessionStorageService {
   constructor() {
   }
 
+  getParsedData(data: any): any {
+    return JSON.parse(data)
+  }
+
+  getStringifiedData(data: any): string {
+    return JSON.stringify(data)
+  }
+
   getEncodedData(data: any): string {
-    return btoa(JSON.stringify(data))      
+    return btoa(this.getStringifiedData(data))
   }
 
   getDecodedData<T>(encodedData: string): T {
-    return encodedData ? JSON.parse(atob(encodedData)) : null
+    return encodedData ? this.getParsedData(atob(encodedData)) : null
   }
 
   setSelectedCompany(company: Company): void {
@@ -43,13 +51,11 @@ export class SessionStorageService {
   }
 
   setAuthToken(authToken: AuthToken): void {
-    const encodedValue = this.getEncodedData(authToken)
-    sessionStorage.setItem('auth_token', encodedValue)
+    sessionStorage.setItem('auth_token', this.getStringifiedData(authToken))
   }
 
   getAuthToken(): AuthToken {
-    const encodedValue = sessionStorage.getItem('auth_token')
-    const authToken = this.getDecodedData<AuthToken>(encodedValue)
+    const authToken = this.getParsedData(sessionStorage.getItem('auth_token'))
 
     return new AuthToken(authToken)
   }

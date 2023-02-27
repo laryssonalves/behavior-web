@@ -62,7 +62,7 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
         this.userService.getUserDetails()
         this.companyService.getSelectedCompany()
       } else {
-        this.authService.logout()
+        this.authService.refreshToken()
       }
     })
 
@@ -93,8 +93,6 @@ export class HeaderComponent extends GlobalAction implements OnInit, OnDestroy {
         this.currentTheme = themeName
         this.rippleService.toggle(themeName?.startsWith('material'))
       })
-
-    this.authService.refreshToken()
 
     this.onMenuItemClick()
   }

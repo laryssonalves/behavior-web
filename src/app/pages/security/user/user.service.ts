@@ -14,7 +14,13 @@ export class UserService {
   private userUrl = `${environment.apiUrl}users/`
   private user$ = new ReplaySubject<User>()
 
-  constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) {}
+  constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) {
+    const storageUser = this.getCurrentUser();
+
+    if (storageUser) {
+      this.nextUser = storageUser
+    }
+  }
 
   get userSubject(): ReplaySubject<User> {
     return this.user$
@@ -57,7 +63,7 @@ export class UserService {
 
   updateUser(user: User): Observable<User> {
     const userDetailUrl = `${this.userUrl}${user.id}/`
-    
+
     return this.httpClient.put<User>(userDetailUrl, user.getPayload())
   }
 

@@ -1,31 +1,49 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { SessionStorageService } from '../services/session-storage.service';
 import { AuthToken } from './interfaces/token';
 
+type TokenResponse = {
+  access?: string;
+  refresh?: string;
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private authUrl = `${environment.apiUrl}auth/`
+  private tokenUrl = `${environment.apiUrl}token/`
+  private refreshUrl = `${this.tokenUrl}refresh/`
 
   onTokenChange = new ReplaySubject<AuthToken>()
 
   constructor(
-    private httpClient: HttpClient, 
+    private httpClient: HttpClient,
     private sessionStorageService: SessionStorageService,
     private router: Router
   ) { }
 
   async authenticate(user: any) {
-    const loginUrl = `${this.authUrl}login/`
-    await this.httpClient.post(loginUrl, user).pipe(
-      map(response => new AuthToken(response)),
+    await this.httpClient.post(this.tokenUrl, user).pipe(
+      map((response: TokenResponse) => new AuthToken(response as Partial<AuthToken>)),
+      tap(authToken => this.setToken(authToken))
+    ).toPromise()
+  }
+
+  async refreshToken(): Promise<void> {
+    const token = this.getToken()
+    const data = { refresh: token.getRefreshToken() }
+    await this.httpClient.post(this.refreshUrl, data).pipe(
+      map((response: TokenResponse) => {
+        const { access } = response
+        const authToken = { access, refresh: token.getRefreshToken() } as Partial<AuthToken>
+        return new AuthToken(authToken)
+      }),
       tap(authToken => this.setToken(authToken))
     ).toPromise()
   }
@@ -43,16 +61,8 @@ export class AuthService {
     this.sessionStorageService.clearSession()
   }
 
-  refreshToken() {
-    const token = this.getToken()
-    this.setToken(token)
-  }
-
   async logout() {
-    const logoutUrl = `${this.authUrl}logout/`
-    await this.httpClient.delete(logoutUrl)
-      .pipe(tap(() => this.clearSession()))
-      .toPromise()
-      .then(() => this.router.navigateByUrl('auth/login'))
+    this.clearSession()
+    this.router.navigateByUrl('auth/login')
   }
 }
