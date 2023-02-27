@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { GlobalAction } from '../../action-abstract';
 import { TabService } from '../../services/tab.service';
 import { User } from './user/user.model';
@@ -9,15 +9,14 @@ import { UserService } from './user/user.service';
   templateUrl: './security.component.html',
   styleUrls: ['./security.component.scss']
 })
-export class SecurityComponent extends GlobalAction implements OnInit, OnDestroy {
+export class SecurityComponent extends GlobalAction implements OnDestroy {
   private currentTab: any
 
   user: User
   isLoading = false
 
-  constructor(private tabService: TabService, private userService: UserService) { super() }
-
-  ngOnInit(): void {
+  constructor(private tabService: TabService, private userService: UserService) {
+    super()
     const tabSubscription = this.tabService.getCurrentTab().subscribe(tab => {
       this.currentTab = tab
     })

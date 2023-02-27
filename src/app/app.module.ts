@@ -22,6 +22,7 @@ import localePt from '@angular/common/locales/pt'
 import { ModalsModule } from './modals/modals.module'
 import { NbMomentDateModule } from '@nebular/moment'
 
+
 registerLocaleData(localePt)
 
 @NgModule({
@@ -40,13 +41,13 @@ registerLocaleData(localePt)
     CoreModule.forRoot(),
     NbAuthModule.forRoot(appConfig.authOptions),
     ModalsModule,
-    NbMomentDateModule
+    NbMomentDateModule,
   ],
   bootstrap: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'pt' }
+    { provide: LOCALE_ID, useValue: 'pt' },
   ]
 })
 export class AppModule {}

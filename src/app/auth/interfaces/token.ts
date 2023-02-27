@@ -1,22 +1,27 @@
-import { Observable, of } from "rxjs"
-
 export class AuthToken {
-  private readonly token: string
-  private createdAt?: Date
+  private refresh: string
+  private access: string
 
   constructor(initialData: Partial<AuthToken>) {
     Object.assign(this, initialData)
   }
 
+  isExpired(): boolean {
+    const payload = JSON.parse(atob(this.access.split(".")[1]))
+    const expires = new Date(payload.exp * 1000)
+    // add 1 minute to account for network latency
+    return new Date() > new Date(expires.getTime() + 60000)
+  }
+
   isValid(): boolean {
-    return !!this.getValue()
+    return !!this.getAccessToken() && !this.isExpired()
   }
 
-  getValue(): string {
-    return this.token
+  getAccessToken(): string {
+    return this.access
   }
 
-  isAutheticated(): Observable<boolean> {
-    return of(this.isValid())
+  getRefreshToken(): string {
+    return this.refresh
   }
 }
