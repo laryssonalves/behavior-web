@@ -23,15 +23,15 @@ export class EchartsPieComponent implements AfterViewInit {
     this.dashboardService.getAnswersByResultType(this.student.id).toPromise().then((chartData: AnswersByResultType) => {
       this.options = {
         backgroundColor: this.echarts.bg,
-        color: [ '#74838F', '#63B3ED', '#FF5B5C', '#06C49A' ], 
+        color: [ '#74838F', '#63B3ED', '#FF5B5C', '#06C49A' ],
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)',
+          formatter: '{a} <br/>{b}: {c} ({d}%)',
         },
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: chartData.types,
+          data: chartData.data.map(item => item.name),
           textStyle: {
             color: this.echarts.textColor,
           },
