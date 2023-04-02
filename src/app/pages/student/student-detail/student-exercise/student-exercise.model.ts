@@ -2,7 +2,6 @@ import CoreModel from '../../../../models/core-model.model'
 import { Student } from '../../student.model'
 import {
   ApplicationTypeChoice,
-  applicationTypeChoiceList,
   HelpTypeChoice,
   ResultTypeChoice
 } from '../../../../models/choice.model'
@@ -36,7 +35,7 @@ export class StudentExercise extends CoreModel {
   errors: StudentExerciseValidationError
 
   constructor(data?: Partial<StudentExercise>) {
-    super() 
+    super()
     Object.assign(this, data)
   }
 
@@ -69,7 +68,7 @@ export class StudentExercise extends CoreModel {
       return false
     }
 
-    const targetAttempts = this.total_attempts / this.targets.length 
+    const targetAttempts = this.total_attempts / this.targets.length
 
     return Math.floor(targetAttempts) === targetAttempts
   }

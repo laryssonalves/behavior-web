@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { NgxEchartsModule } from 'ngx-echarts'
 
-import { EchartsComponent } from './echarts.component';
 import { EchartsLineComponent } from './echarts-line.component';
 import { EchartsPieComponent } from './echarts-pie.component';
 import { NbCardModule } from '@nebular/theme';
@@ -10,15 +9,16 @@ import { NbCardModule } from '@nebular/theme';
 const components = [
   EchartsLineComponent,
   EchartsPieComponent,
-  EchartsComponent,
 ]
 
 @NgModule({
   imports: [
     NbCardModule,
-    NgxEchartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   declarations: [ ...components ],
-  exports: [ EchartsComponent, EchartsLineComponent, EchartsPieComponent ],
+  exports: [ EchartsLineComponent, EchartsPieComponent ],
 })
 export class EchartsModule { }

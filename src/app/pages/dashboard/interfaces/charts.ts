@@ -5,7 +5,6 @@ interface AnswersByResultTypeData {
 }
 
 export interface AnswersByResultType {
-  types: string[];
   data: AnswersByResultTypeData[];
 }
 
@@ -17,4 +16,16 @@ export interface ComparativeTries {
 export interface ComparativeData {
   name: string;
   data: number[];
+}
+
+export interface ComparativeDataByConsultationData {
+  name: string;
+  value: number;
+  id: number;
+  date: string;
+}
+
+export interface ComparativeDataByConsultation {
+  name: string;
+  data: ComparativeDataByConsultationData[]
 }

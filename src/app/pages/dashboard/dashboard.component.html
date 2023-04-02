@@ -1,8 +1,26 @@
-<div class="row">
-  <nb-card>
-    <nb-card-body>
-      <ngx-tries [student]="student"></ngx-tries>
-      <ngx-echarts [student]="student"></ngx-echarts>
-    </nb-card-body>
-  </nb-card>
-</div>
+<nb-card>
+  <nb-card-body>
+    <ngx-tries [student]="student"></ngx-tries>
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12">
+        <nb-card>
+          <nb-card-header>Repostas por tipo</nb-card-header>
+          <nb-card-body>
+            <div>
+            <ngx-echarts-pie [student]="student"></ngx-echarts-pie>
+          </div>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <div class="col-12 col-md-12 col-lg-12">
+        <nb-card>
+          <nb-card-header>Comparativo tipos de resposta</nb-card-header>
+          <nb-card-body>
+            <ngx-echarts-line [customOptions]="comparativeResulTypeOptions"></ngx-echarts-line>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
