@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../../pages/security/user/user.service';
 import { AuthService } from '../auth.service';
 
+import { environment } from "../../../environments/environment";
+
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
@@ -10,7 +12,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   user = {
-    email: '', 
+    email: '',
     password: ''
   }
   loading = false
@@ -23,7 +25,9 @@ export class LoginComponent implements OnInit {
   redirectDelay = 200
 
   passwordVisible = false
-  
+
+  resetPasswordUrl = environment.resetPasswordUrl
+
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
 
