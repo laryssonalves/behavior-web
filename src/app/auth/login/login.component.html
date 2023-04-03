@@ -69,8 +69,8 @@
       <p *ngIf="password.errors?.required" class="error-message">Senha é obrigatório</p>
     </ng-container>
   </div>
-  <div style="margin-bottom: 2rem; margin-top: -1.5rem;">
-    <a href="{{ resetPasswordUrl }}" style="font-size: small;">Esqueci minha senha</a>
+  <div class="reset-password-container">
+    <a href="{{ resetPasswordUrl }}">Esqueci minha senha</a>
   </div>
   <button
     [nbSpinner]="loading"
