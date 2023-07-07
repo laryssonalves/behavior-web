@@ -8,6 +8,7 @@ import { ErrorModalComponent } from '../../../modals/error-modal/error-modal'
 import { NbDialogService } from '@nebular/theme/'
 import { User } from '../../security/user/user.model'
 import { UserService } from '../../security/user/user.service'
+import { ModalService } from '../../../modals/modal.service'
 
 @Component({
   selector: 'ngx-member-list',
@@ -21,10 +22,11 @@ export class MemberListComponent extends GlobalAction implements OnInit {
   private loading = false
 
   constructor(
-    private router: Router, 
-    private memberService: MemberService, 
+    private router: Router,
+    private memberService: MemberService,
     private nbDialogService: NbDialogService,
-    private userService: UserService
+    private userService: UserService,
+    private modalService: ModalService,
   ) {
     super()
   }
@@ -51,7 +53,13 @@ export class MemberListComponent extends GlobalAction implements OnInit {
   }
 
   removeMember(member: Member) {
-    this.memberService.deleteMember(member.id)
+    this.modalService.showDialogConfirmation(
+      'Confirmação de exclusão',
+      'Tem certeza que deseja excluir o aprendente? Todos os dados sobre o aprendente serão perdidos de forma irrerversível.',
+      () => {
+        this.memberService.deleteMember(member.id)
+      }
+    )
   }
 
   private async getMembers() {
@@ -76,7 +84,7 @@ export class MemberListComponent extends GlobalAction implements OnInit {
       dialogClass: 'basic-modal'
     })
   }
-  
+
   checkUserPerm(perm: string) {
     return this.user?.hasPerms([perm])
   }

@@ -46,8 +46,11 @@ export class MemberService {
         this.nbToastrService.success(null, 'Membro deletado com sucesso')
         this.refreshMemberList.emit()
       },
-      error => {
-        this.nbToastrService.danger(null, 'Não foi possível deletar o membro')
+      httpError => {
+        this.nbToastrService.danger(
+          null,
+          httpError?.error?.detail || "Não foi possível deletar o membro",
+        )
       }
     )
   }
