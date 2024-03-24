@@ -12,11 +12,21 @@
           </nb-card-body>
         </nb-card>
       </div>
+
       <div class="col-12 col-md-12 col-lg-12">
         <nb-card>
           <nb-card-header>Comparativo tipos de resposta</nb-card-header>
           <nb-card-body>
             <ngx-echarts-line [customOptions]="comparativeResulTypeOptions"></ngx-echarts-line>
+          </nb-card-body>
+        </nb-card>
+      </div>
+
+      <div class="col-12 col-md-12 col-lg-12">
+        <nb-card>
+          <nb-card-header>Comparativo Respostas por Dia de Atendimento (%)</nb-card-header>
+          <nb-card-body>
+            <ngx-echarts-line [customOptions]="comparativeAnswersInBucketOfDatesOptions"></ngx-echarts-line>
           </nb-card-body>
         </nb-card>
       </div>

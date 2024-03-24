@@ -13,6 +13,7 @@ import { User } from '../../../security/user/user.model'
 })
 export class StudentExerciseModalFormComponent implements OnInit {
   readonly ERROR_TARGET_BLANK = 'O alvo não pode ficar em branco.'
+  readonly ERROR_TARGET_EXISTS = 'O alvo com mesma descrição já existe.'
   readonly ERROR_TARGET_EMPTY = 'Deve ser adicionado pelo menos um alvo.'
   readonly ERROR_ATTEMPTS = 'Verifique as tentativas e os alvos.'
 
@@ -32,6 +33,8 @@ export class StudentExerciseModalFormComponent implements OnInit {
 
   attemptsError = false
 
+  addedTargets = []
+
   constructor(
     protected ref: NbDialogRef<StudentExerciseModalFormComponent>,
     private studentExerciseService: StudentExerciseService,
@@ -45,13 +48,18 @@ export class StudentExerciseModalFormComponent implements OnInit {
   async saveStudentExercise() {
 
     try {
+      const currentLength = this.studentExercise.targets.length
+      this.studentExercise.targets.push(...this.addedTargets)
+
       if (!this.studentExercise.targets.length) {
         this.targetError = true
         this.targetErrorMessage = this.ERROR_TARGET_EMPTY
       }
+
       this.attemptsError = !this.studentExercise.isTotalAttemptsValid()
 
       if (this.targetError || this.attemptsError) {
+        this.studentExercise.targets.splice(currentLength)
         return
       }
 
@@ -66,6 +74,7 @@ export class StudentExerciseModalFormComponent implements OnInit {
 
       this.studentExerciseService.refreshStudentExerciseList.emit()
 
+      this.addedTargets = []
       this.close(true)
     } catch (error) {
       this.studentExercise.errors = error.error
@@ -87,20 +96,26 @@ export class StudentExerciseModalFormComponent implements OnInit {
     const target = targetInput.value
 
     if (target) {
-      const targetExists = this.studentExercise.targets.find(t => t.target === target)
+      const targetExists = this.studentExercise.targets.find(t => t.target === target) || this.addedTargets.find(t => t.target == target)
 
       if (!targetExists) {
         const studentExerciseTarget = StudentExerciseTarget.createFromJSON({ target })
-        this.studentExercise.targets.push(studentExerciseTarget)
+        this.addedTargets.push(studentExerciseTarget)
+        this.targetError = false
+        this.targetErrorMessage = ''
+        targetInput.value = ''
+      } else {
+        this.targetError = true
+        this.targetErrorMessage = this.ERROR_TARGET_EXISTS
       }
-
-      this.targetError = false
-      this.targetErrorMessage = ''
-      targetInput.value = ''
     } else {
       this.targetError = true
       this.targetErrorMessage = this.ERROR_TARGET_BLANK
     }
+  }
+
+  removeAddedTarget(addedTargetIndex: number) {
+    this.addedTargets.splice(addedTargetIndex, 1)
   }
 
   async removeTarget(targetIndex: number) {

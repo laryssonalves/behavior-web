@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AnswersByResultType, ComparativeData, ComparativeDataByConsultation, ComparativeTries } from './interfaces/charts';
+import { AnswersByResultType, ComparativeAnswersInBucketOfDates, ComparativeData, ComparativeDataByConsultation, ComparativeTries } from './interfaces/charts';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +35,10 @@ export class DashboardService {
   getComparativeApplicationTypeByConsultation(studentId: number, exerciseId: number): Observable<ComparativeDataByConsultation[]> {
     const url = `${ this.dashboardUrl }comparative-application-type-by-consultation/?student=${ studentId }&exercise=${ exerciseId }`;
     return this.httpClient.get<ComparativeDataByConsultation[]>(url);
+  }
+
+  getComparativeAnswersBucketInDates(studentId: number): Observable<ComparativeAnswersInBucketOfDates> {
+    const comparativeAnswersInBucketOfDatesUrl = `${ this.dashboardUrl }comparative-answers-bucket-in-dates/?student=${ studentId }`;
+    return this.httpClient.get<ComparativeAnswersInBucketOfDates>(comparativeAnswersInBucketOfDatesUrl);
   }
 }

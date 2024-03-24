@@ -29,3 +29,8 @@ export interface ComparativeDataByConsultation {
   name: string;
   data: ComparativeDataByConsultationData[]
 }
+
+export interface ComparativeAnswersInBucketOfDates {
+  dates: string[];
+  data: ComparativeData[]
+}
