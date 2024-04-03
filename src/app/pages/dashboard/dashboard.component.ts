@@ -75,13 +75,6 @@ export class DashboardComponent implements OnInit {
           width: 3,
         }
       },
-      markPoint: {
-        data: [
-            {type: 'max', name: 'Max'},
-            {type: 'min', name: 'Min'}
-        ],
-        symbol: 'diamond'
-      }
     }))
 
     console.log({ names, series, xAxisData })
