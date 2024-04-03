@@ -37,6 +37,11 @@ export class EchartsPieComponent implements AfterViewInit {
           },
           formatter: (name) => `${name} (${chartData.data.find(item => item.name === name).percentage}%)`,
         },
+        toolbox: {
+          feature: {
+              saveAsImage: {},
+          }
+        },
         series: [
           {
             name: 'Repostas por tipo',

@@ -56,13 +56,42 @@ export class DashboardComponent implements OnInit {
 
   updateComparativeAnswersBucketInDatesOptions() {
     const names = this.comparativeAnswersBucketInDatesData.data.map(d => d.name)
-    const series = this.comparativeAnswersBucketInDatesData.data.map(data => ({ ...data, type: 'line' }))
     const xAxisData = this.comparativeAnswersBucketInDatesData.dates.map(d => `${d}`)
+    const marks = this.comparativeAnswersBucketInDatesData.marks;
+    const series = this.comparativeAnswersBucketInDatesData.data.map(data => ({
+      ...data,
+      type: 'line',
+      markLine: {
+        data: marks.map(({ name, date }) => ({ xAxis: date, name, })),
+        symbol: ['none', 'none'],
+        label: {
+          show: true,
+          position: 'middle',
+          formatter: '{b}'
+        },
+        lineStyle: {
+          color: 'black',
+          type: 'solid',
+          width: 3,
+        }
+      },
+      markPoint: {
+        data: [
+            {type: 'max', name: 'Max'},
+            {type: 'min', name: 'Min'}
+        ],
+        symbol: 'diamond'
+      }
+    }))
+
+    console.log({ names, series, xAxisData })
 
     this.comparativeAnswersInBucketOfDatesOptions = {
       ...this.comparativeAnswersInBucketOfDatesOptions,
       legend: { data: names },
-      xAxis: [{ data: xAxisData }],
+      xAxis: [{
+        data: xAxisData,
+      }],
       series,
     }
   }

@@ -32,5 +32,9 @@ export interface ComparativeDataByConsultation {
 
 export interface ComparativeAnswersInBucketOfDates {
   dates: string[];
+  marks: {
+    name: string,
+    date: string,
+  }[]
   data: ComparativeData[]
 }

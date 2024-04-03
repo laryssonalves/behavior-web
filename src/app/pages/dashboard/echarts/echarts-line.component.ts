@@ -25,6 +25,31 @@ export class EchartsLineComponent implements OnChanges {
         color: this.echarts.textColor,
       },
     },
+    toolbox: {
+      feature: {
+          saveAsImage: {},
+          restore: {},
+      }
+    },
+    dataZoom: [
+      {
+          type: 'inside', // Enables zooming and panning inside the chart
+          start: 0,
+          end: 100
+      },
+      {
+          start: 0,
+          end: 10,
+          handleSize: '80%',
+          handleStyle: {
+              color: '#fff',
+              shadowBlur: 3,
+              shadowColor: 'rgba(0, 0, 0, 0.6)',
+              shadowOffsetX: 2,
+              shadowOffsetY: 2
+          }
+      }
+    ],
     xAxis: [
       {
         type: 'category',
